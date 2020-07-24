@@ -15,11 +15,13 @@ class Button extends StatelessWidget {
     return RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       onPressed: onPressed,
+      highlightElevation: 2.0,
       child: Text(
         title,
-        style: Theme.of(context).textTheme.headline3.copyWith(
-              color: AppColors.white,
-            ),
+        style: Theme.of(context)
+            .textTheme
+            .headline3
+            .copyWith(color: AppColors.white),
       ),
     );
   }

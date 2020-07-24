@@ -5,10 +5,12 @@ import 'package:worshipsongs/app_colors.dart';
 class CarouselWithIndicator extends StatefulWidget {
   final List<Widget> children;
   final double height;
+  final bool autoPlay;
 
   const CarouselWithIndicator({
     this.children,
     this.height,
+    this.autoPlay = false,
   });
 
   @override
@@ -32,7 +34,8 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
             viewportFraction: 1.0,
             disableCenter: true,
             height: widget.height,
-            autoPlay: false,
+            autoPlay: widget.autoPlay,
+            scrollPhysics: BouncingScrollPhysics(),
             enableInfiniteScroll: false,
             onPageChanged: (index, reason){
               setState(() {

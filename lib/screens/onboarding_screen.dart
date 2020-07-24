@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/widgets/button.dart';
 import 'package:worshipsongs/widgets/carousel_with_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  static const String routeName = "/";
+  static const String routeName = "/on-boarding";
 
   final texts = const <String, List<String>>{
     'title': [
@@ -15,7 +16,7 @@ class OnBoardingScreen extends StatelessWidget {
     'text': [
       'Find the lyrics of popular christian songs to sing with people you love',
       'Beside lyrics you also can find the chords for guitar and notes for piano!',
-      'Read the great stories of great people how God change their lives!',
+      'Read the great stories of great people how God changes their lives!',
     ],
     'image': [
       'assets/images/illustrations/ValueProposition1.svg',
@@ -30,21 +31,16 @@ class OnBoardingScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * .18,
+            height: MediaQuery.of(context).size.height * .18,
           ),
           CarouselWithIndicator(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * .55,
+            autoPlay: true,
+            height: MediaQuery.of(context).size.height * .55,
             children: <Widget>[
               ...[0, 1, 2]
                   .map(
                     (e) => buildCarouselChild(context, e),
-              )
+                  )
                   .toList(),
             ],
           ),
@@ -54,13 +50,12 @@ class OnBoardingScreen extends StatelessWidget {
               vertical: 24,
               horizontal: 16,
             ),
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            width: MediaQuery.of(context).size.width,
             child: Button(
               title: "Create new Account",
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(AuthScreen.routeName);
+              },
             ),
           ),
           TextButton(
@@ -80,10 +75,7 @@ class OnBoardingScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0),
           child: Text(
             texts['title'][index],
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline1,
+            style: Theme.of(context).textTheme.headline1,
           ),
         ),
         SizedBox(
@@ -93,19 +85,17 @@ class OnBoardingScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
             texts['text'][index],
-            style: Theme
-                .of(context)
-                .textTheme
-                .subtitle1,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
         ),
         Container(
-          transform: index != 2 ?Matrix4.translationValues(0, -30, 0) : null,
+          transform: index != 2 ? Matrix4.translationValues(0, -15, 0) : null,
           child: Row(
             mainAxisAlignment: getImageAlignment(index),
             children: <Widget>[
               SvgPicture.asset(
                 texts['image'][index],
+                fit: BoxFit.cover,
               ),
             ],
           ),
@@ -123,5 +113,6 @@ class OnBoardingScreen extends StatelessWidget {
       case 2:
         return MainAxisAlignment.center;
     }
+    return MainAxisAlignment.center;
   }
 }
