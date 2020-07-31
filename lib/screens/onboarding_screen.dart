@@ -89,13 +89,15 @@ class OnBoardingScreen extends StatelessWidget {
           ),
         ),
         Container(
+          height: MediaQuery.of(context).size.height * 0.4,
           transform: index != 2 ? Matrix4.translationValues(0, -15, 0) : null,
           child: Row(
-            mainAxisAlignment: getImageAlignment(index),
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: getImageMainAxisAlignment(index),
             children: <Widget>[
               SvgPicture.asset(
                 texts['image'][index],
-                fit: BoxFit.cover,
+                alignment: getImageAlignment(index),
               ),
             ],
           ),
@@ -104,7 +106,7 @@ class OnBoardingScreen extends StatelessWidget {
     );
   }
 
-  MainAxisAlignment getImageAlignment(int index) {
+  MainAxisAlignment getImageMainAxisAlignment(int index) {
     switch (index) {
       case 0:
         return MainAxisAlignment.end;
@@ -114,5 +116,17 @@ class OnBoardingScreen extends StatelessWidget {
         return MainAxisAlignment.center;
     }
     return MainAxisAlignment.center;
+  }
+
+  Alignment getImageAlignment(int index) {
+    switch (index) {
+      case 0:
+        return Alignment.centerRight;
+      case 1:
+        return Alignment.centerLeft;
+      case 2:
+        return Alignment.center;
+    }
+    return Alignment.center;
   }
 }
