@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/services/auth_service.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
 import 'auth_field.dart';
@@ -90,7 +91,8 @@ class _AuthFormState extends State<AuthForm> {
             child: Button(
               title: 'Create new Account',
               onPressed: isEmailValid && isPasswordValid
-                  ? () => print('Pressed')
+                  ? () => AuthService()
+                      .createUser(_emailController.text, _passwordController.text)
                   : null,
             ),
           ),
