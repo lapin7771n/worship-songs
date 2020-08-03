@@ -10,11 +10,12 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLogin = ModalRoute.of(context).settings.arguments as bool;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
-        title: Text('Create new Account'),
+        title: Text(isLogin ? 'Login' : 'Create new Account'),
       ),
       body: SafeArea(
         child: Container(
@@ -34,7 +35,9 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
               SliverFillRemaining(
-                child: AuthForm(),
+                child: AuthForm(
+                  isLogin: isLogin,
+                ),
               ),
             ],
           ),

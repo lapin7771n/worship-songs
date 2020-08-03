@@ -1,11 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/services/auth_service.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
 import 'auth_field.dart';
 
 class AuthForm extends StatefulWidget {
+  final bool isLogin;
+
+  const AuthForm({
+    this.isLogin = false,
+  });
+
   @override
   _AuthFormState createState() => _AuthFormState();
 }
@@ -89,11 +97,8 @@ class _AuthFormState extends State<AuthForm> {
           child: Container(
             width: double.infinity,
             child: Button(
-              title: 'Create new Account',
-              onPressed: isEmailValid && isPasswordValid
-                  ? () => AuthService()
-                      .createUser(_emailController.text, _passwordController.text)
-                  : null,
+              title: widget.isLogin ? 'Login' : 'Create new Account',
+              onPressed: isEmailValid && isPasswordValid ? _handleAuth : null,
             ),
           ),
         ),
@@ -160,5 +165,20 @@ class _AuthFormState extends State<AuthForm> {
     setState(() {
       _validatePassword(_passwordController.text);
     });
+  }
+
+  _handleAuth() async {
+    FirebaseUser user;
+    if (widget.isLogin) {
+      user = await AuthService()
+          .signIn(_emailController.text, _passwordController.text);
+    } else {
+      user = await AuthService()
+          .createUser(_emailController.text, _passwordController.text);
+    }
+
+    if (user != null) {
+      Navigator.of(context).pushNamed(MainScreen.routeName);
+    }
   }
 }

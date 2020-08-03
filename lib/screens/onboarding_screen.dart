@@ -53,17 +53,29 @@ class OnBoardingScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Button(
               title: "Create new Account",
-              onPressed: () {
-                Navigator.of(context).pushNamed(AuthScreen.routeName);
-              },
+              onPressed: () => _handleCreateAccount(context),
             ),
           ),
           TextButton(
             title: 'I already have an Account',
-            onPressed: () {},
+            onPressed: () => _handleLogin(context),
           )
         ],
       ),
+    );
+  }
+
+  _handleCreateAccount(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      AuthScreen.routeName,
+      arguments: false,
+    );
+  }
+
+  _handleLogin(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      AuthScreen.routeName,
+      arguments: true,
     );
   }
 

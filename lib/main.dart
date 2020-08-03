@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen.dart';
+import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
 
 void main() {
@@ -118,6 +119,7 @@ class MyApp extends StatelessWidget {
         OnBoardingScreen.routeName: (ctx) => OnBoardingScreen(),
         HomeScreen.routeName: (ctx) => HomeScreen(),
         AuthScreen.routeName: (ctx) => AuthScreen(),
+        MainScreen.routeName: (ctx) => MainScreen(),
       },
     );
   }
