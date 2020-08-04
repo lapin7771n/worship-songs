@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/screens/auth_screen/widgets/auth_form.dart';
+import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/services/auth_service.dart';
+import 'package:worshipsongs/services/users-service.dart';
 
 class AuthScreen extends StatelessWidget {
   static const String routeName = '/auth';
@@ -54,9 +56,7 @@ class AuthScreen extends StatelessWidget {
         highlightElevation: 2.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: AppColors.white,
-        onPressed: () {
-          AuthService().signInViaGoogle();
-        },
+        onPressed: () => _handleGoogleAuth(context),
         icon: SvgPicture.asset('assets/images/GoogleIcon.svg'),
         label: Text(
           'Continue with Google',
@@ -66,5 +66,13 @@ class AuthScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _handleGoogleAuth(BuildContext context) async {
+    final firebaseUser = await AuthService().signInViaGoogle();
+    if (firebaseUser != null) {
+      UsersService.createUser(firebaseUser);
+      Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
+    }
   }
 }
