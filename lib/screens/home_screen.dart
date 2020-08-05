@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:worshipsongs/services/songs_service.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/home";
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder(
-          stream: Firestore.instance.collection('songs').snapshots(),
+          stream: Firestore.instance.collection('songs-en').limit(20).snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
               return Text('Waiting...');
             }
 
+            SongsService().loadAllXmls();
             return ListView.builder(
               itemBuilder: (c, index) {
                 var document = snapshot.data.documents[index].data;
