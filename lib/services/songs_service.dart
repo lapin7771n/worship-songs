@@ -6,7 +6,7 @@ import 'package:worshipsongs/data/song.dart';
 import 'package:xml/xml.dart' as xml;
 
 class SongsService {
-  static const String _SONGS = 'songs-en';
+  static const String _SONGS = 'songs';
   static const String _TITLE = 'title';
   static const String _TEXT = 'text';
   static const String _AUTHOR = 'author';
@@ -18,7 +18,7 @@ class SongsService {
 
   loadAllXmls() async {
     final Directory extStorage = await getExternalStorageDirectory();
-    final enDirectory = Directory('${extStorage.path}/en');
+    final enDirectory = Directory('${extStorage.path}/ru');
     final List<FileSystemEntity> files = enDirectory.listSync();
     files.where((e) => e is File).map((e) => e as File).map((file) {
       final fileString = file.readAsStringSync();
@@ -31,6 +31,21 @@ class SongsService {
 
   Future<DocumentReference> addSong(Song song) {
     return Firestore.instance.collection(_SONGS).add(_songToJson(song));
+  }
+
+  Future<List<Song>> getSongs(int limit) async {
+    await for (var value
+        in Firestore.instance.collection(_SONGS).limit(limit).snapshots()) {
+      return value.documents.map((doc) => Song(
+        title: doc['title'],
+        author: doc['author'],
+        aka: doc['aka'],
+        text: doc['text'],
+        capo: doc['capo'],
+        copyright: doc['copyright'],
+        presentation: doc['presentation'],
+      )).toList();
+    }
   }
 
   Map<String, dynamic> _songToJson(Song song) {

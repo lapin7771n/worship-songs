@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/services/songs_service.dart';
+import 'package:worshipsongs/widgets/song_list_item.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/home";
@@ -9,30 +10,30 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: StreamBuilder(
-          stream: Firestore.instance.collection('songs-en').limit(20).snapshots(),
-          builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+        child: FutureBuilder(
+          future: SongsService().getSongs(3),
+          builder: (ctx, snapshot) {
             if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              return Center(child: Text('Error: ${snapshot.error}'));
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Text('Waiting...');
+              return Center(child: Text('Waiting...'));
             }
 
-            SongsService().loadAllXmls();
             return ListView.builder(
-              itemBuilder: (c, index) {
-                var document = snapshot.data.documents[index].data;
-                return ListTile(
-                  title: Text(document['title']),
-                  subtitle: Text(document['text']),
-                );
-              },
-              itemCount: snapshot.data.documents.length,
+              itemBuilder: (c, index) => SongListItem(
+                song: snapshot.data[index],
+                onTap: _handleSongClick(
+                  snapshot.data[index],
+                ),
+              ),
+              itemCount: snapshot.data.length,
             );
           },
         ),
       ),
     );
   }
+
+  _handleSongClick(Song song) {}
 }
