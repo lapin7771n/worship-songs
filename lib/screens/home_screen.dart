@@ -20,14 +20,17 @@ class HomeScreen extends StatelessWidget {
               return Center(child: Text('Waiting...'));
             }
 
-            return ListView.builder(
-              itemBuilder: (c, index) => SongListItem(
-                song: snapshot.data[index],
-                onTap: _handleSongClick(
-                  snapshot.data[index],
+            return Container(
+              child: ListView.builder(
+                itemExtent: 90.0,
+                itemBuilder: (c, index) => SongListItem(
+                  song: snapshot.data[index],
+                  onTap: _handleSongClick(
+                    snapshot.data[index],
+                  ),
                 ),
+                itemCount: snapshot.data.length,
               ),
-              itemCount: snapshot.data.length,
             );
           },
         ),
