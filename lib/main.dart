@@ -7,6 +7,7 @@ import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
+import 'package:worshipsongs/screens/song_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
             HomeScreen.routeName: (ctx) => HomeScreen(),
             AuthScreen.routeName: (ctx) => AuthScreen(),
             MainScreen.routeName: (ctx) => MainScreen(),
+            SongScreen.routeName: (ctx) => SongScreen(),
           },
         );
       },

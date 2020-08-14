@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/screens/song_screen.dart';
 import 'package:worshipsongs/services/songs_service.dart';
 import 'package:worshipsongs/widgets/song_list_item.dart';
 
@@ -20,17 +21,15 @@ class HomeScreen extends StatelessWidget {
               return Center(child: Text('Waiting...'));
             }
 
-            return Container(
-              child: ListView.builder(
-                itemExtent: 90.0,
-                itemBuilder: (c, index) => SongListItem(
-                  song: snapshot.data[index],
-                  onTap: _handleSongClick(
-                    snapshot.data[index],
-                  ),
+            return ListView.builder(
+              itemBuilder: (c, index) => SongListItem(
+                song: snapshot.data[index],
+                onTap: () => _handleSongClick(
+                  snapshot.data[index],
+                  context,
                 ),
-                itemCount: snapshot.data.length,
               ),
+              itemCount: snapshot.data.length,
             );
           },
         ),
@@ -38,5 +37,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _handleSongClick(Song song) {}
+  _handleSongClick(Song song, BuildContext context) {
+    Navigator.of(context).pushNamed(SongScreen.routeName, arguments: song);
+  }
 }
