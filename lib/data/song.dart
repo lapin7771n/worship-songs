@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 const String _TITLE = 'title';
 const String _TEXT = 'text';

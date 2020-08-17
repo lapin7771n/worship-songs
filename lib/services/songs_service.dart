@@ -35,6 +35,24 @@ class SongsService {
     return snapshot.data?.containsKey(songId);
   }
 
+  static Future<List<Song>> getFavorites(String userId) async {
+    final DocumentSnapshot snapshot =
+        await Firestore.instance.collection(_FAVORITES).document(userId).get();
+    final List<String> songsKeys = snapshot.data.keys.toList();
+    return await getSongsById(songsKeys);
+  }
+
+  static Future<List<Song>> getSongsById(List<String> ids) async {
+    final List<DocumentReference> songsRef =
+        ids.map((e) => Firestore.instance.collection(_SONGS).document(e)).toList();
+    final songs = songsRef.map((element) async {
+      final docSnapshot = await element.get();
+      return Song.fromMap(docSnapshot.documentID, docSnapshot.data);
+    });
+    return await Future.wait(songs);
+  }
+}
+
 //  loadAllXmls() async {
 //    final Directory extStorage = await getExternalStorageDirectory();
 //    final enDirectory = Directory('${extStorage.path}/ru');
@@ -73,4 +91,3 @@ class SongsService {
 //    final foundElements = document.findAllElements(key);
 //    return foundElements.isEmpty ? null : foundElements.first.text;
 //  }
-}

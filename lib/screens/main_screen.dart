@@ -3,14 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/screens/home_screen.dart';
 import 'package:worshipsongs/screens/my_lyrics_screen.dart';
-import 'package:worshipsongs/screens/search_screen.dart';
+import 'package:worshipsongs/screens/settings_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main';
   static const Map routes = {
     'Home': 'assets/images/HomeNotActive.svg',
-    'Search': 'assets/images/Search.svg',
     'My Lyrics': 'assets/images/MyLyrics.svg',
+    'Settings': 'assets/images/Settings.svg',
   };
 
   @override
@@ -70,9 +70,9 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return HomeScreen();
       case 1:
-        return SearchScreen();
-      case 2:
         return MyLyricsScreen();
+      case 2:
+        return SettingsScreen();
       default:
         return HomeScreen();
     }
