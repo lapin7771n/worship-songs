@@ -19,9 +19,9 @@ class SongCoverImage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: Color.fromRGBO(
-          Random().nextInt(200),
-          Random().nextInt(200),
-          Random().nextInt(200),
+          title.substring(0,1).hashCode,
+          title.substring(1,2).hashCode,
+          title.substring(2,3).hashCode,
           0.3,
         ),
       ),

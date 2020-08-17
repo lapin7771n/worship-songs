@@ -29,7 +29,7 @@ class SongListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            song.author ?? "Unknown",
+            song.author,
             style: Theme.of(context).textTheme.subtitle2,
           ),
           SizedBox(height: 8),

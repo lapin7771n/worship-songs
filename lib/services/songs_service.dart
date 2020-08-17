@@ -3,19 +3,38 @@ import 'package:worshipsongs/data/song.dart';
 
 class SongsService {
   static const String _SONGS = 'songs';
+  static const String _FAVORITES = 'favorite_songs';
 
-  Future<DocumentReference> addSong(Song song) {
+  static Future<DocumentReference> addSong(Song song) {
     return Firestore.instance.collection(_SONGS).add(song.toJson());
   }
 
-  Future<List<Song>> getSongs(int limit) async {
-    final value = await Firestore.instance.collection(_SONGS)
-        .limit(limit)
-        .getDocuments();
+  static Future<List<Song>> getSongs(int limit) async {
+    final value =
+        await Firestore.instance.collection(_SONGS).limit(limit).getDocuments();
     return value.documents
         .map((doc) => Song.fromMap(doc.documentID, doc.data))
         .toList();
   }
+
+  static Future addToFavorites(String userId, String songId) {
+    return Firestore.instance.collection(_FAVORITES).document(userId).setData({
+      songId: null,
+    }, merge: true);
+  }
+
+  static Future removeFromFavorites(String userId, String songId) async {
+    return Firestore.instance.collection(_FAVORITES).document(userId).setData({
+      songId: FieldValue.delete(),
+    }, merge: true);
+  }
+
+  static Future<bool> isFavorite(String userId, String songId) async {
+    final DocumentSnapshot snapshot =
+        await Firestore.instance.collection(_FAVORITES).document(userId).get();
+    return snapshot.data?.containsKey(songId);
+  }
+
 //  loadAllXmls() async {
 //    final Directory extStorage = await getExternalStorageDirectory();
 //    final enDirectory = Directory('${extStorage.path}/ru');

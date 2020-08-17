@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/data/song.dart';
-import 'package:worshipsongs/screens/song_screen.dart';
+import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/services/songs_service.dart';
 import 'package:worshipsongs/widgets/song_list_item.dart';
 
@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-          future: SongsService().getSongs(3),
+          future: SongsService.getSongs(3),
           builder: (ctx, snapshot) {
             if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));

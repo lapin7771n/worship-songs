@@ -24,7 +24,7 @@ class Song {
     this.uuid,
     this.title,
     this.text,
-    this.author,
+    this.author = 'Unknown',
     this.key,
     this.aka,
     this.capo,
@@ -36,7 +36,7 @@ class Song {
     return Song(
       uuid: uid,
       title: data['title'],
-      author: data['author'],
+      author: data['author'] ?? 'Unknown',
       aka: data['aka'],
       text: data['text'],
       capo: data['capo'],
@@ -45,7 +45,7 @@ class Song {
     );
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
       _TITLE: title,
       _TEXT: text,
@@ -56,5 +56,14 @@ class Song {
       _COPYRIGHT: copyright,
       _PRESENTATION: presentation,
     };
+  }
+
+  String get formattedText {
+    var formattedText =
+        text
+            .replaceAll('[V', '<bold>Verse ')
+            .replaceAll('[C', '<bold>Chorus ')
+            .replaceAll(']', '</bold>');
+    return formattedText;
   }
 }

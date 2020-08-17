@@ -7,7 +7,7 @@ import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
-import 'package:worshipsongs/screens/song_screen.dart';
+import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
