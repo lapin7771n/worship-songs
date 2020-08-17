@@ -9,9 +9,15 @@ class SongsService {
     return Firestore.instance.collection(_SONGS).add(song.toJson());
   }
 
-  static Future<List<Song>> getSongs(int limit) async {
-    final value =
-        await Firestore.instance.collection(_SONGS).limit(limit).getDocuments();
+  static Future<List<Song>> getSongs(int limit,
+      {bool orderByName = false, String startAfter = ''}) async {
+    var songsCollection = Firestore.instance.collection(_SONGS).limit(limit);
+    if (orderByName && startAfter != null) {
+      songsCollection =
+          songsCollection.orderBy('title').startAfter([startAfter]);
+    }
+
+    final value = await songsCollection.getDocuments();
     return value.documents
         .map((doc) => Song.fromMap(doc.documentID, doc.data))
         .toList();
@@ -43,8 +49,9 @@ class SongsService {
   }
 
   static Future<List<Song>> getSongsById(List<String> ids) async {
-    final List<DocumentReference> songsRef =
-        ids.map((e) => Firestore.instance.collection(_SONGS).document(e)).toList();
+    final List<DocumentReference> songsRef = ids
+        .map((e) => Firestore.instance.collection(_SONGS).document(e))
+        .toList();
     final songs = songsRef.map((element) async {
       final docSnapshot = await element.get();
       return Song.fromMap(docSnapshot.documentID, docSnapshot.data);

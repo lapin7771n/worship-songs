@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
-import 'package:worshipsongs/screens/home_screen.dart';
+import 'package:worshipsongs/screens/home_screen/home_screen.dart';
 import 'package:worshipsongs/screens/my_lyrics_screen.dart';
 import 'package:worshipsongs/screens/settings_screen.dart';
 

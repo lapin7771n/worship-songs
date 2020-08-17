@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
-import 'package:worshipsongs/screens/home_screen.dart';
+import 'package:worshipsongs/screens/home_screen/home_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
