@@ -2,12 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/auth_status.dart';
+import 'package:worshipsongs/providers/auth_provider.dart';
+import 'package:worshipsongs/providers/favorite_songs_provider.dart';
+import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen/home_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
+import 'package:worshipsongs/screens/splash_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -19,27 +25,45 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: FirebaseAuth.instance.currentUser(),
-      builder: (ctx, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container();
-        }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
+        ChangeNotifierProvider<SongsProvider>(create: (_) => SongsProvider()),
+        ChangeNotifierProxyProvider2<AuthProvider, SongsProvider, FavoriteSongsProvider>(
+          update: (_, authProvider, songsProvider, oldProvider) =>
+              FavoriteSongsProvider(
+            songsProvider: songsProvider,
+            userId: authProvider.user.uid,
+            favSongs: oldProvider?.songs ?? [],
+          ),
+        ),
+      ],
+      child: buildMaterialApp(context),
+    );
+  }
 
-        final FirebaseUser user = snapshot.data as FirebaseUser;
-        return MaterialApp(
-          title: 'Worship songs',
-          theme: _buildThemeData(context),
-          initialRoute:
-              user == null ? OnBoardingScreen.routeName : MainScreen.routeName,
-          routes: {
-            OnBoardingScreen.routeName: (ctx) => OnBoardingScreen(),
-            HomeScreen.routeName: (ctx) => HomeScreen(),
-            AuthScreen.routeName: (ctx) => AuthScreen(),
-            MainScreen.routeName: (ctx) => MainScreen(),
-            SongScreen.routeName: (ctx) => SongScreen(),
-          },
-        );
+  MaterialApp buildMaterialApp(BuildContext context) {
+    return MaterialApp(
+      title: 'Worship songs',
+      theme: _buildThemeData(context),
+      home: Consumer<AuthProvider>(builder: (_, auth, __) {
+        switch (auth.authStatus) {
+          case AuthStatus.UNINITIALIZED:
+            return SplashScreen();
+          case AuthStatus.AUTHENTICATED:
+            return MainScreen();
+          case AuthStatus.UNAUTHENTICATED:
+            return AuthScreen();
+          default:
+            return AuthScreen();
+        }
+      }),
+      routes: {
+        OnBoardingScreen.routeName: (ctx) => OnBoardingScreen(),
+        HomeScreen.routeName: (ctx) => HomeScreen(),
+        AuthScreen.routeName: (ctx) => AuthScreen(),
+        MainScreen.routeName: (ctx) => MainScreen(),
+        SongScreen.routeName: (ctx) => SongScreen(),
       },
     );
   }

@@ -28,6 +28,7 @@ class SongListItem extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          //TODO set max characters up to 20.
           Text(
             song.author,
             style: Theme.of(context).textTheme.subtitle2,

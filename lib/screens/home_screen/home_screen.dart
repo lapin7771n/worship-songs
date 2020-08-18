@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/home_screen/home_songs_list.dart';
-import 'package:worshipsongs/services/songs_service.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/home";
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: SongsService.getSongs(10, orderByName: true),
+        future: Provider.of<SongsProvider>(context, listen: false).loadSongs(),
         builder: (ctx, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -18,8 +19,9 @@ class HomeScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
 
-          return HomeSongsList(
-            initialSongs: snapshot.data,
+          return Consumer<SongsProvider>(
+            builder: (_, songsProvider, __) =>
+                HomeSongsList(songsProvider.songs),
           );
         },
       ),

@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
-import 'package:worshipsongs/services/auth_service.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
 import 'auth_field.dart';
@@ -170,10 +171,10 @@ class _AuthFormState extends State<AuthForm> {
   _handleAuth() async {
     FirebaseUser user;
     if (widget.isLogin) {
-      user = await AuthService()
+      user = await Provider.of<AuthProvider>(context, listen: false)
           .signIn(_emailController.text, _passwordController.text);
     } else {
-      user = await AuthService()
+      user = await Provider.of<AuthProvider>(context, listen: false)
           .createUser(_emailController.text, _passwordController.text);
     }
 

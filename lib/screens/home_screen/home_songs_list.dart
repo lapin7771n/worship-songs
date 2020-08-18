@@ -1,45 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
-import 'package:worshipsongs/services/songs_service.dart';
 import 'package:worshipsongs/widgets/song_list_item.dart';
 
-class HomeSongsList extends StatefulWidget {
-  final List<Song> initialSongs;
-  final int offset;
+class HomeSongsList extends StatelessWidget {
+  final List<Song> _songs;
 
-  HomeSongsList({this.initialSongs, this.offset});
+  bool _isLoading = false;
 
-  @override
-  _HomeSongsListState createState() => _HomeSongsListState();
-}
-
-class _HomeSongsListState extends State<HomeSongsList> {
-  bool isInit = false;
-
-  bool isLoading = false;
-  List<Song> loadedSongs = List();
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!isInit) {
-      loadedSongs.addAll(widget.initialSongs);
-    }
-  }
+  HomeSongsList(this._songs);
 
   @override
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       // ignore: missing_return
       onNotification: (ScrollNotification scrollInfo) {
-        if (!isLoading &&
-            scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-          setState(() {
-            isLoading = true;
-          });
-          _loadNewSongs();
+        if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+          _loadMoreSongs(context);
         }
       },
       child: buildListView(context),
@@ -47,14 +27,13 @@ class _HomeSongsListState extends State<HomeSongsList> {
   }
 
   ListView buildListView(BuildContext context) {
-    Song previousSong;
     return ListView.builder(
       itemBuilder: (c, index) {
-        if (index == loadedSongs.length) {
-          return Center(child: CircularProgressIndicator());
+        if (index == _songs.length) {
+          return const Center(child: const CircularProgressIndicator());
         }
-
-        final Song currentSong = loadedSongs[index];
+        final Song previousSong = index > 0 ? _songs[index-1] : null;
+        final Song currentSong = _songs[index];
         Widget header;
         if (previousSong == null ||
             !_isFirstLetterEqual(currentSong, previousSong)) {
@@ -67,7 +46,6 @@ class _HomeSongsListState extends State<HomeSongsList> {
               ),
             ),
           );
-          previousSong = currentSong;
         }
 
         return Column(
@@ -80,8 +58,15 @@ class _HomeSongsListState extends State<HomeSongsList> {
           ],
         );
       },
-      itemCount: isLoading ? loadedSongs.length + 1 : loadedSongs.length,
+      itemCount: _songs.length + 1,
     );
+  }
+
+  Future _loadMoreSongs(BuildContext context) async {
+    if (_isLoading) return;
+    _isLoading = true;
+    await Provider.of<SongsProvider>(context, listen: false).loadSongs();
+    _isLoading = false;
   }
 
   bool _isFirstLetterEqual(Song currentSong, Song previousSong) {
@@ -91,17 +76,5 @@ class _HomeSongsListState extends State<HomeSongsList> {
 
   _handleSongClick(Song song, BuildContext context) {
     Navigator.of(context).pushNamed(SongScreen.routeName, arguments: song);
-  }
-
-  _loadNewSongs() async {
-    final List<Song> songs = await SongsService.getSongs(
-      widget.initialSongs.length,
-      orderByName: true,
-      startAfter: loadedSongs[loadedSongs.length - 1].title,
-    );
-    setState(() {
-      loadedSongs.addAll(songs);
-      isLoading = false;
-    });
   }
 }

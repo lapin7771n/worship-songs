@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:worshipsongs/services/songs_service.dart';
+import 'package:provider/provider.dart';
+import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 
 class SongFavoriteAction extends StatefulWidget {
   final String songId;
@@ -21,9 +22,9 @@ class _SongFavoriteActionState extends State<SongFavoriteAction> {
   }
 
   _init() async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     isFavorite =
-        await SongsService.isFavorite(user.uid, widget.songId) ?? false;
+        await Provider.of<FavoriteSongsProvider>(context, listen: false)
+            .isFavorite(widget.songId);
     setState(() {});
   }
 
@@ -37,9 +38,8 @@ class _SongFavoriteActionState extends State<SongFavoriteAction> {
 
   _toggleFavorite(String songId) async {
     final FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    isFavorite
-        ? SongsService.removeFromFavorites(user.uid, songId)
-        : SongsService.addToFavorites(user.uid, songId);
+    final provider = Provider.of<FavoriteSongsProvider>(context, listen: false);
+    isFavorite ? provider.remove(songId) : provider.add(songId);
     setState(() {
       isFavorite = !isFavorite;
     });

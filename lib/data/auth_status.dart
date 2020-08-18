@@ -1,0 +1,5 @@
+enum AuthStatus {
+  UNINITIALIZED,
+  UNAUTHENTICATED,
+  AUTHENTICATED,
+}
