@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:worshipsongs/data/settings_item.dart';
+import 'package:worshipsongs/screens/account_settings_screen.dart';
+import 'package:worshipsongs/widgets/settings_list_item.dart';
 
 class SettingsScreen extends StatelessWidget {
-  static final List<_SettingsItem> _settingItems = [
-    _SettingsItem(
+  static final List<SettingsItem> _settingItems = [
+    SettingsItem(
       title: 'Account Settings',
       subtitle: 'Change password, email, logout',
-      onTap: () {},
+      onTap: (BuildContext context) {
+        Navigator.of(context).pushNamed(AccountSettingsScreen.routeName);
+      },
     ),
-    _SettingsItem(
+    SettingsItem(
       title: 'Notifications',
       subtitle: 'Manage notifications',
-      onTap: () {},
+      onTap: (BuildContext context) {
+        Scaffold.of(context).hideCurrentSnackBar();
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Not yet implemented'),
+          ),
+        );
+      },
     ),
-    _SettingsItem(title: '', subtitle: ''),
-    _SettingsItem(
+    SettingsItem(title: '', subtitle: ''),
+    SettingsItem(
       title: 'Report about bug',
       subtitle: 'Write us a line about problem you have',
+      showArrow: false,
+      onTap: (context) async {
+        const url = 'mailto:nlapin.java@gmail.com?subject=WSongs_bug_report';
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw 'Could not launch $url';
+        }
+      },
     ),
   ];
 
@@ -24,34 +45,9 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemBuilder: (ctx, index) => ListTile(
-          title: Text(
-            _settingItems[index].title,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          subtitle: Text(
-            _settingItems[index].subtitle,
-            style: Theme.of(context).textTheme.subtitle2,
-          ),
-          onTap: _settingItems[index].onTap,
-          trailing: _settingItems[index].onTap != null
-              ? SvgPicture.asset('assets/images/ArrowRight.svg')
-              : null,
-        ),
+        itemBuilder: (ctx, index) => SettingsListItem(_settingItems[index]),
         itemCount: _settingItems.length,
       ),
     );
   }
-}
-
-class _SettingsItem {
-  final String title;
-  final String subtitle;
-  final Function onTap;
-
-  _SettingsItem({
-    this.title,
-    this.subtitle,
-    this.onTap,
-  });
 }

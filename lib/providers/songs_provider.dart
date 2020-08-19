@@ -49,6 +49,11 @@ class SongsProvider with ChangeNotifier {
     return await Future.wait(songs);
   }
 
+  clearLoadedSongs() {
+    _songs.clear();
+    _lastSongSnapshot = null;
+  }
+
   Future<DocumentReference> addSong(Song song) {
     throw UnimplementedError();
 //    return Firestore.instance.collection(_SONGS).add(song.toJson());

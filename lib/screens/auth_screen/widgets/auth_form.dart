@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
-import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
 import 'auth_field.dart';
@@ -179,7 +178,7 @@ class _AuthFormState extends State<AuthForm> {
     }
 
     if (user != null) {
-      Navigator.of(context).pushNamed(MainScreen.routeName);
+      Navigator.of(context).pop();
     }
   }
 }

@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/screens/auth_screen/widgets/auth_form.dart';
-import 'package:worshipsongs/screens/main_screen.dart';
-import 'package:worshipsongs/services/users_service.dart';
 
 class AuthScreen extends StatelessWidget {
   static const String routeName = '/auth';
@@ -73,8 +71,7 @@ class AuthScreen extends StatelessWidget {
     final firebaseUser = await Provider.of<AuthProvider>(context, listen: false)
         .signInViaGoogle();
     if (firebaseUser != null) {
-      UsersService.createUser(firebaseUser);
-      Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
+      Navigator.of(context).pop();
     }
   }
 }

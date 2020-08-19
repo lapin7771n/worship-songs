@@ -8,23 +8,29 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var songsProvider = Provider.of<SongsProvider>(context, listen: false);
     return Scaffold(
-      body: FutureBuilder(
-        future: Provider.of<SongsProvider>(context, listen: false).loadSongs(),
-        builder: (ctx, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: songsProvider.songs.isEmpty
+          ? FutureBuilder(
+              future: songsProvider.loadSongs(),
+              builder: (ctx, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-          return Consumer<SongsProvider>(
-            builder: (_, songsProvider, __) =>
-                HomeSongsList(songsProvider.songs),
-          );
-        },
-      ),
+                return _buildSongList();
+              },
+            )
+          : _buildSongList(),
+    );
+  }
+
+  Consumer<SongsProvider> _buildSongList() {
+    return Consumer<SongsProvider>(
+      builder: (_, songsProvider, __) => HomeSongsList(songsProvider.songs),
     );
   }
 }

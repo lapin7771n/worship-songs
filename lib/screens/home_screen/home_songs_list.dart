@@ -32,7 +32,7 @@ class HomeSongsList extends StatelessWidget {
         if (index == _songs.length) {
           return const Center(child: const CircularProgressIndicator());
         }
-        final Song previousSong = index > 0 ? _songs[index-1] : null;
+        final Song previousSong = index > 0 ? _songs[index - 1] : null;
         final Song currentSong = _songs[index];
         Widget header;
         if (previousSong == null ||

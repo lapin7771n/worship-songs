@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +7,7 @@ import 'package:worshipsongs/data/auth_status.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
+import 'package:worshipsongs/screens/account_settings_screen.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen/home_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
         ChangeNotifierProvider<SongsProvider>(create: (_) => SongsProvider()),
-        ChangeNotifierProxyProvider2<AuthProvider, SongsProvider, FavoriteSongsProvider>(
+        ChangeNotifierProxyProvider2<AuthProvider, SongsProvider,
+            FavoriteSongsProvider>(
           update: (_, authProvider, songsProvider, oldProvider) =>
               FavoriteSongsProvider(
             songsProvider: songsProvider,
@@ -46,24 +47,27 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Worship songs',
       theme: _buildThemeData(context),
-      home: Consumer<AuthProvider>(builder: (_, auth, __) {
-        switch (auth.authStatus) {
-          case AuthStatus.UNINITIALIZED:
-            return SplashScreen();
-          case AuthStatus.AUTHENTICATED:
-            return MainScreen();
-          case AuthStatus.UNAUTHENTICATED:
-            return AuthScreen();
-          default:
-            return AuthScreen();
-        }
-      }),
+      home: Consumer<AuthProvider>(
+        builder: (_, auth, __) {
+          switch (auth.authStatus) {
+            case AuthStatus.UNINITIALIZED:
+              return SplashScreen();
+            case AuthStatus.AUTHENTICATED:
+              return MainScreen();
+            case AuthStatus.UNAUTHENTICATED:
+              return OnBoardingScreen();
+            default:
+              return OnBoardingScreen();
+          }
+        },
+      ),
       routes: {
         OnBoardingScreen.routeName: (ctx) => OnBoardingScreen(),
         HomeScreen.routeName: (ctx) => HomeScreen(),
         AuthScreen.routeName: (ctx) => AuthScreen(),
         MainScreen.routeName: (ctx) => MainScreen(),
         SongScreen.routeName: (ctx) => SongScreen(),
+        AccountSettingsScreen.routeName: (ctx) => AccountSettingsScreen(),
       },
     );
   }

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/song.dart';
@@ -10,14 +9,15 @@ class MyLyricsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<FavoriteSongsProvider>(
-        builder: (ctx, favSongsProvider, child) {
-          if (favSongsProvider.songs.isEmpty) {
-            favSongsProvider.getAll();
+      body: FutureBuilder(
+        future: Provider.of<FavoriteSongsProvider>(context).getAll(),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              snapshot.data == null) {
             return Center(child: CircularProgressIndicator());
           }
 
-          final List<Song> songs = favSongsProvider.songs;
+          final List<Song> songs = snapshot.data as List<Song> ?? [];
           return ListView.builder(
             itemBuilder: (ctx, index) => SongListItem(
               song: songs[index],

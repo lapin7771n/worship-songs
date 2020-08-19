@@ -47,17 +47,17 @@ class FavoriteSongsProvider with ChangeNotifier {
     return future;
   }
 
-  Future getAll() async {
+  Future<List> getAll() async {
     final DocumentSnapshot snapshot = await Firestore.instance
         .collection(_FAVORITE_SONGS)
         .document(_userId)
         .get();
-    final List<String> songsKeys = snapshot.data.keys.toList();
+    final List<String> songsKeys = snapshot.data?.keys?.toList() ?? [];
     final List<Song> favSongs = await _songsProvider.getSongsById(songsKeys);
     _favSongs.clear();
     _favSongs.addAll(favSongs);
     notifyListeners();
-    return favSongs;
+    return songs;
   }
 
   Future<bool> isFavorite(String songId) async {

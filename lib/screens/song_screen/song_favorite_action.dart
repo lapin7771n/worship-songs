@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/providers/favorite_songs_provider.dart';
@@ -37,7 +36,6 @@ class _SongFavoriteActionState extends State<SongFavoriteAction> {
   }
 
   _toggleFavorite(String songId) async {
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
     final provider = Provider.of<FavoriteSongsProvider>(context, listen: false);
     isFavorite ? provider.remove(songId) : provider.add(songId);
     setState(() {

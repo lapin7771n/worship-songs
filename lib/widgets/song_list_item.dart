@@ -17,10 +17,7 @@ class SongListItem extends StatelessWidget {
     return ListTile(
       isThreeLine: true,
       onTap: onTap,
-      leading: Hero(
-        tag: song.uuid,
-        child: SongCoverImage(title: song.title),
-      ),
+      leading: SongCoverImage(title: song.title),
       title: Text(
         song.title,
         style: Theme.of(context).textTheme.headline4,
