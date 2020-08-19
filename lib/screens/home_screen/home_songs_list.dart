@@ -38,11 +38,15 @@ class HomeSongsList extends StatelessWidget {
         if (previousSong == null ||
             !_isFirstLetterEqual(currentSong, previousSong)) {
           header = Container(
+            padding: EdgeInsets.only(left: 16),
+            width: double.infinity,
+            height: 37,
             color: AppColors.blue.withAlpha(25),
-            child: ListTile(
-              title: Text(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
                 currentSong.title.substring(0, 1),
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headline3,
               ),
             ),
           );
