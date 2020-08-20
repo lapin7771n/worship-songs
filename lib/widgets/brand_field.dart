@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AuthField extends StatefulWidget {
+class BrandField extends StatefulWidget {
   final String title;
   final String hintText;
   final TextInputType textInputType;
@@ -14,7 +14,7 @@ class AuthField extends StatefulWidget {
   final Function(String) onFieldSubmitted;
   final Function(String) validator;
 
-  const AuthField({
+  const BrandField({
     this.title,
     this.hintText,
     this.textInputType,
@@ -28,10 +28,10 @@ class AuthField extends StatefulWidget {
   });
 
   @override
-  _AuthFieldState createState() => _AuthFieldState();
+  _BrandFieldState createState() => _BrandFieldState();
 }
 
-class _AuthFieldState extends State<AuthField> {
+class _BrandFieldState extends State<BrandField> {
   bool _obscuringEnabled;
 
   @override
@@ -42,13 +42,15 @@ class _AuthFieldState extends State<AuthField> {
 
   @override
   Widget build(BuildContext context) {
-    var title = Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: Text(
-        widget.title,
-        style: Theme.of(context).textTheme.headline4,
-      ),
-    );
+    Widget title;
+    if (widget.title != null)
+      title = Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: Text(
+          widget.title,
+          style: Theme.of(context).textTheme.headline4,
+        ),
+      );
 
     var inputDecoration = InputDecoration(
         errorText: widget.errorText,
@@ -83,7 +85,7 @@ class _AuthFieldState extends State<AuthField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        title,
+        if (title != null) title,
         SizedBox(
           height: 8,
         ),

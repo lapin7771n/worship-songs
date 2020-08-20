@@ -5,7 +5,7 @@ import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
-import 'auth_field.dart';
+import '../../../widgets/brand_field.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isLogin;
@@ -55,7 +55,7 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
-    var emailField = AuthField(
+    var emailField = BrandField(
       title: 'Email Address',
       hintText: 'dolores.chambers@example.com',
       textInputType: TextInputType.emailAddress,
@@ -68,7 +68,7 @@ class _AuthFormState extends State<AuthForm> {
       errorText: emailErrorText,
     );
 
-    var passwordField = AuthField(
+    var passwordField = BrandField(
       title: 'Create Password',
       hintText: '******',
       textInputType: TextInputType.visiblePassword,

@@ -49,6 +49,17 @@ class SongsProvider with ChangeNotifier {
     return await Future.wait(songs);
   }
 
+  Future<List<Song>> finByTitle(String title) async {
+    final QuerySnapshot snapshot = await Firestore.instance
+        .collection(_SONGS)
+        .orderBy(_TITLE_FIELD)
+        .where(_TITLE_FIELD, isGreaterThanOrEqualTo: title)
+        .getDocuments();
+    return snapshot.documents
+        .map((e) => Song.fromMap(e.documentID, e.data))
+        .toList();
+  }
+
   clearLoadedSongs() {
     _songs.clear();
     _lastSongSnapshot = null;

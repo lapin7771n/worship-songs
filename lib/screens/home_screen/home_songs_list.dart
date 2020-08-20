@@ -37,23 +37,12 @@ class HomeSongsList extends StatelessWidget {
         Widget header;
         if (previousSong == null ||
             !_isFirstLetterEqual(currentSong, previousSong)) {
-          header = Container(
-            padding: EdgeInsets.only(left: 16),
-            width: double.infinity,
-            height: 37,
-            color: AppColors.blue.withAlpha(25),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                currentSong.title.substring(0, 1),
-                style: Theme.of(context).textTheme.headline3,
-              ),
-            ),
-          );
+          header = _buildHeader(currentSong, context);
         }
 
         return Column(
           children: [
+            if (index == 0) _buildAllLyrics(context),
             if (header != null) header,
             SongListItem(
               song: currentSong,
@@ -63,6 +52,35 @@ class HomeSongsList extends StatelessWidget {
         );
       },
       itemCount: _songs.length + 1,
+    );
+  }
+
+  Container _buildHeader(Song currentSong, BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 16),
+      width: double.infinity,
+      height: 37,
+      color: AppColors.blue.withAlpha(25),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          currentSong.title.substring(0, 1),
+          style: Theme.of(context).textTheme.headline3,
+        ),
+      ),
+    );
+  }
+
+  Align _buildAllLyrics(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        child: Text(
+          'All Lyrics',
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      ),
     );
   }
 
