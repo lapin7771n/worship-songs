@@ -1,7 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/user.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
@@ -168,17 +170,47 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   _handleAuth() async {
-    FirebaseUser user;
+    User user;
     if (widget.isLogin) {
-      user = await Provider.of<AuthProvider>(context, listen: false)
-          .signIn(_emailController.text, _passwordController.text);
+      user = await _signIn(user);
     } else {
-      user = await Provider.of<AuthProvider>(context, listen: false)
-          .createUser(_emailController.text, _passwordController.text);
+      user = await _signUp(user);
     }
 
     if (user != null) {
       Navigator.of(context).pop();
     }
+  }
+
+  Future<User> _signUp(User user) async {
+    try {
+      user = await Provider.of<AuthProvider>(context, listen: false)
+          .createUser(_emailController.text, _passwordController.text);
+    } on HttpException catch (e) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          content: Text(e.message),
+          actions: [
+            FlatButton(onPressed: Navigator.of(ctx).pop, child: Text('OK'))
+          ],
+        ),
+      );
+    }
+    return user;
+  }
+
+  Future<User> _signIn(User user) async {
+    user = await Provider.of<AuthProvider>(context, listen: false)
+        .signIn(_emailController.text, _passwordController.text);
+    return user;
+  }
+
+  void _showErrorScaffold() {
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text("An error occurred"),
+      ),
+    );
   }
 }

@@ -1,107 +1,149 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:worshipsongs/data/auth_status.dart';
+import 'package:worshipsongs/data/payloads/requests/sign_in_request.dart';
+import 'package:worshipsongs/data/payloads/requests/sign_up_request.dart';
+import 'package:worshipsongs/data/payloads/responses/sign_in_response.dart';
+import 'package:worshipsongs/data/user.dart';
+import 'package:worshipsongs/providers/base_provider.dart';
 
-class AuthProvider with ChangeNotifier {
-  static const String _USERS = 'users';
+class AuthProvider extends BaseProvider {
+  static const String _AUTH_PATH = '/api/v1/auth';
+  static const String _ACCESS_TOKEN_KEY = "accessToken";
 
-  static const String _DISPLAY_NAME = 'displayName';
-  static const String _EMAIL = 'email';
-  static const String _PHOTO_URL = 'photoUrl';
-  static const String _CREATION_TIME = 'creationTime';
-  static const String _LAST_SIGN_IN_TIME = 'lastSignInTime';
+  User _user;
+  String _accessToken;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  AuthStatus authStatus = AuthStatus.UNINITIALIZED;
-
-  FirebaseUser _user;
-
-  FirebaseUser get user => _user;
-
-  Future<FirebaseUser> createUser(String email, String password) async {
-    final AuthResult authResult = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    _updateUser(authResult.user);
-    return authResult.user;
+  get user {
+    return _user;
   }
 
-  Future<FirebaseUser> signIn(String email, String password) async {
-    final AuthResult authResult = await _auth.signInWithEmailAndPassword(
+  get accessToken {
+    return _accessToken;
+  }
+
+  AuthStatus authStatus = AuthStatus.UNINITIALIZED;
+
+  Future<User> createUser(String email, String password) async {
+    final String signUpUrl = "$API_URL$_AUTH_PATH/signup";
+    final Map requestBody = SignUpRequest(
       email: email,
       password: password,
+      roles: ["USER"],
+    ).toMap();
+
+    final Response response = await post(
+      signUpUrl,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(requestBody),
     );
-    _updateUser(authResult.user);
-    return authResult.user;
+
+    if (response.statusCode == 200) {
+      return await signIn(email, password);
+    }
+
+    throw HttpException(jsonDecode(response.body)["message"]);
+  }
+
+  Future<User> signIn(String email, String password) async {
+    final String signInUrl = "$API_URL$_AUTH_PATH/signin";
+    final Map requestBody = SignInRequest(
+      email: email,
+      password: password,
+    ).toMap();
+
+    final response = await post(
+      signInUrl,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      final SignInResponse signInResponse = SignInResponse.fromMap(
+        jsonDecode(response.body),
+      );
+      User user = _userFromSignInResponse(signInResponse);
+      _updateUser(user);
+      _saveAccessToken(signInResponse.accessToken);
+      return user;
+    }
+
+    return null;
   }
 
   Future signInViaGoogle() async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    if (googleUser == null) return;
-
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      idToken: googleAuth.idToken,
-      accessToken: googleAuth.accessToken,
-    );
-
-    AuthResult authResult = await auth.signInWithCredential(credential);
-    _updateUser(authResult.user);
+    throw UnimplementedError();
   }
 
   Future tryToLogin() async {
-    print("Trying to auto login");
-    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    final accessToken = await _tryToGetAuthToken();
+
+    User user;
+    if (accessToken is String) {
+      final String url = "$API_URL/users";
+      final response = await post(
+        url,
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Authorization": 'Bearer $accessToken',
+        },
+        body: jsonEncode({"accessToken": accessToken}),
+      );
+      final signInResponse = SignInResponse.fromMap(jsonDecode(response.body));
+      user = _userFromSignInResponse(signInResponse);
+    }
+
     _updateUser(user);
-    print("Auto logged user: ${user?.email}");
     return user;
   }
 
   Future logOut() async {
-    await FirebaseAuth.instance.signOut();
     authStatus = AuthStatus.UNAUTHENTICATED;
     _user = null;
+    await _removeAccessToken();
     notifyListeners();
   }
 
-  Future _updateUserInDatabase(FirebaseUser user) async {
-    return await Firestore.instance
-        .collection(_USERS)
-        .document(user.uid)
-        .updateData(_firebaseUserToJson(user));
+  User _userFromSignInResponse(SignInResponse signInResponse) {
+    final User user = User(
+      uuid: signInResponse.id,
+      email: signInResponse.email,
+      creationDate: signInResponse.creationDate,
+      enabled: signInResponse.enabled,
+      lastSignIn: signInResponse.lastSignInDate,
+      role: signInResponse.roles,
+    );
+    return user;
   }
 
-  Future _createUserInDatabase(FirebaseUser user) async {
-    return await Firestore.instance
-        .collection(_USERS)
-        .document(user.uid)
-        .setData(_firebaseUserToJson(user));
-  }
-
-  void _updateUser(FirebaseUser user) {
+  void _updateUser(User user) {
     authStatus =
         user == null ? AuthStatus.UNAUTHENTICATED : AuthStatus.AUTHENTICATED;
     _user = user;
-    _updateUserInDatabase(user).catchError((error) {
-      _createUserInDatabase(user);
-    });
     notifyListeners();
   }
 
-  Map<String, dynamic> _firebaseUserToJson(FirebaseUser user) {
-    return {
-      _DISPLAY_NAME: user.displayName,
-      _EMAIL: user.email,
-      _PHOTO_URL: user.photoUrl,
-      _CREATION_TIME: user.metadata.creationTime,
-      _LAST_SIGN_IN_TIME: user.metadata.lastSignInTime,
-    };
+  Future<String> _tryToGetAuthToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final accessToken = prefs.get(_ACCESS_TOKEN_KEY);
+    return accessToken;
+  }
+
+  Future _saveAccessToken(String accessToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_ACCESS_TOKEN_KEY, accessToken);
+    print("Access token has saved");
+  }
+
+  Future _removeAccessToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_ACCESS_TOKEN_KEY);
   }
 }

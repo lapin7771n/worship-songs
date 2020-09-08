@@ -1,72 +1,61 @@
 import 'dart:collection';
+import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/providers/base_provider.dart';
 
-class SongsProvider with ChangeNotifier {
+class SongsProvider extends BaseProvider {
   static const String _SONGS = 'songs';
   static const String _TITLE_FIELD = 'title';
   static const int _LIMIT = 40;
 
   final List<Song> _songs = [];
 
-  DocumentSnapshot _lastSongSnapshot;
+  int currentPage = 0;
 
   UnmodifiableListView<Song> get songs => UnmodifiableListView(_songs);
 
-  int get loadedSongsSize => _songs.length;
-
   Future<void> loadSongs() async {
-    Query songsCollectionQuery = Firestore.instance
-        .collection(_SONGS)
-        .limit(_LIMIT)
-        .orderBy(_TITLE_FIELD);
-
-    if (_lastSongSnapshot != null) {
-      songsCollectionQuery =
-          songsCollectionQuery.startAfterDocument(_lastSongSnapshot);
-    }
-
     print('Fetching more songs... (current number of songs: ${_songs.length})');
-    final loadedSongs = await songsCollectionQuery.getDocuments();
-    final List<DocumentSnapshot> documents = loadedSongs.documents;
-    _lastSongSnapshot = documents.last;
-    _songs.addAll(documents.map((e) => Song.fromMap(e.documentID, e.data)));
-    _songs.sort((s1, s2) => s1.title.compareTo(s2.title));
+
+    var loadSongsUrl = "$API_URL/songs?lang=ua&page=$currentPage&size=$_LIMIT";
+
+    final songs = await _getSongsByUrl(loadSongsUrl);
+    _songs.addAll(songs);
+
+    currentPage++;
     notifyListeners();
     print('Songs fetched (current number of songs: ${_songs.length})');
   }
 
   Future<List<Song>> getSongsById(List<String> ids) async {
-    final List<DocumentReference> songsRef = ids
-        .map((e) => Firestore.instance.collection(_SONGS).document(e))
-        .toList();
-    final songs = songsRef.map((element) async {
-      final docSnapshot = await element.get();
-      return Song.fromMap(docSnapshot.documentID, docSnapshot.data);
-    });
-    return await Future.wait(songs);
+    var loadSongsUrl = "$API_URL/songs/?ids=$ids";
+    return await _getSongsByUrl(loadSongsUrl);
   }
 
   Future<List<Song>> finByTitle(String title) async {
-    final QuerySnapshot snapshot = await Firestore.instance
-        .collection(_SONGS)
-        .orderBy(_TITLE_FIELD)
-        .where(_TITLE_FIELD, isGreaterThanOrEqualTo: title)
-        .getDocuments();
-    return snapshot.documents
-        .map((e) => Song.fromMap(e.documentID, e.data))
-        .toList();
+    // final QuerySnapshot snapshot = await Firestore.instance
+    //     .collection(_SONGS)
+    //     .orderBy(_TITLE_FIELD)
+    //     .where(_TITLE_FIELD, isGreaterThanOrEqualTo: title)
+    //     .getDocuments();
+    // return snapshot.documents.map((e) => Song.fromMap(e.data)).toList();
   }
 
   clearLoadedSongs() {
     _songs.clear();
-    _lastSongSnapshot = null;
+    currentPage = 0;
   }
 
-  Future<DocumentReference> addSong(Song song) {
+  Future addSong(Song song) {
     throw UnimplementedError();
 //    return Firestore.instance.collection(_SONGS).add(song.toJson());
+  }
+
+  Future<List<Song>> _getSongsByUrl(String url) async {
+    final response = await get(url);
+    final List loadedSongs = jsonDecode(response.body);
+    return loadedSongs.map((e) => Song.fromMap(e));
   }
 }

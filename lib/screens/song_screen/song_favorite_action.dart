@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 
 class SongFavoriteAction extends StatefulWidget {
-  final String songId;
+  final int songId;
 
   const SongFavoriteAction(this.songId);
 
@@ -35,7 +35,7 @@ class _SongFavoriteActionState extends State<SongFavoriteAction> {
     );
   }
 
-  _toggleFavorite(String songId) async {
+  _toggleFavorite(int songId) async {
     final provider = Provider.of<FavoriteSongsProvider>(context, listen: false);
     isFavorite ? provider.remove(songId) : provider.add(songId);
     setState(() {

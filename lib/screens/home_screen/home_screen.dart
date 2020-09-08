@@ -33,14 +33,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     super.dispose();
     _searchFocus.dispose();
+    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body:
-          _isSearchFocused ? SearchScreen(_controller) : _buildDefaultSection(),
+      body: _isSearchFocused || _controller.text.isNotEmpty
+          ? SearchScreen(_controller)
+          : _buildDefaultSection(),
     );
   }
 
@@ -55,9 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
+              } else {
+                return _buildSongList();
               }
-
-              return _buildSongList();
             },
           )
         : _buildSongList();
@@ -70,25 +72,41 @@ class _HomeScreenState extends State<HomeScreen> {
           right: 16,
           left: 16,
           top: 50,
+          bottom: 10,
         ),
         child: Container(
           height: 48,
-          child: TextField(
-            focusNode: _searchFocus,
-            controller: _controller,
-            decoration: InputDecoration(
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 12,
-                ),
-                child: SvgPicture.asset(
-                  'assets/images/Search.svg',
-                  color: AppColors.black,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              Flexible(
+                child: TextField(
+                  focusNode: _searchFocus,
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/images/Search.svg',
+                        color: AppColors.black,
+                      ),
+                    ),
+                    hintText: 'Type song name, lyrics...',
+                  ),
                 ),
               ),
-              hintText: 'Type song name, lyrics...',
-            ),
+              if (_isSearchFocused)
+                FlatButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    _controller.text = '';
+                    _searchFocus.unfocus();
+                  },
+                ),
+            ],
           ),
         ),
       ),

@@ -1,4 +1,3 @@
-
 const String _TITLE = 'title';
 const String _TEXT = 'text';
 const String _AUTHOR = 'author';
@@ -9,7 +8,7 @@ const String _COPYRIGHT = 'copyright';
 const String _PRESENTATION = 'presentation';
 
 class Song {
-  final String uuid;
+  final int uuid;
   final String title;
   final String text;
   final String author;
@@ -31,18 +30,16 @@ class Song {
     this.presentation,
   });
 
-  static Song fromMap(String uid, Map<String, dynamic> data) {
-    return Song(
-      uuid: uid,
-      title: data['title'],
-      author: data['author'] ?? 'Unknown',
-      aka: data['aka'],
-      text: data['text'],
-      capo: data['capo'],
-      copyright: data['copyright'],
-      presentation: data['presentation'],
-    );
-  }
+  Song.fromMap(Map<String, dynamic> data)
+      : uuid = data["id"],
+        title = data['title'],
+        author = data['author'] ?? 'Unknown',
+        aka = data['aka'],
+        text = data['text'],
+        capo = data['capo'],
+        key = data["chordsKey"],
+        copyright = data['copyright'],
+        presentation = data['presentation'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -58,11 +55,10 @@ class Song {
   }
 
   String get formattedText {
-    var formattedText =
-        text
-            .replaceAll('[V', '<bold>Verse ')
-            .replaceAll('[C', '<bold>Chorus ')
-            .replaceAll(']', '</bold>');
+    var formattedText = text
+        .replaceAll('[V', '<bold>Verse ')
+        .replaceAll('[C', '<bold>Chorus ')
+        .replaceAll(']', '</bold>');
     return formattedText;
   }
 }
