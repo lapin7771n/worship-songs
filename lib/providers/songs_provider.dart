@@ -38,12 +38,8 @@ class SongsProvider extends BaseProvider {
   }
 
   Future<List<Song>> finByTitle(String title) async {
-    // final QuerySnapshot snapshot = await Firestore.instance
-    //     .collection(_SONGS)
-    //     .orderBy(_TITLE_FIELD)
-    //     .where(_TITLE_FIELD, isGreaterThanOrEqualTo: title)
-    //     .getDocuments();
-    // return snapshot.documents.map((e) => Song.fromMap(e.data)).toList();
+    var loadSongsUrl = "$API_URL/songs?title=$title";
+    return await _getSongsByUrl(loadSongsUrl);
   }
 
   clearLoadedSongs() {
