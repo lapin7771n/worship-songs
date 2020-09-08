@@ -28,13 +28,18 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
-        ChangeNotifierProvider<SongsProvider>(create: (_) => SongsProvider()),
+        ChangeNotifierProxyProvider<AuthProvider, SongsProvider>(
+          update: (_, auth, oldProvider) => SongsProvider(
+            auth.accessToken,
+            oldProvider?.songs ?? [],
+          ),
+        ),
         ChangeNotifierProxyProvider2<AuthProvider, SongsProvider,
             FavoriteSongsProvider>(
           update: (_, authProvider, songsProvider, oldProvider) =>
               FavoriteSongsProvider(
             songsProvider: songsProvider,
-            userId: authProvider.user.uid,
+            userId: authProvider.user.uuid,
             favSongs: oldProvider?.songs ?? [],
           ),
         ),

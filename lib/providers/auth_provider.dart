@@ -17,11 +17,11 @@ class AuthProvider extends BaseProvider {
   User _user;
   String _accessToken;
 
-  get user {
+  User get user {
     return _user;
   }
 
-  get accessToken {
+  String get accessToken {
     return _accessToken;
   }
 
@@ -83,7 +83,7 @@ class AuthProvider extends BaseProvider {
   }
 
   Future tryToLogin() async {
-    final accessToken = await _tryToGetAuthToken();
+    _accessToken = await _tryToGetAuthToken();
 
     User user;
     if (accessToken is String) {

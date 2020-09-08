@@ -8,7 +8,7 @@ class FavoriteSongsProvider with ChangeNotifier {
   static const String _FAVORITE_SONGS = 'favorite_songs';
 
   FavoriteSongsProvider({
-    @required String userId,
+    @required int userId,
     @required SongsProvider songsProvider,
     List<Song> favSongs = const [],
   })  : _favSongs = favSongs,
@@ -16,7 +16,7 @@ class FavoriteSongsProvider with ChangeNotifier {
         _songsProvider = songsProvider;
 
   final List<Song> _favSongs;
-  final String _userId;
+  final int _userId;
   final SongsProvider _songsProvider;
 
   UnmodifiableListView<Song> get songs => UnmodifiableListView(_favSongs);
