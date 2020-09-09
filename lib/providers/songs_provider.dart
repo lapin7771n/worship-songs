@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/base_provider.dart';
@@ -50,6 +51,11 @@ class SongsProvider extends BaseProvider {
 
   Future<List<Song>> _getSongsByUrl(String url) async {
     final response = await get(url, _accessToken);
+    if (response.statusCode != 200) {
+      return Future.error(throw HttpException(
+        "Status code: ${response.statusCode} | " + jsonDecode(response.body).toString(),
+      ));
+    }
     final List loadedSongs = jsonDecode(response.body);
     return loadedSongs.map((e) => Song.fromMap(e)).toList();
   }

@@ -70,8 +70,8 @@ class AuthProvider extends BaseProvider {
         jsonDecode(response.body),
       );
       User user = _userFromSignInResponse(signInResponse);
-      _updateUser(user);
       _saveAccessToken(signInResponse.accessToken);
+      _updateUser(user);
       return user;
     }
 
@@ -139,6 +139,7 @@ class AuthProvider extends BaseProvider {
   Future _saveAccessToken(String accessToken) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_ACCESS_TOKEN_KEY, accessToken);
+    _accessToken = accessToken;
     print("Access token has saved");
   }
 

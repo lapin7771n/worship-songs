@@ -51,7 +51,7 @@ class SongScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle1,
               newLineAsBreaks: true,
               styles: {
-                'bold': Theme.of(context).textTheme.headline4
+                'bold': Theme.of(context).textTheme.headline4,
               },
             ),
           ],

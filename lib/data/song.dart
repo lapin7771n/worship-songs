@@ -58,7 +58,15 @@ class Song {
     var formattedText = text
         .replaceAll('[V', '<bold>Verse ')
         .replaceAll('[C', '<bold>Chorus ')
+        .replaceAll('[B', '<bold>Bridge ')
         .replaceAll(']', '</bold>');
-    return formattedText;
+
+    return formattedText
+        .split("\n")
+        .map((e) {
+          return e.startsWith(".") ? "<bold>${e.substring(1)}</bold>" : e;
+        })
+        .toList()
+        .join("\n");
   }
 }

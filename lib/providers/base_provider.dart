@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 class BaseProvider with ChangeNotifier {
-  static const String _DEBUG_URL = 'http://localhost';
+  static const String _DEBUG_URL = 'http://10.0.2.2';
   static const String _PROD_URL = 'http://worship-songs-lyrics.tk';
 
   // ignore: non_constant_identifier_names
@@ -24,7 +24,7 @@ class BaseProvider with ChangeNotifier {
   }
 
   Future<http.Response> delete(String url, String accessToken) {
-    return http.delete(url, headers: _getHeaders(accessToken), );
+    return http.delete(url, headers: _getHeaders(accessToken));
   }
 
   Map<String, String> _getHeaders(String accessToken) {
