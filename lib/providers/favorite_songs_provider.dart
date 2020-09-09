@@ -1,69 +1,78 @@
 import 'dart:collection';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:worshipsongs/data/song.dart';
-import 'package:worshipsongs/providers/songs_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:worshipsongs/data/favorite_song.dart';
+import 'package:worshipsongs/providers/base_provider.dart';
 
-class FavoriteSongsProvider with ChangeNotifier {
-  static const String _FAVORITE_SONGS = 'favorite_songs';
+class FavoriteSongsProvider extends BaseProvider {
+  static const String _FAV_PATH = "favorites";
 
   FavoriteSongsProvider({
-    @required int userId,
-    @required SongsProvider songsProvider,
-    List<Song> favSongs = const [],
+    @required String accessToken,
+    List<FavoriteSong> favSongs = const [],
   })  : _favSongs = favSongs,
-        _userId = userId,
-        _songsProvider = songsProvider;
+        _accessToken = accessToken;
 
-  final List<Song> _favSongs;
-  final int _userId;
-  final SongsProvider _songsProvider;
+  final List<FavoriteSong> _favSongs;
+  final String _accessToken;
 
-  UnmodifiableListView<Song> get songs => UnmodifiableListView(_favSongs);
+  UnmodifiableListView<FavoriteSong> get songs =>
+      UnmodifiableListView(_favSongs);
 
   int get loadedSongsSize => _favSongs.length;
 
+  Future<List> getAll() async {
+    final String url = "$API_URL/$_FAV_PATH";
+    final response = await get(url, _accessToken);
+    final List jsonBody = jsonDecode(response.body);
+    return jsonBody.map((element) => FavoriteSong.fromMap(element)).toList();
+  }
+
   Future add(int songId) async {
-    // final future = await Firestore.instance
-    //     .collection(_FAVORITE_SONGS)
-    //     .document(_userId)
-    //     .setData({
-    //   songId: null,
-    // }, merge: true);
-    await getAll();
-    // return future;
+    final String url = "$API_URL/$_FAV_PATH";
+    final response = await put(
+      url,
+      _accessToken,
+      jsonEncode({"songId": songId}),
+    );
+    if (response.statusCode == 200) {
+      var favoriteSong = FavoriteSong.fromMap(jsonDecode(response.body));
+      _favSongs.add(favoriteSong);
+      notifyListeners();
+      return favoriteSong;
+    }
+
+    return Future.error(_getHttpExceptionFromResponse(response));
   }
 
   Future remove(int songId) async {
-    // final future = await Firestore.instance
-    //     .collection(_FAVORITE_SONGS)
-    //     .document(_userId)
-    //     .setData({
-    //   songId: FieldValue.delete(),
-    // }, merge: true);
-    _favSongs.removeWhere((element) => element.uuid == songId);
-    notifyListeners();
-    // return future;
-  }
+    final String url = "$API_URL/$_FAV_PATH/$songId";
+    final http.Response response = await delete(url, _accessToken);
 
-  Future<List> getAll() async {
-    // final DocumentSnapshot snapshot = await Firestore.instance
-    //     .collection(_FAVORITE_SONGS)
-    //     .document(_userId)
-    //     .get();
-    // final List<String> songsKeys = snapshot.data?.keys?.toList() ?? [];
-    // final List<Song> favSongs = await _songsProvider.getSongsById(songsKeys);
-    // _favSongs.clear();
-    // _favSongs.addAll(favSongs);
-    // notifyListeners();
-    // return songs;
+    if (response.statusCode == 200) {
+      _favSongs.removeWhere((element) => element.songId == songId);
+      notifyListeners();
+      return Future.value();
+    }
+
+    return Future.error(_getHttpExceptionFromResponse(response));
   }
 
   Future<bool> isFavorite(int songId) async {
-    if (_favSongs.isEmpty) {
-      await getAll();
+    final String url = "$API_URL/$_FAV_PATH/$songId";
+    final http.Response response = await get(url, _accessToken);
+    if (response.statusCode == 200) {
+      return true;
     }
 
-    return _favSongs.where((element) => element.uuid == songId).isNotEmpty;
+    return false;
+  }
+
+  HttpException _getHttpExceptionFromResponse(http.Response response) {
+    return HttpException("Status: ${response.statusCode} |" +
+        jsonDecode(response.body)["message"]);
   }
 }

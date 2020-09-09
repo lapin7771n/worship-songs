@@ -38,8 +38,7 @@ class MyApp extends StatelessWidget {
             FavoriteSongsProvider>(
           update: (_, authProvider, songsProvider, oldProvider) =>
               FavoriteSongsProvider(
-            songsProvider: songsProvider,
-            userId: authProvider.user.uuid,
+            accessToken: authProvider.accessToken,
             favSongs: oldProvider?.songs ?? [],
           ),
         ),

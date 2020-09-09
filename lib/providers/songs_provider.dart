@@ -1,13 +1,9 @@
-import 'dart:collection';
 import 'dart:convert';
 
-import 'package:http/http.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/base_provider.dart';
 
 class SongsProvider extends BaseProvider {
-  static const String _SONGS = 'songs';
-  static const String _TITLE_FIELD = 'title';
   static const int _LIMIT = 40;
 
   final List<Song> _songs;
@@ -15,7 +11,7 @@ class SongsProvider extends BaseProvider {
 
   int currentPage = 0;
 
-  UnmodifiableListView<Song> get songs => UnmodifiableListView(_songs);
+  List<Song> get songs => [..._songs];
 
   SongsProvider(this._accessToken, this._songs);
 
@@ -32,8 +28,8 @@ class SongsProvider extends BaseProvider {
     print('Songs fetched (current number of songs: ${_songs.length})');
   }
 
-  Future<List<Song>> getSongsById(List<String> ids) async {
-    var loadSongsUrl = "$API_URL/songs/?ids=$ids";
+  Future<List<Song>> getSongsById(List<int> ids) async {
+    var loadSongsUrl = "$API_URL/songs/?ids=${ids.join(",")}";
     return await _getSongsByUrl(loadSongsUrl);
   }
 
@@ -53,10 +49,7 @@ class SongsProvider extends BaseProvider {
   }
 
   Future<List<Song>> _getSongsByUrl(String url) async {
-    final response = await get(url, headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      "Authorization": "Bearer $_accessToken"
-    });
+    final response = await get(url, _accessToken);
     final List loadedSongs = jsonDecode(response.body);
     return loadedSongs.map((e) => Song.fromMap(e)).toList();
   }
