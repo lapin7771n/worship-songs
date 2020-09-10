@@ -69,4 +69,20 @@ class Song {
         .toList()
         .join("\n");
   }
+
+  String get formattedTextWithoutChords {
+    var formattedText = text
+        .replaceAll('[V', '<bold>Verse ')
+        .replaceAll('[C', '<bold>Chorus ')
+        .replaceAll('[B', '<bold>Bridge ')
+        .replaceAll(']', '</bold>');
+
+    return formattedText
+        .split("\n")
+        .where((e) {
+          return !e.startsWith(".");
+        })
+        .toList()
+        .join("\n");
+  }
 }

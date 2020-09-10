@@ -4,8 +4,15 @@ import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/screens/song_screen/song_favorite_action.dart';
 
-class SongScreen extends StatelessWidget {
+class SongScreen extends StatefulWidget {
   static const String routeName = '/song-screen';
+
+  @override
+  _SongScreenState createState() => _SongScreenState();
+}
+
+class _SongScreenState extends State<SongScreen> {
+  bool _isChordsVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +53,26 @@ class SongScreen extends StatelessWidget {
             SizedBox(
               height: 24,
             ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Checkbox(
+                  value: _isChordsVisible,
+                  onChanged: _onGuitarChordsCheckBoxChanged,
+                ),
+                Text(
+                  'Guitar chords',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 40,
+            ),
             StyledText(
-              text: song.formattedText,
+              text: _isChordsVisible
+                  ? song.formattedText
+                  : song.formattedTextWithoutChords,
               style: Theme.of(context).textTheme.subtitle1,
               newLineAsBreaks: true,
               styles: {
@@ -58,5 +83,11 @@ class SongScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onGuitarChordsCheckBoxChanged(bool isChecked) {
+    setState(() {
+      _isChordsVisible = isChecked;
+    });
   }
 }
