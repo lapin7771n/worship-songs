@@ -26,7 +26,7 @@ class AuthScreen extends StatelessWidget {
               SliverToBoxAdapter(
                 child: Column(
                   children: <Widget>[
-                    _buildGoogleButton(context),
+                    // _buildGoogleButton(context),
                     Divider(
                       thickness: 2,
                       color: AppColors.gray.withAlpha(OPACITY_20),
