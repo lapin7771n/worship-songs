@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
       ),
       errorColor: AppColors.red,
       scaffoldBackgroundColor: AppColors.white,
-      fontFamily: "MavenPro",
+      fontFamily: "Rubik",
       primaryColor: AppColors.blue,
       primaryColorDark: AppColors.darkBlue,
       accentColor: AppColors.blue,

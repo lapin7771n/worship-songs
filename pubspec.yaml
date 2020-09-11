@@ -36,12 +36,12 @@ flutter:
     - assets/images/illustrations/
 
   fonts:
-    - family: MavenPro
+    - family: Rubik
       fonts:
-        - asset: assets/font/MavenPro-Regular.ttf
-        - asset: assets/font/MavenPro-Bold.ttf
+        - asset: assets/font/Rubik-Regular.ttf
+        - asset: assets/font/Rubik-Bold.ttf
           weight: 700
-        - asset: assets/font/MavenPro-Black.ttf
+        - asset: assets/font/Rubik-Black.ttf
           weight: 900
-        - asset: assets/font/MavenPro-Medium.ttf
+        - asset: assets/font/Rubik-Medium.ttf
           weight: 500
