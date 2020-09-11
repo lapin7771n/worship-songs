@@ -1,5 +1,3 @@
-import 'dart:isolate';
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,13 +36,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
         ChangeNotifierProxyProvider<AuthProvider, SongsProvider>(
+          create: (_) => SongsProvider(accessToken: null),
           update: (_, auth, oldProvider) => SongsProvider(
-            auth.accessToken,
-            oldProvider?.songs ?? [],
+            accessToken: auth.accessToken,
+            songs: oldProvider?.songs ?? [],
           ),
         ),
         ChangeNotifierProxyProvider2<AuthProvider, SongsProvider,
             FavoriteSongsProvider>(
+          create: (_) => FavoriteSongsProvider(accessToken: null),
           update: (_, authProvider, songsProvider, oldProvider) =>
               FavoriteSongsProvider(
             accessToken: authProvider.accessToken,

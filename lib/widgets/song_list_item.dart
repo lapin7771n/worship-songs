@@ -31,7 +31,7 @@ class SongListItem extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle2,
           ),
           SizedBox(height: 8),
-          if (song.key != null) RoundedLabel(title: 'Guitar chords'),
+          if (song.text.contains(".  ")) RoundedLabel(title: 'Guitar chords'),
         ],
       ),
     );

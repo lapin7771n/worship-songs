@@ -55,11 +55,7 @@ class Song {
   }
 
   String get formattedText {
-    var formattedText = text
-        .replaceAll('[V', '<bold>Verse ')
-        .replaceAll('[C', '<bold>Chorus ')
-        .replaceAll('[B', '<bold>Bridge ')
-        .replaceAll(']', '</bold>');
+    String formattedText = _replaceMarkers();
 
     return formattedText
         .split("\n")
@@ -71,11 +67,7 @@ class Song {
   }
 
   String get formattedTextWithoutChords {
-    var formattedText = text
-        .replaceAll('[V', '<bold>Verse ')
-        .replaceAll('[C', '<bold>Chorus ')
-        .replaceAll('[B', '<bold>Bridge ')
-        .replaceAll(']', '</bold>');
+    var formattedText = _replaceMarkers();
 
     return formattedText
         .split("\n")
@@ -84,5 +76,15 @@ class Song {
         })
         .toList()
         .join("\n");
+  }
+
+  String _replaceMarkers() {
+    var formattedText = text
+        .replaceAll('[V', '<bold>Verse ')
+        .replaceAll('[C', '<bold>Chorus ')
+        .replaceAll('[B', '<bold>Bridge ')
+        .replaceAll('[P', '<bold>Pre-chorus ')
+        .replaceAll(']', '</bold>');
+    return formattedText;
   }
 }

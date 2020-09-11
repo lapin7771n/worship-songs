@@ -70,7 +70,7 @@ class AuthProvider extends BaseProvider {
         jsonDecode(response.body),
       );
       User user = _userFromSignInResponse(signInResponse);
-      _saveAccessToken(signInResponse.accessToken);
+      await _saveAccessToken(signInResponse.accessToken);
       _updateUser(user);
       return user;
     }

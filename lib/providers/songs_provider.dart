@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/base_provider.dart';
 
@@ -14,7 +15,11 @@ class SongsProvider extends BaseProvider {
 
   List<Song> get songs => [..._songs];
 
-  SongsProvider(this._accessToken, this._songs);
+  SongsProvider({
+    @required String accessToken,
+    List<Song> songs = const [],
+  })  : _songs = songs,
+        _accessToken = accessToken;
 
   Future<void> loadSongs() async {
     print('Fetching more songs... (current number of songs: ${_songs.length})');
@@ -53,7 +58,8 @@ class SongsProvider extends BaseProvider {
     final response = await get(url, _accessToken);
     if (response.statusCode != 200) {
       return Future.error(throw HttpException(
-        "Status code: ${response.statusCode} | " + jsonDecode(response.body).toString(),
+        "Status code: ${response.statusCode} | " +
+            jsonDecode(response.body).toString(),
       ));
     }
     final List loadedSongs = jsonDecode(response.body);

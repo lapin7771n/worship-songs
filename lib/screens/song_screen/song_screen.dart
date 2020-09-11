@@ -13,10 +13,12 @@ class SongScreen extends StatefulWidget {
 
 class _SongScreenState extends State<SongScreen> {
   bool _isChordsVisible = true;
+  bool _isSongWithChords = false;
 
   @override
   Widget build(BuildContext context) {
     final song = ModalRoute.of(context).settings.arguments as Song;
+    _isSongWithChords = song.text.contains(".  ");
     return Scaffold(
       appBar: AppBar(
         actions: [SongFavoriteAction(song.uuid)],
@@ -53,19 +55,20 @@ class _SongScreenState extends State<SongScreen> {
             SizedBox(
               height: 24,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Checkbox(
-                  value: _isChordsVisible,
-                  onChanged: _onGuitarChordsCheckBoxChanged,
-                ),
-                Text(
-                  'Guitar chords',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ],
-            ),
+            if (_isSongWithChords)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Checkbox(
+                    value: _isChordsVisible,
+                    onChanged: _onGuitarChordsCheckBoxChanged,
+                  ),
+                  Text(
+                    'Guitar chords',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
+              ),
             SizedBox(
               height: 40,
             ),
