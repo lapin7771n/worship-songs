@@ -17,18 +17,24 @@ class SongListItem extends StatelessWidget {
     return ListTile(
       isThreeLine: true,
       onTap: onTap,
-      leading: SongCoverImage(title: song.title),
-      title: Text(
-        song.title,
-        style: Theme.of(context).textTheme.headline4,
+      leading: Hero(tag: song.uuid, child: SongCoverImage(title: song.title)),
+      title: Hero(
+        tag: song.uuid + song.title.hashCode,
+        child: Text(
+          song.title,
+          style: Theme.of(context).textTheme.headline4,
+        ),
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //TODO set max characters up to 20.
-          Text(
-            song.author,
-            style: Theme.of(context).textTheme.subtitle2,
+          Hero(
+            tag: song.uuid + song.author.hashCode,
+            child: Text(
+              song.author,
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
           ),
           SizedBox(height: 8),
           if (song.text.contains(".  ")) RoundedLabel(title: 'Guitar chords'),
