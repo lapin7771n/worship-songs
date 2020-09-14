@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/widgets/button.dart';
 import 'package:worshipsongs/widgets/carousel_with_indicator.dart';
@@ -7,23 +8,25 @@ import 'package:worshipsongs/widgets/carousel_with_indicator.dart';
 class OnBoardingScreen extends StatelessWidget {
   static const String routeName = "/on-boarding";
 
-  final texts = const <String, List<String>>{
-    'title': [
-      'Words to Pray God',
-      'Play songs you like',
-      'The words of truth',
-    ],
-    'text': [
-      'Find the lyrics of popular christian songs to sing with people you love',
-      'Beside lyrics you also can find the chords for guitar and notes for piano!',
-      'Read the great stories of great people how God changes their lives!',
-    ],
-    'image': [
-      'assets/images/illustrations/ValueProposition1.svg',
-      'assets/images/illustrations/ValueProposition2.svg',
-      'assets/images/illustrations/ValueProposition3.svg',
-    ],
-  };
+  Map<String, List<String>> texts(BuildContext context) {
+    return {
+      'title': [
+        Strings.of(context).wordsToPrayGod,
+        Strings.of(context).playSongsYouLike,
+        Strings.of(context).theWordsOfTruth,
+      ],
+      'text': [
+        Strings.of(context).findTheLyricsOfPopular,
+        Strings.of(context).besideLyricsYouAlso,
+        Strings.of(context).readTheGreatStories,
+      ],
+      'image': [
+        'assets/images/illustrations/ValueProposition1.svg',
+        'assets/images/illustrations/ValueProposition2.svg',
+        'assets/images/illustrations/ValueProposition3.svg',
+      ],
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +55,12 @@ class OnBoardingScreen extends StatelessWidget {
             ),
             width: MediaQuery.of(context).size.width,
             child: Button(
-              title: "Create new Account",
+              title: Strings.of(context).createNewAccount,
               onPressed: () => _handleCreateAccount(context),
             ),
           ),
           TextButton(
-            title: 'I already have an Account',
+            title: Strings.of(context).iAlreadyHaveAnAccount,
             onPressed: () => _handleLogin(context),
           )
         ],
@@ -86,7 +89,7 @@ class OnBoardingScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20.0),
           child: Text(
-            texts['title'][index],
+            texts(context)['title'][index],
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
@@ -96,7 +99,7 @@ class OnBoardingScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            texts['text'][index],
+            texts(context)['text'][index],
             style: Theme.of(context).textTheme.subtitle1,
           ),
         ),
@@ -108,7 +111,7 @@ class OnBoardingScreen extends StatelessWidget {
             mainAxisAlignment: getImageMainAxisAlignment(index),
             children: <Widget>[
               SvgPicture.asset(
-                texts['image'][index],
+                texts(context)['image'][index],
                 alignment: getImageAlignment(index),
               ),
             ],

@@ -1,0 +1,175 @@
+{
+  "@@last_modified": "2020-09-14T12:16:16.832007",
+  "Home": "Home",
+  "@Home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "My Lyrics": "My Lyrics",
+  "@My Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Settings": "Settings",
+  "@Settings": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Login": "Login",
+  "@Login": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Create new Account": "Create new Account",
+  "@Create new Account": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "I already have an Account": "I already have an Account",
+  "@I already have an Account": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Password has to include at least 6 characters": "Password has to include at least 6 characters",
+  "@Password has to include at least 6 characters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Create Password": "Create Password",
+  "@Create Password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Email Address": "Email Address",
+  "@Email Address": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "This doesn’t looks like email address": "This doesn’t looks like email address",
+  "@This doesn’t looks like email address": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "yourPasswordContainChars": "Your password contain {length}/6 characters",
+  "@yourPasswordContainChars": {
+    "type": "text",
+    "placeholders": {
+      "length": {}
+    }
+  },
+  "Continue with Google": "Continue with Google",
+  "@Continue with Google": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Error": "Error",
+  "@Error": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Type song name, lyrics...": "Type song name, lyrics...",
+  "@Type song name, lyrics...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Cancel": "Cancel",
+  "@Cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "All Lyrics": "All Lyrics",
+  "@All Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Account Settings": "Account Settings",
+  "@Account Settings": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Change email address": "Change email address",
+  "@Change email address": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Not yet implemented": "Not yet implemented",
+  "@Not yet implemented": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Change password": "Change password",
+  "@Change password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Logout": "Logout",
+  "@Logout": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Change password, email, logout": "Change password, email, logout",
+  "@Change password, email, logout": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notifications": "Notifications",
+  "@Notifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Manage notifications": "Manage notifications",
+  "@Manage notifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Report about bug": "Report about bug",
+  "@Report about bug": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Could not launch": "Could not launch",
+  "@Could not launch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Chords": "Chords",
+  "@Chords": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Write us a line about problem you have": "Write us a line about problem you have",
+  "@Write us a line about problem you have": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Words to Pray God": "Words to Pray God",
+  "@Words to Pray God": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Play songs you like": "Play songs you like",
+  "@Play songs you like": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "The words of truth": "The words of truth",
+  "@The words of truth": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Find the lyrics of popular christian songs to sing with people you love": "Find the lyrics of popular christian songs to sing with people you love",
+  "@Find the lyrics of popular christian songs to sing with people you love": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beside lyrics you also can find the chords for guitar and notes for piano!": "Beside lyrics you also can find the chords for guitar and notes for piano!",
+  "@Beside lyrics you also can find the chords for guitar and notes for piano!": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Read the great stories of great people how God changes their lives!": "Read the great stories of great people how God changes their lives!",
+  "@Read the great stories of great people how God changes their lives!": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

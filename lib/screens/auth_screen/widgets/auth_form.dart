@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/user.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
@@ -58,7 +59,7 @@ class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
     var emailField = BrandField(
-      title: 'Email Address',
+      title: Strings.of(context).emailAddress,
       hintText: 'dolores.chambers@example.com',
       textInputType: TextInputType.emailAddress,
       focusNode: _emailFocusNode,
@@ -71,7 +72,7 @@ class _AuthFormState extends State<AuthForm> {
     );
 
     var passwordField = BrandField(
-      title: 'Create Password',
+      title: Strings.of(context).createPassword,
       hintText: '******',
       textInputType: TextInputType.visiblePassword,
       obscureText: true,
@@ -83,7 +84,7 @@ class _AuthFormState extends State<AuthForm> {
     var passwordBottomText = Padding(
       padding: const EdgeInsets.only(left: 8.0, top: 6.0),
       child: Text(
-        'Password has to include at least 6 characters',
+        Strings.of(context).passwordHasToInclude,
         style: Theme.of(context)
             .textTheme
             .subtitle2
@@ -99,7 +100,9 @@ class _AuthFormState extends State<AuthForm> {
           child: Container(
             width: double.infinity,
             child: Button(
-              title: widget.isLogin ? 'Login' : 'Create new Account',
+              title: widget.isLogin
+                  ? Strings.of(context).login
+                  : Strings.of(context).createNewAccount,
               onPressed: isEmailValid && isPasswordValid ? _handleAuth : null,
             ),
           ),
@@ -143,8 +146,9 @@ class _AuthFormState extends State<AuthForm> {
         (r"^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$");
     var regExp = RegExp(emailPattern);
     isEmailValid = regExp.hasMatch(email);
-    emailErrorText =
-        isEmailValid ? null : 'This doesn’t looks like email address';
+    emailErrorText = isEmailValid
+        ? null
+        : Strings.of(context).thisDoesntLooksLikeEmailAddress;
   }
 
   _validatePassword(String password) {
@@ -154,7 +158,7 @@ class _AuthFormState extends State<AuthForm> {
     isPasswordValid = password.length >= 6;
     passwordErrorText = isPasswordValid
         ? null
-        : 'Your password contain ${password.length}/6 characters';
+        : Strings.of(context).yourPasswordContainChars(password.length);
   }
 
   _emailFocusCallback() {
@@ -204,13 +208,5 @@ class _AuthFormState extends State<AuthForm> {
     user = await Provider.of<AuthProvider>(context, listen: false)
         .signIn(_emailController.text, _passwordController.text);
     return user;
-  }
-
-  void _showErrorScaffold() {
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text("An error occurred"),
-      ),
-    );
   }
 }

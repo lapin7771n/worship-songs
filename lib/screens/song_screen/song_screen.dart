@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/song_screen/song_favorite_action.dart';
 import 'package:worshipsongs/widgets/song_cover_image.dart';
 
@@ -21,9 +22,6 @@ class _SongScreenState extends State<SongScreen> {
     final song = ModalRoute.of(context).settings.arguments as Song;
     _isSongWithChords = song.text.contains(".  ");
     return Scaffold(
-      // appBar: AppBar(
-      //   actions: [SongFavoriteAction(song.uuid)],
-      // ),
       body: _buildMainContent(context, song),
     );
   }
@@ -53,7 +51,7 @@ class _SongScreenState extends State<SongScreen> {
                     onChanged: _onGuitarChordsCheckBoxChanged,
                   ),
                   Text(
-                    'Guitar chords',
+                    Strings.of(context).chords,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],

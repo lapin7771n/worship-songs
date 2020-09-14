@@ -20,7 +20,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    widget._controller.addListener(() => _searchSongs(widget._controller.text));
+    widget._controller.addListener(
+      () => _searchSongs(widget._controller.text.trim()),
+    );
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/widgets/song_list_item.dart';
@@ -77,7 +78,7 @@ class HomeSongsList extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16),
         child: Text(
-          'All Lyrics',
+          Strings.of(context).allLyrics,
           style: Theme.of(context).textTheme.headline2,
         ),
       ),

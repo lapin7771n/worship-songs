@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -19,8 +18,7 @@ class FavoriteSongsProvider extends BaseProvider {
   final List<FavoriteSong> _favSongs;
   final String _accessToken;
 
-  UnmodifiableListView<FavoriteSong> get songs =>
-      UnmodifiableListView(_favSongs);
+  List<FavoriteSong> get songs => [..._favSongs];
 
   int get loadedSongsSize => _favSongs.length;
 

@@ -1,0 +1,175 @@
+{
+  "@@last_modified": "2020-09-14T11:24:01.131795",
+  "Home": "Главная",
+  "@Home": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "My Lyrics": "Избранное",
+  "@My Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Settings": "Настройки",
+  "@Settings": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Login": "Вход",
+  "@Login": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Create new Account": "Создать аккаунт",
+  "@Create new Account": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "I already have an Account": "У меня уже есть аккаунт",
+  "@I already have an Account": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Password has to include at least 6 characters": "Пароль должен содержать ка миннимум 6 символов",
+  "@Password has to include at least 6 characters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Create Password": "Создать пароль",
+  "@Create Password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Email Address": "Email адресс",
+  "@Email Address": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "This doesn’t looks like email address": "Это не похоже на email адресс",
+  "@This doesn’t looks like email address": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "yourPasswordContainChars": "Ваш пароль сожержит {length}/6 символов",
+  "@yourPasswordContainChars": {
+    "type": "text",
+    "placeholders": {
+      "length": {}
+    }
+  },
+  "Continue with Google": "Продолжить с Google",
+  "@Continue with Google": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Error": "Ошибка",
+  "@Error": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Type song name, lyrics...": "Введите название песни...",
+  "@Type song name, lyrics...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Cancel": "Отмена",
+  "@Cancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "All Lyrics": "Все песни",
+  "@All Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Account Settings": "Настройки профиля",
+  "@Account Settings": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Change email address": "Изменить email адресс",
+  "@Change email address": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Not yet implemented": "Ещё не реализовано",
+  "@Not yet implemented": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Change password": "Изменить пароль",
+  "@Change password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Logout": "Выйти",
+  "@Logout": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Change password, email, logout": "Изменить пароль, email, выйти",
+  "@Change password, email, logout": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Notifications": "Уведомления",
+  "@Notifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Manage notifications": "Управление уведомлениями",
+  "@Manage notifications": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Report about bug": "Донести об ошибке",
+  "@Report about bug": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Could not launch": "Не получилось запустить",
+  "@Could not launch": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Chords": "Аккорды",
+  "@Chords": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Write us a line about problem you have": "Напишите немного про ошибку, которую вы получили",
+  "@Write us a line about problem you have": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Words to Pray God": "Слова молитвы Богу",
+  "@Words to Pray God": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Play songs you like": "Играйте ваши любимые песни",
+  "@Play songs you like": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "The words of truth": "Слова истины",
+  "@The words of truth": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Find the lyrics of popular christian songs to sing with people you love": "Находите текст популярных христианских песен, чтобы петь с вашими любимыми",
+  "@Find the lyrics of popular christian songs to sing with people you love": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Beside lyrics you also can find the chords for guitar and notes for piano!": "Кроме текста, вы таже можете найти аккорды и ноты для фортепиано!",
+  "@Beside lyrics you also can find the chords for guitar and notes for piano!": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Read the great stories of great people how God changes their lives!": "Читайте классные истории про людей, жизнь которых меняет Бог!",
+  "@Read the great stories of great people how God changes their lives!": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

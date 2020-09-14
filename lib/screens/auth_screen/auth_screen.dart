@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/screens/auth_screen/widgets/auth_form.dart';
 
@@ -16,7 +17,9 @@ class AuthScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
-        title: Text(isLogin ? 'Login' : 'Create new Account'),
+        title: Text(isLogin
+            ? Strings.of(context).login
+            : Strings.of(context).createNewAccount),
       ),
       body: SafeArea(
         child: Container(
@@ -58,7 +61,7 @@ class AuthScreen extends StatelessWidget {
         onPressed: () => _handleGoogleAuth(context),
         icon: SvgPicture.asset('assets/images/GoogleIcon.svg'),
         label: Text(
-          'Continue with Google',
+          Strings.of(context).continueWithGoogle,
           style: Theme.of(context).textTheme.headline3.apply(
                 color: AppColors.blue,
               ),

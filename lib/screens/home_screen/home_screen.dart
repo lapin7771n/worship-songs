@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/home_screen/home_songs_list.dart';
 import 'package:worshipsongs/screens/search_screen.dart';
@@ -53,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
             future: songsProvider.loadSongs(),
             builder: (ctx, snapshot) {
               if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
+                return Center(
+                    child: Text(
+                  Strings.of(context).error + ": " + snapshot.error,
+                ));
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -94,13 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: AppColors.black,
                       ),
                     ),
-                    hintText: 'Type song name, lyrics...',
+                    hintText: Strings.of(context).typeSongName,
                   ),
                 ),
               ),
               if (_isSearchFocused)
                 FlatButton(
-                  child: Text('Cancel'),
+                  child: Text(Strings.of(context).cancel),
                   onPressed: () {
                     _controller.text = '';
                     _searchFocus.unfocus();

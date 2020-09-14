@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/widgets/settings_list_item.dart';
@@ -13,7 +14,7 @@ class AccountSettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Account Settings',
+          Strings.of(context).accountSettings,
           style: Theme.of(context).textTheme.headline2,
         ),
       ),
@@ -22,12 +23,12 @@ class AccountSettingsScreen extends StatelessWidget {
           Consumer<AuthProvider>(
             builder: (_, auth, __) => SettingsListItem.custom(
               title: auth.user?.email ?? '',
-              subtitle: 'Change email address',
+              subtitle: Strings.of(context).changeEmailAddress,
               onTap: (ctx) {
                 Scaffold.of(ctx).hideCurrentSnackBar();
                 Scaffold.of(ctx).showSnackBar(
                   SnackBar(
-                    content: Text('Not yet implemented'),
+                    content: Text(Strings.of(context).notYetImplemented),
                   ),
                 );
               },
@@ -35,12 +36,12 @@ class AccountSettingsScreen extends StatelessWidget {
           ),
           SettingsListItem.custom(
             title: '********',
-            subtitle: 'Change password',
+            subtitle: Strings.of(context).changePassword,
             onTap: (ctx) {
               Scaffold.of(ctx).hideCurrentSnackBar();
               Scaffold.of(ctx).showSnackBar(
                 SnackBar(
-                  content: Text('Not yet implemented'),
+                  content: Text(Strings.of(context).notYetImplemented),
                 ),
               );
             },
@@ -58,7 +59,7 @@ class AccountSettingsScreen extends StatelessWidget {
                     .clearLoadedSongs();
                 Navigator.of(context).pop();
               },
-              child: Text('Logout'),
+              child: Text(Strings.of(context).logout),
               textColor: AppColors.blue,
             ),
           ),

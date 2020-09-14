@@ -2,9 +2,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/auth_status.dart';
+import 'package:worshipsongs/localizations/app_localizations_delegate.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
@@ -82,6 +84,17 @@ class MyApp extends StatelessWidget {
         SongScreen.routeName: (ctx) => SongScreen(),
         AccountSettingsScreen.routeName: (ctx) => AccountSettingsScreen(),
       },
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('ru', ''),
+        const Locale('ua', ''),
+      ],
     );
   }
 
