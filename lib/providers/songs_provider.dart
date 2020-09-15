@@ -13,6 +13,8 @@ class SongsProvider extends BaseProvider {
 
   int currentPage = 0;
 
+  List<String> languagesToLoad = ["en", "ua", "ru"];
+
   List<Song> get songs => [..._songs];
 
   SongsProvider({
@@ -24,7 +26,8 @@ class SongsProvider extends BaseProvider {
   Future<void> loadSongs() async {
     print('Fetching more songs... (current number of songs: ${_songs.length})');
 
-    var loadSongsUrl = "$API_URL/songs?page=$currentPage&size=$_LIMIT";
+    var loadSongsUrl =
+        "$API_URL/songs?page=$currentPage&size=$_LIMIT&lang=${languagesToLoad.join(',')}";
 
     final songs = await _getSongsByUrl(loadSongsUrl);
     _songs.addAll(songs);

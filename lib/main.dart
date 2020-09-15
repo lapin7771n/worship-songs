@@ -157,34 +157,49 @@ class MyApp extends StatelessWidget {
         ),
       ),
       textTheme: TextTheme(
+        /** Title 1 **/
         headline1: TextStyle(
           height: 1.33,
           fontWeight: FontWeight.w900,
           fontSize: 32,
         ),
+        /** Title 2 **/
         headline2: TextStyle(
           fontWeight: FontWeight.w900,
           fontSize: 24,
         ),
+        /** Title 3 **/
         headline3: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           fontSize: 18,
         ),
+        /** Title/Songs; Playlists **/
         headline4: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           fontSize: 16,
         ),
+        /** Lyrics/Middle **/
         subtitle1: TextStyle(
           height: 1.33,
           fontSize: 18,
         ),
+        /** Title/Navigation **/
         subtitle2: TextStyle(
           fontSize: 12,
-          fontWeight: FontWeight.w500,
         ),
+        /** Guitar Chords **/
         bodyText1: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
+        ),
+        /** Guitar Chords **/
+        bodyText2: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w500,
+        ),
+        /** Input/Input Title **/
+        headline5: TextStyle(
+          fontSize: 16,
         ),
       ).apply(
         displayColor: AppColors.black,
