@@ -24,7 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Account Settings" : MessageLookupByLibrary.simpleMessage("Account Settings"),
+    "All" : MessageLookupByLibrary.simpleMessage("All"),
     "All Lyrics" : MessageLookupByLibrary.simpleMessage("All Lyrics"),
+    "Apply" : MessageLookupByLibrary.simpleMessage("Apply"),
     "Beside lyrics you also can find the chords for guitar and notes for piano!" : MessageLookupByLibrary.simpleMessage("Beside lyrics you also can find the chords for guitar and notes for piano!"),
     "Cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "Change email address" : MessageLookupByLibrary.simpleMessage("Change email address"),
@@ -36,7 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Create Password" : MessageLookupByLibrary.simpleMessage("Create Password"),
     "Create new Account" : MessageLookupByLibrary.simpleMessage("Create new Account"),
     "Email Address" : MessageLookupByLibrary.simpleMessage("Email Address"),
+    "English" : MessageLookupByLibrary.simpleMessage("English"),
     "Error" : MessageLookupByLibrary.simpleMessage("Error"),
+    "Filters" : MessageLookupByLibrary.simpleMessage("Filters"),
     "Find the lyrics of popular christian songs to sing with people you love" : MessageLookupByLibrary.simpleMessage("Find the lyrics of popular christian songs to sing with people you love"),
     "I already have an Account" : MessageLookupByLibrary.simpleMessage("I already have an Account"),
     "Login" : MessageLookupByLibrary.simpleMessage("Login"),
@@ -48,9 +52,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "Play songs you like" : MessageLookupByLibrary.simpleMessage("Play songs you like"),
     "Read the great stories of great people how God changes their lives!" : MessageLookupByLibrary.simpleMessage("Read the great stories of great people how God changes their lives!"),
     "Report about bug" : MessageLookupByLibrary.simpleMessage("Report about bug"),
+    "Reset" : MessageLookupByLibrary.simpleMessage("Reset"),
+    "Russian" : MessageLookupByLibrary.simpleMessage("Russian"),
+    "Song Language" : MessageLookupByLibrary.simpleMessage("Song Language"),
     "The words of truth" : MessageLookupByLibrary.simpleMessage("The words of truth"),
     "This doesn’t looks like email address" : MessageLookupByLibrary.simpleMessage("This doesn’t looks like email address"),
     "Type song name, lyrics..." : MessageLookupByLibrary.simpleMessage("Type song name, lyrics..."),
+    "Ukrainian" : MessageLookupByLibrary.simpleMessage("Ukrainian"),
     "Words to Pray God" : MessageLookupByLibrary.simpleMessage("Words to Pray God"),
     "Write us a line about problem you have" : MessageLookupByLibrary.simpleMessage("Write us a line about problem you have"),
     "yourPasswordContainChars" : m0

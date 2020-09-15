@@ -130,4 +130,20 @@ mixin StringResources {
     return Intl.message(
         'Read the great stories of great people how God changes their lives!');
   }
+
+  String get filters => Intl.message('Filters');
+
+  String get reset => Intl.message('Reset');
+
+  String get songLanguage => Intl.message('Song Language');
+
+  String get apply => Intl.message('Apply');
+
+  String get all => Intl.message('All');
+
+  String get english => Intl.message('English');
+
+  String get russian => Intl.message('Russian');
+
+  String get ukrainian => Intl.message('Ukrainian');
 }

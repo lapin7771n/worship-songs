@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-09-14T12:16:16.832007",
+  "@@last_modified": "2020-09-14T17:48:05.560267",
   "Home": "Home",
   "@Home": {
     "type": "text",
@@ -169,6 +169,46 @@
   },
   "Read the great stories of great people how God changes their lives!": "Read the great stories of great people how God changes their lives!",
   "@Read the great stories of great people how God changes their lives!": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Filters": "Filters",
+  "@Filters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reset": "Reset",
+  "@Reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Song Language": "Song Language",
+  "@Song Language": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Apply": "Apply",
+  "@Apply": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "All": "All",
+  "@All": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "English": "English",
+  "@English": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Russian": "Russian",
+  "@Russian": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ukrainian": "Ukrainian",
+  "@Ukrainian": {
     "type": "text",
     "placeholders": {}
   }

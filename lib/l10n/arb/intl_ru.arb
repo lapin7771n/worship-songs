@@ -171,5 +171,45 @@
   "@Read the great stories of great people how God changes their lives!": {
     "type": "text",
     "placeholders": {}
+  },
+  "Filters": "Фильтры",
+  "@Filters": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reset": "Сбросить",
+  "@Reset": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Song Language": "Язык песни",
+  "@Song Language": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Apply": "Применить",
+  "@Apply": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "All": "Любой",
+  "@All": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "English": "Английский",
+  "@English": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Russian": "Русский",
+  "@Russian": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Ukrainian": "Украинский",
+  "@Ukrainian": {
+    "type": "text",
+    "placeholders": {}
   }
 }
