@@ -28,12 +28,12 @@ dependencies:
   intl: ^0.16.1
   intl_translation: ^0.17.10+1
   modal_bottom_sheet: ^0.2.0+1
+  package_info: ^0.4.3
 
   firebase_core: ^0.4.0+9
   firebase_crashlytics: ^0.1.4+1
 
 dev_dependencies:
-  intl_translation: ^0.17.7
 
 flutter:
   uses-material-design: true

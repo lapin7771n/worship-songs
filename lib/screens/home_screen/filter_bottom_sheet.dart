@@ -16,7 +16,7 @@ class FilterBottomSheet extends StatefulWidget {
     FilterBottomSheet.UA,
   ];
 
-  static List<String> ALL() => [..._ALL];
+  static List<String> allLangs() => [..._ALL];
 
   @override
   _FilterBottomSheetState createState() => _FilterBottomSheetState();
@@ -87,51 +87,51 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            LanguageItem(
-              isSelected: _isAllLangsSelected(),
-              title: Strings.of(context).all,
-              onPressed: _toggleAllLangs,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            LanguageItem(
-              isSelected: chosenLanguages.contains(FilterBottomSheet.EN),
-              title: Strings.of(context).english,
-              onPressed: () => _toggleLanguage(FilterBottomSheet.EN),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            LanguageItem(
-              isSelected: chosenLanguages.contains(FilterBottomSheet.RU),
-              title: Strings.of(context).russian,
-              onPressed: () => _toggleLanguage(FilterBottomSheet.RU),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            LanguageItem(
-              isSelected: chosenLanguages.contains(FilterBottomSheet.UA),
-              title: Strings.of(context).ukrainian,
-              onPressed: () => _toggleLanguage(FilterBottomSheet.UA),
-            ),
-          ],
-        ),
-      ],
-    ),
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LanguageItem(
+                isSelected: _isAllLangsSelected(),
+                title: Strings.of(context).all,
+                onPressed: _toggleAllLangs,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LanguageItem(
+                isSelected: chosenLanguages.contains(FilterBottomSheet.EN),
+                title: Strings.of(context).english,
+                onPressed: () => _toggleLanguage(FilterBottomSheet.EN),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LanguageItem(
+                isSelected: chosenLanguages.contains(FilterBottomSheet.RU),
+                title: Strings.of(context).russian,
+                onPressed: () => _toggleLanguage(FilterBottomSheet.RU),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LanguageItem(
+                isSelected: chosenLanguages.contains(FilterBottomSheet.UA),
+                title: Strings.of(context).ukrainian,
+                onPressed: () => _toggleLanguage(FilterBottomSheet.UA),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -145,7 +145,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     setState(() {
       _isAllLangsSelected()
           ? chosenLanguages = []
-          : chosenLanguages = FilterBottomSheet.ALL();
+          : chosenLanguages = FilterBottomSheet.allLangs();
     });
   }
 
@@ -183,7 +183,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             textColor: AppColors.blue,
             onPressed: () {
               setState(() {
-                chosenLanguages = FilterBottomSheet.ALL();
+                chosenLanguages = FilterBottomSheet.allLangs();
               });
             },
             child: Text(

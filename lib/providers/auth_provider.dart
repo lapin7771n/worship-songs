@@ -65,9 +65,10 @@ class AuthProvider extends BaseProvider {
       body: jsonEncode(requestBody),
     );
 
+    var jsonBody = jsonDecode(response.body);
     if (response.statusCode == 200) {
       final SignInResponse signInResponse = SignInResponse.fromMap(
-        jsonDecode(response.body),
+        jsonBody,
       );
       User user = _userFromSignInResponse(signInResponse);
       await _saveAccessToken(signInResponse.accessToken);
@@ -75,7 +76,7 @@ class AuthProvider extends BaseProvider {
       return user;
     }
 
-    return null;
+    throw HttpException(jsonBody["error"]);
   }
 
   Future signInViaGoogle() async {

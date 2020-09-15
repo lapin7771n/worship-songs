@@ -66,7 +66,7 @@ class _SongScreenState extends State<SongScreen> {
               style: Theme.of(context).textTheme.subtitle1,
               newLineAsBreaks: true,
               styles: {
-                'bold': Theme.of(context).textTheme.subtitle1,
+                'bold': Theme.of(context).textTheme.bodyText1,
               },
             ),
           ],

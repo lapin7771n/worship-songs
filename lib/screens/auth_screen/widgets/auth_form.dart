@@ -183,6 +183,7 @@ class _AuthFormState extends State<AuthForm> {
 
     if (user != null) {
       Navigator.of(context).pop();
+      return;
     }
   }
 
@@ -191,22 +192,30 @@ class _AuthFormState extends State<AuthForm> {
       user = await Provider.of<AuthProvider>(context, listen: false)
           .createUser(_emailController.text, _passwordController.text);
     } on HttpException catch (e) {
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          content: Text(e.message),
-          actions: [
-            FlatButton(onPressed: Navigator.of(ctx).pop, child: Text('OK'))
-          ],
-        ),
-      );
+      showErrorDialog(e.message);
     }
     return user;
   }
 
   Future<User> _signIn(User user) async {
-    user = await Provider.of<AuthProvider>(context, listen: false)
-        .signIn(_emailController.text, _passwordController.text);
+    try {
+      user = await Provider.of<AuthProvider>(context, listen: false)
+          .signIn(_emailController.text, _passwordController.text);
+    } on HttpException {
+      showErrorDialog("Can't login. Please check your credentials");
+    }
     return user;
+  }
+
+  Future showErrorDialog(String message) {
+    return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        content: Text(message),
+        actions: [
+          FlatButton(onPressed: Navigator.of(ctx).pop, child: Text('OK'))
+        ],
+      ),
+    );
   }
 }

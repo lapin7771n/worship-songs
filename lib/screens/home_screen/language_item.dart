@@ -23,7 +23,6 @@ class _LanguageItemState extends State<LanguageItem> {
     return GestureDetector(
       onTap: widget.onPressed,
       child: Container(
-        height: 51,
         decoration: BoxDecoration(
           color: widget.isSelected ? AppColors.blue : Colors.transparent,
           borderRadius: BorderRadius.all(

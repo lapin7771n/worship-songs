@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:worshipsongs/data/settings_item.dart';
 import 'package:worshipsongs/localizations/strings.dart';
@@ -33,7 +34,9 @@ class SettingsScreen extends StatelessWidget {
         subtitle: Strings.of(context).writeUsALineAboutProblemYouHave,
         showArrow: false,
         onTap: (context) async {
-          const url = 'mailto:nlapin.java@gmail.com?subject=WSongs_bug_report';
+          PackageInfo packageInfo = await PackageInfo.fromPlatform();
+          final url = 'mailto:nlapin.java@gmail.com?subject=WSongs_bug_report&' +
+              'body=Version:${packageInfo.version}::${packageInfo.buildNumber}';
           if (await canLaunch(url)) {
             await launch(url);
           } else {
