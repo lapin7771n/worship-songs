@@ -146,4 +146,6 @@ mixin StringResources {
   String get russian => Intl.message('Russian');
 
   String get ukrainian => Intl.message('Ukrainian');
+
+  String get password => Intl.message('Password');
 }

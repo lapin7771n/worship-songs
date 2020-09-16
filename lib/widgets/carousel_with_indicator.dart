@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
 
 class CarouselWithIndicator extends StatefulWidget {
+  static const double _COEF = 50;
+
   final List<Widget> children;
   final double height;
   final bool autoPlay;
@@ -31,26 +33,25 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
             return widget.children[index];
           },
           options: CarouselOptions(
-            viewportFraction: 1.0,
-            disableCenter: true,
-            height: widget.height,
-            autoPlay: widget.autoPlay,
-            scrollPhysics: BouncingScrollPhysics(),
-            enableInfiniteScroll: false,
-            onPageChanged: (index, reason){
-              setState(() {
-                _current = index;
-              });
-            }
-          ),
+              viewportFraction: 1.0,
+              disableCenter: true,
+              height: widget.height - widget.height / CarouselWithIndicator._COEF,
+              autoPlay: widget.autoPlay,
+              scrollPhysics: BouncingScrollPhysics(),
+              enableInfiniteScroll: false,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              }),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: widget.children.map((url) {
             int index = widget.children.indexOf(url);
             return Container(
-              width: 8.0,
-              height: 8.0,
+              width: widget.height / CarouselWithIndicator._COEF,
+              height: widget.height / CarouselWithIndicator._COEF,
               margin: EdgeInsets.symmetric(horizontal: 2.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

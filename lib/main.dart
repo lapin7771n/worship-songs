@@ -17,6 +17,7 @@ import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/screens/splash_screen.dart';
+import 'package:worshipsongs/services/size_config.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -61,7 +62,10 @@ class MyApp extends StatelessWidget {
   MaterialApp buildMaterialApp(BuildContext context) {
     return MaterialApp(
       title: 'Worship songs',
-      theme: _buildThemeData(context),
+      builder: (ctx, child) => Theme(
+        data: _buildThemeData(ctx),
+        child: child,
+      ),
       home: Consumer<AuthProvider>(
         builder: (_, auth, __) {
           switch (auth.authStatus) {
@@ -109,6 +113,7 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData _buildThemeData(BuildContext context) {
+    SizeConfig.init(context);
     return ThemeData(
       buttonTheme: ButtonThemeData(
         height: 56,
@@ -131,10 +136,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: Theme.of(context)
-            .textTheme
-            .bodyText1
-            .copyWith(color: AppColors.gray),
+        hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: AppColors.gray,
+              fontSize: SizeConfig.safeBlockVertical * 1.75,
+            ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
@@ -161,45 +166,54 @@ class MyApp extends StatelessWidget {
         headline1: TextStyle(
           height: 1.33,
           fontWeight: FontWeight.w900,
-          fontSize: 32,
+          // fontSize: 32,
+          fontSize: SizeConfig.safeBlockVertical * 4,
         ),
         /** Title 2 **/
         headline2: TextStyle(
           fontWeight: FontWeight.w900,
-          fontSize: 24,
+          // fontSize: 24,
+          fontSize: SizeConfig.safeBlockVertical * 3,
         ),
         /** Title 3 **/
         headline3: TextStyle(
           fontWeight: FontWeight.w500,
-          fontSize: 18,
+          // fontSize: 18,
+          fontSize: SizeConfig.safeBlockVertical * 2.25,
         ),
         /** Title/Songs; Playlists **/
         headline4: TextStyle(
           fontWeight: FontWeight.w500,
-          fontSize: 16,
+          // fontSize: 16,
+          fontSize: SizeConfig.safeBlockVertical * 2,
         ),
         /** Lyrics/Middle **/
         subtitle1: TextStyle(
           height: 1.33,
-          fontSize: 18,
+          // fontSize: 18,
+          fontSize: SizeConfig.safeBlockVertical * 2.25,
         ),
         /** Title/Navigation **/
         subtitle2: TextStyle(
-          fontSize: 12,
+          // fontSize: 12,
+          fontSize: SizeConfig.safeBlockVertical * 1.5,
         ),
         /** Guitar Chords **/
         bodyText1: TextStyle(
-          fontSize: 14,
+          // fontSize: 14,
+          fontSize: SizeConfig.safeBlockVertical * 1.75,
           fontWeight: FontWeight.w500,
         ),
         /** Guitar Chords **/
         bodyText2: TextStyle(
-          fontSize: 10,
+          // fontSize: 10,
+          fontSize: SizeConfig.safeBlockVertical * 1.25,
           fontWeight: FontWeight.w500,
         ),
         /** Input/Input Title **/
         headline5: TextStyle(
-          fontSize: 16,
+          // fontSize: 16,
+          fontSize: SizeConfig.safeBlockVertical * 2,
         ),
       ).apply(
         displayColor: AppColors.black,
@@ -214,7 +228,8 @@ class MyApp extends StatelessWidget {
           headline6: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w900,
-            fontSize: 24,
+            // fontSize: 24,
+            fontSize: SizeConfig.safeBlockVertical * 3,
           ),
         ),
       ),

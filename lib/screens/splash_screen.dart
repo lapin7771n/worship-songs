@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
+import 'package:worshipsongs/services/size_config.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
       body: Center(
         child: Text(

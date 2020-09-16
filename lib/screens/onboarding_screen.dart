@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
+import 'package:worshipsongs/services/size_config.dart';
 import 'package:worshipsongs/widgets/button.dart';
 import 'package:worshipsongs/widgets/carousel_with_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   static const String routeName = "/on-boarding";
+
+  static const double _TOP_INSET = 5;
+  static const double _BOTTOM_INSET = 3;
+  static const double _TITLE_HEIGHT = 4;
+  static const double _DESCRIPTION_HEIGHT = 2.5;
+  static const double _PICTURE_HEIGHT = 50;
+  static const double _BUTTON_HEIGHT = 8;
 
   Map<String, List<String>> texts(BuildContext context) {
     return {
@@ -31,39 +39,61 @@ class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .18,
-          ),
-          CarouselWithIndicator(
-            autoPlay: true,
-            height: MediaQuery.of(context).size.height * .55,
-            children: <Widget>[
-              ...[0, 1, 2]
-                  .map(
-                    (e) => buildCarouselChild(context, e),
-                  )
-                  .toList(),
-            ],
-          ),
-          Container(
-            height: 56,
-            margin: EdgeInsets.symmetric(
-              vertical: 24,
-              horizontal: 16,
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: [
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * _TOP_INSET,
+                ),
+                CarouselWithIndicator(
+                  autoPlay: true,
+                  height: SizeConfig.safeBlockVertical *
+                      (_TITLE_HEIGHT +
+                          _DESCRIPTION_HEIGHT +
+                          _PICTURE_HEIGHT +
+                          10),
+                  children: <Widget>[
+                    ...[0, 1, 2]
+                        .map(
+                          (e) => buildCarouselChild(context, e),
+                        )
+                        .toList(),
+                  ],
+                ),
+              ],
             ),
-            width: MediaQuery.of(context).size.width,
-            child: Button(
-              title: Strings.of(context).createNewAccount,
-              onPressed: () => _handleCreateAccount(context),
+            Column(
+              children: [
+                Container(
+                  height: SizeConfig.safeBlockVertical * _BUTTON_HEIGHT,
+                  margin: EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 16,
+                  ),
+                  width: SizeConfig.safeBlockHorizontal * 100,
+                  child: Button(
+                    title: Strings.of(context).createNewAccount,
+                    onPressed: () => _handleCreateAccount(context),
+                  ),
+                ),
+                Container(
+                  width: SizeConfig.safeBlockHorizontal * 90,
+                  height: SizeConfig.safeBlockVertical * _BUTTON_HEIGHT,
+                  child: TextButton(
+                    title: Strings.of(context).iAlreadyHaveAnAccount,
+                    onPressed: () => _handleLogin(context),
+                  ),
+                ),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * _BOTTOM_INSET,
+                ),
+              ],
             ),
-          ),
-          TextButton(
-            title: Strings.of(context).iAlreadyHaveAnAccount,
-            onPressed: () => _handleLogin(context),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -93,9 +123,6 @@ class OnBoardingScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
-        SizedBox(
-          height: 8,
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
@@ -103,45 +130,16 @@ class OnBoardingScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1,
           ),
         ),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.4,
-          transform: index != 2 ? Matrix4.translationValues(0, -15, 0) : null,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: getImageMainAxisAlignment(index),
-            children: <Widget>[
-              SvgPicture.asset(
-                texts(context)['image'][index],
-                alignment: getImageAlignment(index),
-              ),
-            ],
+        Center(
+          child: SizedBox(
+            width: SizeConfig.safeBlockHorizontal * 98,
+            height: SizeConfig.safeBlockVertical * _PICTURE_HEIGHT,
+            child: SvgPicture.asset(
+              texts(context)['image'][index],
+            ),
           ),
         ),
       ],
     );
-  }
-
-  MainAxisAlignment getImageMainAxisAlignment(int index) {
-    switch (index) {
-      case 0:
-        return MainAxisAlignment.end;
-      case 1:
-        return MainAxisAlignment.start;
-      case 2:
-        return MainAxisAlignment.center;
-    }
-    return MainAxisAlignment.center;
-  }
-
-  Alignment getImageAlignment(int index) {
-    switch (index) {
-      case 0:
-        return Alignment.centerRight;
-      case 1:
-        return Alignment.centerLeft;
-      case 2:
-        return Alignment.center;
-    }
-    return Alignment.center;
   }
 }

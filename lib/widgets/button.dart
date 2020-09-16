@@ -18,10 +18,9 @@ class Button extends StatelessWidget {
       highlightElevation: 2.0,
       child: Text(
         title,
-        style: Theme.of(context)
-            .textTheme
-            .headline3
-            .copyWith(color: AppColors.white),
+        style: Theme.of(context).textTheme.headline3.copyWith(
+              color: AppColors.white,
+            ),
       ),
     );
   }

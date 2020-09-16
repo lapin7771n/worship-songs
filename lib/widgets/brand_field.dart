@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worshipsongs/services/size_config.dart';
 
 class BrandField extends StatefulWidget {
   final String title;
@@ -53,21 +54,22 @@ class _BrandFieldState extends State<BrandField> {
       );
 
     var inputDecoration = InputDecoration(
-        errorText: widget.errorText,
-        hintText: widget.hintText,
-        suffixIcon: widget.obscureText
-            ? GestureDetector(
-                onTap: _toggleVisibility,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 12,
-                    bottom: 12,
-                    right: 16,
-                  ),
-                  child: SvgPicture.asset('assets/images/Closed.svg'),
+      errorText: widget.errorText,
+      hintText: widget.hintText,
+      suffixIcon: widget.obscureText
+          ? GestureDetector(
+              onTap: _toggleVisibility,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.safeBlockVertical * 1.5,
+                  bottom: SizeConfig.safeBlockVertical * 1.5,
+                  right: SizeConfig.safeBlockVertical,
                 ),
-              )
-            : null);
+                child: SvgPicture.asset('assets/images/Closed.svg'),
+              ),
+            )
+          : null,
+    );
 
     var textFormField = TextFormField(
       controller: widget.controller,

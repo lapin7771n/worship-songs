@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:worshipsongs/app_colors.dart';
 
 class RoundedLabel extends StatelessWidget {
   final String title;
@@ -20,11 +19,7 @@ class RoundedLabel extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
         child: Text(
           title,
-          style: TextStyle(
-            color: AppColors.black,
-            fontWeight: FontWeight.w500,
-            fontSize: 10.0,
-          ),
+          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
     );

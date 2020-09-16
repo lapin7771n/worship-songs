@@ -6,6 +6,7 @@ import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/user.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
+import 'package:worshipsongs/services/size_config.dart';
 import 'package:worshipsongs/widgets/button.dart';
 
 import '../../../widgets/brand_field.dart';
@@ -72,7 +73,9 @@ class _AuthFormState extends State<AuthForm> {
     );
 
     var passwordField = BrandField(
-      title: Strings.of(context).createPassword,
+      title: widget.isLogin
+          ? Strings.of(context).password
+          : Strings.of(context).createPassword,
       hintText: '******',
       textInputType: TextInputType.visiblePassword,
       obscureText: true,
@@ -85,20 +88,20 @@ class _AuthFormState extends State<AuthForm> {
       padding: const EdgeInsets.only(left: 8.0, top: 6.0),
       child: Text(
         Strings.of(context).passwordHasToInclude,
-        style: Theme.of(context)
-            .textTheme
-            .subtitle2
-            .copyWith(color: AppColors.gray),
+        style: Theme.of(context).textTheme.subtitle2.copyWith(
+              color: AppColors.gray,
+            ),
       ),
     );
 
     var actionButton = Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 5.0),
+        padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical),
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Container(
             width: double.infinity,
+            height: SizeConfig.safeBlockVertical * 8,
             child: Button(
               title: widget.isLogin
                   ? Strings.of(context).login
@@ -125,7 +128,7 @@ class _AuthFormState extends State<AuthForm> {
                   height: 32,
                 ),
                 passwordField,
-                if (isPasswordValid) passwordBottomText,
+                if (isPasswordValid && !widget.isLogin) passwordBottomText,
               ],
             ),
           ),
@@ -152,7 +155,7 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   _validatePassword(String password) {
-    if (password.isEmpty) {
+    if (password.isEmpty || widget.isLogin) {
       return;
     }
     isPasswordValid = password.length >= 6;
