@@ -148,4 +148,8 @@ mixin StringResources {
   String get ukrainian => Intl.message('Ukrainian');
 
   String get password => Intl.message('Password');
+
+  String get worshipSongs => Intl.message('Worship Songs');
+
+  String get version => Intl.message('Version');
 }

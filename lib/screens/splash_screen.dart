@@ -1,7 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
+import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/services/size_config.dart';
 
@@ -24,12 +28,52 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Worship songs',
-          style: Theme.of(context).textTheme.headline1,
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 20,
+            ),
+            SvgPicture.asset(
+              'assets/logo.svg',
+              height: SizeConfig.safeBlockVertical * 25,
+            ),
+            Center(
+              child: Text(
+                Strings.of(context).worshipSongs,
+                style: Theme.of(context).textTheme.headline1,
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: FutureBuilder(
+                  future: _getVersionText(),
+                  builder: (ctx, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text('');
+                    }
+                    return Text(
+                      snapshot.data?.toString(),
+                      style: Theme.of(context).textTheme.subtitle2.copyWith(
+                            color: AppColors.gray,
+                          ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: SizeConfig.safeBlockVertical * 2,
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  Future<String> _getVersionText() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return '${Strings.of(context).version}: ${packageInfo.version}';
   }
 }

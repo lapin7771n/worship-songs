@@ -157,7 +157,8 @@ class MyApp extends StatelessWidget {
         errorBorder: _buildErrorBorder(),
         focusedErrorBorder: _buildErrorBorder(),
         errorStyle: TextStyle(
-          fontSize: 12,
+          // fontSize: 12,
+          fontSize: SizeConfig.safeBlockVertical * 1.5,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -171,7 +172,7 @@ class MyApp extends StatelessWidget {
         ),
         /** Title 2 **/
         headline2: TextStyle(
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w700,
           // fontSize: 24,
           fontSize: SizeConfig.safeBlockVertical * 3,
         ),
@@ -186,6 +187,16 @@ class MyApp extends StatelessWidget {
           fontWeight: FontWeight.w500,
           // fontSize: 16,
           fontSize: SizeConfig.safeBlockVertical * 2,
+        ),
+        /** Input/Input Title **/
+        headline5: TextStyle(
+          // fontSize: 16,
+          fontSize: SizeConfig.safeBlockVertical * 2,
+        ),
+        /** Input/Regular Input **/
+        headline6: TextStyle(
+          // fontSize: 14,
+          fontSize: SizeConfig.safeBlockVertical * 1.75,
         ),
         /** Lyrics/Middle **/
         subtitle1: TextStyle(
@@ -209,11 +220,6 @@ class MyApp extends StatelessWidget {
           // fontSize: 10,
           fontSize: SizeConfig.safeBlockVertical * 1.25,
           fontWeight: FontWeight.w500,
-        ),
-        /** Input/Input Title **/
-        headline5: TextStyle(
-          // fontSize: 16,
-          fontSize: SizeConfig.safeBlockVertical * 2,
         ),
       ).apply(
         displayColor: AppColors.black,
