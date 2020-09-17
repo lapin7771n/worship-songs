@@ -2,6 +2,8 @@
 
 Worship Songs
 
+![Presentation image](Presentation.png)
+
 To generate translations from .arb: 
 ```
 flutter pub pub run intl_translation:generate_from_arb --output-dir=lib/l10n/dart/ \
