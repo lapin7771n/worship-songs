@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
+import 'package:worshipsongs/screens/home_screen/home_app_bar.dart';
 import 'package:worshipsongs/screens/home_screen/home_songs_list.dart';
 import 'package:worshipsongs/screens/search_screen.dart';
+import 'package:worshipsongs/services/size_config.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";
@@ -69,53 +69,27 @@ class _HomeScreenState extends State<HomeScreen> {
         : _buildSongList();
   }
 
-  PreferredSize _buildAppBar(BuildContext context) {
+  Widget _buildAppBar(BuildContext context) {
     return PreferredSize(
-      child: Container(
-        padding: EdgeInsets.only(
-          right: 16,
-          left: 16,
-          top: 50,
-          bottom: 10,
-        ),
-        child: Container(
-          height: 48,
-          width: MediaQuery.of(context).size.width,
-          child: Row(
-            children: [
-              Flexible(
-                child: TextField(
-                  focusNode: _searchFocus,
-                  controller: _controller,
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 12,
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/images/Search.svg',
-                        color: AppColors.black,
-                      ),
-                    ),
-                    hintText: Strings.of(context).typeSongName,
-                  ),
-                ),
-              ),
-              if (_isSearchFocused)
-                FlatButton(
-                  child: Text(Strings.of(context).cancel),
-                  onPressed: () {
-                    _controller.text = '';
-                    _searchFocus.unfocus();
-                  },
-                ),
-            ],
-          ),
-        ),
+      child: HomeAppBar(
+        controller: _controller,
+        isSearchFocused: _isSearchFocused,
+        searchFocusNode: _searchFocus,
+        updateFiltersCallback: _updateFilters,
       ),
-      preferredSize: Size(MediaQuery.of(context).size.width, 80),
+      preferredSize: Size(
+        MediaQuery.of(context).size.width,
+        SizeConfig.safeBlockVertical * 20,
+      ),
     );
+  }
+
+  void _updateFilters() {
+    setState(() {
+      var songsProvider = Provider.of<SongsProvider>(context, listen: false);
+      songsProvider.clearLoadedSongs();
+      songsProvider.loadSongs();
+    });
   }
 
   Consumer<SongsProvider> _buildSongList() {

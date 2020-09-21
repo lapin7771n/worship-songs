@@ -61,7 +61,7 @@ class _SongScreenState extends State<SongScreen> {
             ),
             StyledText(
               text: _isChordsVisible
-                  ? song.formattedText(2)
+                  ? song.formattedText()
                   : song.formattedTextWithoutChords,
               style: Theme.of(context).textTheme.subtitle1,
               newLineAsBreaks: true,

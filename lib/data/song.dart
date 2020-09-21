@@ -1,5 +1,3 @@
-import 'package:worshipsongs/services/chords_parser.dart';
-
 const String _TITLE = 'title';
 const String _TEXT = 'text';
 const String _AUTHOR = 'author';
@@ -65,17 +63,15 @@ class Song {
         .toList()
         .join(' , ');
 
-    var chordsParser = ChordsParser(stringsWithChorus);
-    final List<String> transposedChords = chordsParser.transpose(amount);
-    final List<String> oldChords = chordsParser.getChordsSet;
-
-    // print(transposedChords);
+    // var chordsParser = ChordsParser(stringsWithChorus);
+    // final List<String> oldChords = chordsParser.getChordsSet;
+    // final List<String> transposedChords = chordsParser.transpose(amount);
 
     return formattedText
         .split("\n")
-        .map((e) => e.startsWith(".")
-            ? _replaceChords(e, oldChords, transposedChords)
-            : e)
+        // .map((e) => e.startsWith(".")
+        //     ? _replaceChords(e, oldChords, transposedChords)
+        //     : e)
         .map((e) => e.startsWith(".") ? " <bold> ${e.substring(1)} </bold>" : e)
         .toList()
         .join("\n");

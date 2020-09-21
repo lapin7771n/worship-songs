@@ -7,7 +7,7 @@ import 'package:worshipsongs/data/user.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/services/size_config.dart';
-import 'package:worshipsongs/widgets/button.dart';
+import 'package:worshipsongs/widgets/buttons.dart';
 
 import '../../../widgets/brand_field.dart';
 

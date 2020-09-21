@@ -22,12 +22,35 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int selectedItem = 0;
+  int _selectedItem = 0;
+  PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _getBodyByIndex(selectedItem),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() => _selectedItem = index);
+        },
+        children: [
+          HomeScreen(),
+          MyLyricsScreen(_goToHomePage),
+          SettingsScreen(),
+        ],
+      ),
       bottomNavigationBar: _buildBottomNavigationBar(context),
     );
   }
@@ -41,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
           .toList(),
       selectedItemColor: AppColors.blue,
       onTap: _handleBottomNavigationClick,
-      currentIndex: selectedItem,
+      currentIndex: _selectedItem,
       unselectedFontSize: 12,
       selectedFontSize: 12,
       selectedLabelStyle: Theme.of(context).textTheme.subtitle2,
@@ -71,22 +94,18 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget _getBodyByIndex(int index) {
-    switch (index) {
-      case 0:
-        return HomeScreen();
-      case 1:
-        return MyLyricsScreen();
-      case 2:
-        return SettingsScreen();
-      default:
-        return HomeScreen();
-    }
-  }
-
   _handleBottomNavigationClick(int newSelectedItemIndex) {
     setState(() {
-      selectedItem = newSelectedItemIndex;
+      _selectedItem = newSelectedItemIndex;
+      _pageController.animateToPage(
+        newSelectedItemIndex,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     });
+  }
+
+  void _goToHomePage() {
+    _handleBottomNavigationClick(0);
   }
 }

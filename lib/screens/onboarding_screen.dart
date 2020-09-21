@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
-import 'package:worshipsongs/widgets/button.dart';
+import 'package:worshipsongs/widgets/buttons.dart';
 import 'package:worshipsongs/widgets/carousel_with_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -113,18 +113,19 @@ class OnBoardingScreen extends StatelessWidget {
   }
 
   Column buildCarouselChild(BuildContext context, int index) {
+    final int horizontalPadding = 32;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 20.0),
+          padding: const EdgeInsets.only(left: 16.0),
           child: Text(
             texts(context)['title'][index],
             style: Theme.of(context).textTheme.headline1,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             texts(context)['text'][index],
             style: Theme.of(context).textTheme.subtitle1,
@@ -132,7 +133,7 @@ class OnBoardingScreen extends StatelessWidget {
         ),
         Center(
           child: SizedBox(
-            width: SizeConfig.safeBlockHorizontal * 98,
+            width: SizeConfig.safeBlockHorizontal * 100 - horizontalPadding,
             height: SizeConfig.safeBlockVertical * _PICTURE_HEIGHT,
             child: SvgPicture.asset(
               texts(context)['image'][index],

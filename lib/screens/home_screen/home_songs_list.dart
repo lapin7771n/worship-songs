@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
-import 'package:worshipsongs/screens/home_screen/filter_bottom_sheet.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/widgets/song_list_item.dart';
 
@@ -50,7 +48,6 @@ class _HomeSongsListState extends State<HomeSongsList> {
 
         return Column(
           children: [
-            if (index == 0) _buildFilters(context),
             if (index == 0) _buildAllLyrics(context),
             if (header != null) header,
             SongListItem(
@@ -64,17 +61,24 @@ class _HomeSongsListState extends State<HomeSongsList> {
     );
   }
 
-  Container _buildHeader(Song currentSong, BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 16),
-      width: double.infinity,
-      height: 37,
-      color: AppColors.blue.withAlpha(25),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          currentSong.title.substring(0, 1),
-          style: Theme.of(context).textTheme.headline3,
+  Widget _buildHeader(Song currentSong, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        padding: EdgeInsets.only(left: 16),
+        height: 37,
+        decoration: BoxDecoration(
+          color: AppColors.blue,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            currentSong.title.substring(0, 1),
+            style: Theme.of(context).textTheme.headline3.copyWith(
+                  color: AppColors.white,
+                ),
+          ),
         ),
       ),
     );
@@ -84,64 +88,13 @@ class _HomeSongsListState extends State<HomeSongsList> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(vertical: 16.0),
         child: Text(
           Strings.of(context).allLyrics,
           style: Theme.of(context).textTheme.headline2,
         ),
       ),
     );
-  }
-
-  Widget _buildFilters(BuildContext context) {
-    final languagesToLoad = Provider.of<SongsProvider>(
-      context,
-      listen: false,
-    ).languagesToLoad.map((e) => _getLanguageFromCode(e));
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        height: 50,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-        child: MaterialButton(
-          color: AppColors.blue,
-          textColor: AppColors.white,
-          onPressed: () => _showFilterBottomSheet(context),
-          child: Text(
-            '${Strings.of(context).filters}: ${languagesToLoad.join(', ')}',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ),
-    );
-  }
-
-  String _getLanguageFromCode(String languageId) {
-    switch (languageId) {
-      case 'en':
-        return Strings.of(context).english;
-      case 'ru':
-        return Strings.of(context).russian;
-      case 'ua':
-        return Strings.of(context).ukrainian;
-    }
-    return '';
-  }
-
-  void _showFilterBottomSheet(BuildContext context) async {
-    await showCupertinoModalBottomSheet(
-        context: context,
-        bounce: true,
-        expand: false,
-        barrierColor: Colors.black45,
-        builder: (ctx, scrollController) => FilterBottomSheet());
-
-    setState(() {
-      var songsProvider = Provider.of<SongsProvider>(context, listen: false);
-      songsProvider.clearLoadedSongs();
-      songsProvider.loadSongs();
-    });
   }
 
   Future _loadMoreSongs(BuildContext context) async {
