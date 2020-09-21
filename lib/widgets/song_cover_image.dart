@@ -6,10 +6,12 @@ class SongCoverImage extends StatelessWidget {
   const SongCoverImage({
     Key key,
     @required this.title,
+    @required this.author,
     this.isBig = false,
   }) : super(key: key);
 
   final String title;
+  final String author;
   final bool isBig;
 
   @override
@@ -22,7 +24,7 @@ class SongCoverImage extends StatelessWidget {
       height: isBig ? 88 : 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: HSLColor.fromAHSL(
+        color: HSVColor.fromAHSV(
           1,
           hue,
           saturation,
@@ -33,7 +35,7 @@ class SongCoverImage extends StatelessWidget {
         child: Text(
           title.substring(0, 1),
           style: Theme.of(context).textTheme.headline3.copyWith(
-                color: HSLColor.fromAHSL(1, hue, saturation, 0.4).toColor(),
+                color: HSVColor.fromAHSV(1, hue, saturation, 0.4).toColor(),
               ),
         ),
       ),

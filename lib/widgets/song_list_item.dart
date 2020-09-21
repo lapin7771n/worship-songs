@@ -20,7 +20,10 @@ class SongListItem extends StatelessWidget {
       onTap: onTap,
       leading: Hero(
         tag: song.uuid,
-        child: SongCoverImage(title: song.title),
+        child: SongCoverImage(
+          title: song.title,
+          author: song.author,
+        ),
       ),
       title: Hero(
         tag: song.uuid + song.title.hashCode,
