@@ -16,25 +16,27 @@ class ChordsParser {
     "B"
   ];
 
-  final String _chordsLine;
+  const ChordsParser();
 
-  const ChordsParser(this._chordsLine);
-
-  List<String> get getChordsSet {
-    // print(_chordsLine);
-    final matches = _regExp.allMatches(_chordsLine);
-
-    return matches
-        .where((element) => element.group(0).trim().isNotEmpty)
-        .map((e) => e.group(0))
-        .toSet().toList();
+  static String transposeChord(String chord, int amount) {
+    var indexOf = scale.indexOf(chord);
+    var length = scale.length;
+    final index = (indexOf + amount) % length;
+    // print('indexOf: $indexOf, length: $length, index: $index');
+    return scale[index];
   }
 
-  List<String> transpose(int amount) {
-    print("Old: $getChordsSet");
-    return getChordsSet.map((e) {
-      final i = scale.indexOf(e) + amount % scale.length;
-      return scale[i > scale.length ? i + scale.length : i];
-    }).toSet().toList();
+  static String transposeSong(String songText, int amount) {
+    final transposedText = songText
+        .split('\n')
+        .map((e) {
+          if (e.startsWith(".")) {
+            return e.replaceAllMapped(
+                _regExp, (match) => transposeChord(match.group(0), amount));
+          }
+          return e;
+        })
+        .join('\n');
+    return transposedText;
   }
 }
