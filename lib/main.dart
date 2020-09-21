@@ -136,9 +136,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       inputDecorationTheme: InputDecorationTheme(
+        contentPadding: EdgeInsets.all(0),
         hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
               color: AppColors.gray,
-              fontSize: SizeConfig.safeBlockVertical * 1.75,
             ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -148,6 +148,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         focusedBorder: OutlineInputBorder(
+          gapPadding: 10,
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: AppColors.blue,
@@ -158,7 +159,7 @@ class MyApp extends StatelessWidget {
         focusedErrorBorder: _buildErrorBorder(),
         errorStyle: TextStyle(
           // fontSize: 12,
-          fontSize: SizeConfig.safeBlockVertical * 1.5,
+          fontSize: SizeConfig.blockSizeVertical * 1.5,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -168,57 +169,57 @@ class MyApp extends StatelessWidget {
           height: 1.33,
           fontWeight: FontWeight.w900,
           // fontSize: 32,
-          fontSize: SizeConfig.safeBlockVertical * 4,
+          fontSize: SizeConfig.blockSizeVertical * 4,
         ),
         /** Title 2 **/
         headline2: TextStyle(
           fontWeight: FontWeight.w700,
           // fontSize: 24,
-          fontSize: SizeConfig.safeBlockVertical * 3,
+          fontSize: SizeConfig.blockSizeVertical * 3,
         ),
         /** Title 3 **/
         headline3: TextStyle(
           fontWeight: FontWeight.w500,
           // fontSize: 18,
-          fontSize: SizeConfig.safeBlockVertical * 2.25,
+          fontSize: SizeConfig.blockSizeVertical * 2.25,
         ),
         /** Title/Songs; Playlists **/
         headline4: TextStyle(
           fontWeight: FontWeight.w500,
           // fontSize: 16,
-          fontSize: SizeConfig.safeBlockVertical * 2,
+          fontSize: SizeConfig.blockSizeVertical * 2,
         ),
         /** Input/Input Title **/
         headline5: TextStyle(
           // fontSize: 16,
-          fontSize: SizeConfig.safeBlockVertical * 2,
+          fontSize: SizeConfig.blockSizeVertical * 2,
         ),
         /** Input/Regular Input **/
         headline6: TextStyle(
           // fontSize: 14,
-          fontSize: SizeConfig.safeBlockVertical * 1.75,
+          fontSize: SizeConfig.blockSizeVertical * 1.75,
         ),
         /** Lyrics/Middle **/
         subtitle1: TextStyle(
           height: 1.33,
           // fontSize: 18,
-          fontSize: SizeConfig.safeBlockVertical * 2.25,
+          fontSize: SizeConfig.blockSizeVertical * 2.25,
         ),
         /** Title/Navigation **/
         subtitle2: TextStyle(
           // fontSize: 12,
-          fontSize: SizeConfig.safeBlockVertical * 1.5,
+          fontSize: SizeConfig.blockSizeVertical * 1.5,
         ),
         /** Guitar Chords **/
         bodyText1: TextStyle(
           // fontSize: 14,
-          fontSize: SizeConfig.safeBlockVertical * 1.75,
+          fontSize: SizeConfig.blockSizeVertical * 2,
           fontWeight: FontWeight.w500,
         ),
         /** Guitar Chords **/
         bodyText2: TextStyle(
           // fontSize: 10,
-          fontSize: SizeConfig.safeBlockVertical * 1.25,
+          fontSize: SizeConfig.blockSizeVertical * 1.25,
           fontWeight: FontWeight.w500,
         ),
       ).apply(
@@ -235,7 +236,7 @@ class MyApp extends StatelessWidget {
             color: AppColors.black,
             fontWeight: FontWeight.w900,
             // fontSize: 24,
-            fontSize: SizeConfig.safeBlockVertical * 3,
+            fontSize: SizeConfig.blockSizeVertical * 3,
           ),
         ),
       ),

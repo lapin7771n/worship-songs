@@ -152,4 +152,11 @@ mixin StringResources {
   String get worshipSongs => Intl.message('Worship Songs');
 
   String get version => Intl.message('Version');
+
+  String get noLyricsAdded => Intl.message('No Lyrics Added');
+
+  String get browseOurLyricsCatalogue => Intl.message(
+      'Browse our lyrics catalogue and find something for yourself');
+
+  String get exploreLyrics => Intl.message('Explore Lyrics');
 }
