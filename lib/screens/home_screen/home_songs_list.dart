@@ -88,7 +88,7 @@ class _HomeSongsListState extends State<HomeSongsList> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16.0),
+        padding: EdgeInsets.all(16.0),
         child: Text(
           Strings.of(context).allLyrics,
           style: Theme.of(context).textTheme.headline2,

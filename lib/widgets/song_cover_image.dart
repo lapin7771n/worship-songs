@@ -6,9 +6,11 @@ class SongCoverImage extends StatelessWidget {
   const SongCoverImage({
     Key key,
     @required this.title,
+    this.isBig = false,
   }) : super(key: key);
 
   final String title;
+  final bool isBig;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,8 @@ class SongCoverImage extends StatelessWidget {
     final double lightness = _generate(0.9, 1);
     final double hue = 210.0;
     return Container(
-      width: 56,
-      height: 56,
+      width: isBig ? 88 : 56,
+      height: isBig ? 88 : 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: HSLColor.fromAHSL(

@@ -136,7 +136,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
         hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
               color: AppColors.gray,
             ),

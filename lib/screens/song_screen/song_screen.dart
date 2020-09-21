@@ -42,22 +42,9 @@ class _SongScreenState extends State<SongScreen> {
             SizedBox(
               height: 24,
             ),
-            if (_isSongWithChords)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: _isChordsVisible,
-                    onChanged: _onGuitarChordsCheckBoxChanged,
-                  ),
-                  Text(
-                    Strings.of(context).chords,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
-              ),
+            if (_isSongWithChords) _buildInstrumentsRow(context),
             SizedBox(
-              height: 40,
+              height: 24,
             ),
             StyledText(
               text: _isChordsVisible
@@ -75,19 +62,40 @@ class _SongScreenState extends State<SongScreen> {
     );
   }
 
+  Widget _buildInstrumentsRow(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Checkbox(
+          value: _isChordsVisible,
+          onChanged: _onGuitarChordsCheckBoxChanged,
+        ),
+        Text(
+          Strings.of(context).chords,
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+      ],
+    );
+  }
+
   List<Widget> _buildTopBar(Song song, BuildContext context) {
     return [
       Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            icon: Icon(Icons.close),
+          CloseButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
-          Hero(tag: song.uuid, child: SongCoverImage(title: song.title)),
+          Hero(
+            tag: song.uuid,
+            child: SongCoverImage(
+              title: song.title,
+              isBig: true,
+            ),
+          ),
           SongFavoriteAction(song.uuid),
         ],
       ),
