@@ -9,7 +9,7 @@ class SettingsListItem extends StatelessWidget {
 
   SettingsListItem.custom({
     @required String title,
-    @required String subtitle,
+    String subtitle,
     Function(BuildContext context) onTap,
   }) : this._settingsItem = SettingsItem(
           title: title,
@@ -24,10 +24,12 @@ class SettingsListItem extends StatelessWidget {
         _settingsItem.title,
         style: Theme.of(context).textTheme.headline4,
       ),
-      subtitle: Text(
-        _settingsItem.subtitle,
-        style: Theme.of(context).textTheme.subtitle2,
-      ),
+      subtitle: _settingsItem.subtitle == null
+          ? null
+          : Text(
+              _settingsItem.subtitle,
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
       onTap: _settingsItem.onTap != null
           ? () => _settingsItem.onTap(context)
           : null,

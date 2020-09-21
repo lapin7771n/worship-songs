@@ -8,7 +8,7 @@ class SettingsItem {
 
   SettingsItem({
     @required this.title,
-    @required this.subtitle,
+    this.subtitle,
     this.onTap,
     bool showArrow = true,
   }) : showArrow = onTap != null && showArrow;

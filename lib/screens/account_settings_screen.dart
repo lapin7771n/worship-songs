@@ -23,28 +23,7 @@ class AccountSettingsScreen extends StatelessWidget {
           Consumer<AuthProvider>(
             builder: (_, auth, __) => SettingsListItem.custom(
               title: auth.user?.email ?? '',
-              subtitle: Strings.of(context).changeEmailAddress,
-              onTap: (ctx) {
-                Scaffold.of(ctx).hideCurrentSnackBar();
-                Scaffold.of(ctx).showSnackBar(
-                  SnackBar(
-                    content: Text(Strings.of(context).notYetImplemented),
-                  ),
-                );
-              },
             ),
-          ),
-          SettingsListItem.custom(
-            title: '********',
-            subtitle: Strings.of(context).changePassword,
-            onTap: (ctx) {
-              Scaffold.of(ctx).hideCurrentSnackBar();
-              Scaffold.of(ctx).showSnackBar(
-                SnackBar(
-                  content: Text(Strings.of(context).notYetImplemented),
-                ),
-              );
-            },
           ),
           SettingsListItem.custom(
             title: '',
@@ -64,6 +43,24 @@ class AccountSettingsScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _onEmailClicked(BuildContext ctx) {
+    Scaffold.of(ctx).hideCurrentSnackBar();
+    Scaffold.of(ctx).showSnackBar(
+      SnackBar(
+        content: Text(Strings.of(ctx).notYetImplemented),
+      ),
+    );
+  }
+
+  void _onPasswordClicked(BuildContext ctx) {
+    Scaffold.of(ctx).hideCurrentSnackBar();
+    Scaffold.of(ctx).showSnackBar(
+      SnackBar(
+        content: Text(Strings.of(ctx).notYetImplemented),
       ),
     );
   }
