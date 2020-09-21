@@ -8,17 +8,6 @@ import 'package:worshipsongs/services/size_config.dart';
 import 'package:worshipsongs/widgets/buttons.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  static const String EN = 'en';
-  static const String RU = 'ru';
-  static const String UA = 'ua';
-  static const List<String> _ALL = [
-    FilterBottomSheet.EN,
-    FilterBottomSheet.RU,
-    FilterBottomSheet.UA,
-  ];
-
-  static List<String> allLangs() => [..._ALL];
-
   @override
   _FilterBottomSheetState createState() => _FilterBottomSheetState();
 }
@@ -33,10 +22,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     super.didChangeDependencies();
     if (!isInit) {
       chosenLanguages = [
-        ...Provider.of<SongsProvider>(
-          context,
-          listen: false,
-        ).languagesToLoad
+        ...Provider.of<SongsProvider>(context, listen: false).languagesToLoad
       ];
       isInit = true;
     }
@@ -83,11 +69,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           width: MediaQuery.of(context).size.width * .3,
           child: FlatButton(
             textColor: AppColors.blue,
-            onPressed: () {
-              setState(() {
-                chosenLanguages = FilterBottomSheet.allLangs();
-              });
-            },
+            onPressed: _isAllLangsSelected()
+                ? null
+                : () {
+                    setState(() {
+                      chosenLanguages = [...SongsProvider.supportedLanguages];
+                      _applyHandler();
+                    });
+                  },
             child: Text(
               Strings.of(context).reset,
               overflow: TextOverflow.ellipsis,
@@ -131,39 +120,20 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
             ],
           ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LanguageItem(
-                isSelected: chosenLanguages.contains(FilterBottomSheet.EN) &&
-                    chosenLanguages.length != 3,
-                title: Strings.of(context).english,
-                onPressed: () => _toggleLanguage(FilterBottomSheet.EN),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LanguageItem(
-                isSelected: chosenLanguages.contains(FilterBottomSheet.RU) &&
-                    chosenLanguages.length != 3,
-                title: Strings.of(context).russian,
-                onPressed: () => _toggleLanguage(FilterBottomSheet.RU),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LanguageItem(
-                isSelected: chosenLanguages.contains(FilterBottomSheet.UA) &&
-                    chosenLanguages.length != 3,
-                title: Strings.of(context).ukrainian,
-                onPressed: () => _toggleLanguage(FilterBottomSheet.UA),
-              ),
-            ],
-          ),
+          ...SongsProvider.supportedLanguages
+              .map(
+                (e) => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LanguageItem(
+                      isSelected: _isLanguageChecked(e),
+                      title: Strings.of(context).getLanguageByCode(e),
+                      onPressed: () => _toggleLanguage(e),
+                    ),
+                  ],
+                ),
+              )
+              .toList(),
         ],
       ),
     );
@@ -185,25 +155,35 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   }
 
   bool _isAllLangsSelected() {
-    return chosenLanguages.contains(FilterBottomSheet.EN) &&
-        chosenLanguages.contains(FilterBottomSheet.RU) &&
-        chosenLanguages.contains(FilterBottomSheet.UA);
+    return SongsProvider.supportedLanguages
+        .every((element) => chosenLanguages.contains(element));
   }
 
   void _toggleAllLangs() {
     setState(() {
       _isAllLangsSelected()
           ? chosenLanguages = []
-          : chosenLanguages = FilterBottomSheet.allLangs();
+          : chosenLanguages = [...SongsProvider.supportedLanguages];
     });
   }
 
   void _toggleLanguage(String langId) {
     setState(() {
+      if (_isAllLangsSelected()) {
+        chosenLanguages.clear();
+        chosenLanguages.add(langId);
+        return;
+      }
+
       chosenLanguages.contains(langId)
           ? chosenLanguages.remove(langId)
           : chosenLanguages.add(langId);
     });
+  }
+
+  bool _isLanguageChecked(String langId) {
+    return chosenLanguages.contains(langId) &&
+        chosenLanguages.length != SongsProvider.supportedLanguages.length;
   }
 
   void _applyHandler() {

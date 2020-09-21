@@ -159,4 +159,16 @@ mixin StringResources {
       'Browse our lyrics catalogue and find something for yourself');
 
   String get exploreLyrics => Intl.message('Explore Lyrics');
+
+  String getLanguageByCode(String languageCode) {
+    switch (languageCode) {
+      case 'en':
+        return english;
+      case 'ua':
+        return ukrainian;
+      case 'ru':
+        return russian;
+    }
+    return null;
+  }
 }

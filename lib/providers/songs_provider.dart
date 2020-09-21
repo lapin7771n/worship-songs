@@ -7,13 +7,14 @@ import 'package:worshipsongs/providers/base_provider.dart';
 
 class SongsProvider extends BaseProvider {
   static const int _LIMIT = 40;
+  static const List<String> supportedLanguages = const ['en', 'ru', 'ua'];
 
   final List<Song> _songs;
   final String _accessToken;
 
   int currentPage = 0;
 
-  List<String> languagesToLoad = ["en", "ua", "ru"];
+  List<String> languagesToLoad = [...supportedLanguages];
 
   List<Song> get songs => [..._songs];
 
@@ -26,7 +27,7 @@ class SongsProvider extends BaseProvider {
   Future<void> loadSongs() async {
     print('Fetching more songs... (current number of songs: ${_songs.length})');
 
-    var loadSongsUrl =
+    final loadSongsUrl =
         "$API_URL/songs?page=$currentPage&size=$_LIMIT&lang=${languagesToLoad.join(',')}";
 
     final songs = await _getSongsByUrl(loadSongsUrl);
@@ -43,7 +44,8 @@ class SongsProvider extends BaseProvider {
   }
 
   Future<List<Song>> finByTitle(String title) async {
-    var loadSongsUrl = "$API_URL/songs?title=$title";
+    var loadSongsUrl =
+        "$API_URL/songs?title=$title&lang=${languagesToLoad.join(',')}";
     return await _getSongsByUrl(loadSongsUrl);
   }
 
@@ -60,10 +62,12 @@ class SongsProvider extends BaseProvider {
   Future<List<Song>> _getSongsByUrl(String url) async {
     final response = await get(url, _accessToken);
     if (response.statusCode != 200) {
-      return Future.error(throw HttpException(
-        "Status code: ${response.statusCode} | " +
-            jsonDecode(response.body).toString(),
-      ));
+      return Future.error(
+        throw HttpException(
+          "Status code: ${response.statusCode} | " +
+              jsonDecode(response.body).toString(),
+        ),
+      );
     }
     final List loadedSongs = jsonDecode(response.body);
     return loadedSongs.map((e) => Song.fromMap(e)).toList();
