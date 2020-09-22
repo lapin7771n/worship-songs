@@ -51,9 +51,30 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemBuilder: (ctx, index) =>
-            SettingsListItem(_settingItems(context)[index]),
+        itemBuilder: (ctx, index) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (index == 0) _buildHeader(context),
+              SettingsListItem(_settingItems(context)[index]),
+            ],
+          );
+        },
         itemCount: _settingItems(context).length,
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 16.0,
+        top: 10,
+        bottom: 16,
+      ),
+      child: Text(
+        Strings.of(context).settings,
+        style: Theme.of(context).textTheme.headline1,
       ),
     );
   }
