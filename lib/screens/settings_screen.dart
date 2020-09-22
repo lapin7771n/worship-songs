@@ -16,18 +16,6 @@ class SettingsScreen extends StatelessWidget {
           Navigator.of(context).pushNamed(AccountSettingsScreen.routeName);
         },
       ),
-      // SettingsItem(
-      //   title: Strings.of(context).notification,
-      //   subtitle: Strings.of(context).manageNotifications,
-      //   onTap: (BuildContext context) {
-      //     Scaffold.of(context).hideCurrentSnackBar();
-      //     Scaffold.of(context).showSnackBar(
-      //       SnackBar(
-      //         content: Text(Strings.of(context).notYetImplemented),
-      //       ),
-      //     );
-      //   },
-      // ),
       SettingsItem(title: '', subtitle: ''),
       SettingsItem(
         title: Strings.of(context).reportABug,
