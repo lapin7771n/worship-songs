@@ -22,7 +22,6 @@ class ChordsParser {
     var indexOf = scale.indexOf(chord);
     var length = scale.length;
     final index = (indexOf + amount) % length;
-    // print('indexOf: $indexOf, length: $length, index: $index');
     return scale[index];
   }
 
