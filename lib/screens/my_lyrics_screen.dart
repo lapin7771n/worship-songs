@@ -41,6 +41,7 @@ class MyLyricsScreen extends StatelessWidget {
                   additionalWidget = _buildHeader(context);
                 }
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (additionalWidget != null) additionalWidget,
                     SongListItem(
@@ -58,13 +59,15 @@ class MyLyricsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-        child: Text(
-          Strings.of(context).myLyrics,
-          style: Theme.of(context).textTheme.headline1,
-        ),
-      );
+  Widget _buildHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      child: Text(
+        Strings.of(context).myLyrics,
+        style: Theme.of(context).textTheme.headline1,
+      ),
+    );
+  }
 
   Future<List<Song>> _getSongsFromFavorite(BuildContext context) async {
     final List<FavoriteSong> favSongs =
