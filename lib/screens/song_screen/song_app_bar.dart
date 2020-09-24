@@ -17,36 +17,34 @@ class SongAppBar extends StatefulWidget {
 }
 
 class _SongAppBarState extends State<SongAppBar> {
-  static const Duration ANIMATION_DURATION = const Duration(milliseconds: 300);
+  static const Duration FAST_ANIMATION_DURATION =
+      const Duration(milliseconds: 50);
+  static const Duration SLOW_ANIMATION_DURATION =
+      const Duration(milliseconds: 300);
+  static const Curve CURVE = Curves.linear;
 
-  static const double INITIAL_APP_BAR_HEIGHT = 30;
   static const double INITIAL_OPACITY = 1;
-  static const double INITIAL_TITLE_TOP_PADDING = 12;
-  static const double INITIAL_TITLE_HORIZONTAL_PADDING = 1;
+  static const double INITIAL_LARGE_TITLE_TOP_PADDING = 20;
   static const double INITIAL_ELEVATION = 0;
-  static const double INITIAL_SAFE_PADDING = 5;
+  static const double INITIAL_HORIZONTAL_PADDING = 16.0;
+  static const double TITLE_HORIZONTAL_PADDING = 8;
 
-  static const double COLLAPSED_ELEVATION = 5;
-  static const double COLLAPSED_APP_BAR_HEIGHT = 11;
-  static const double COLLAPSED_OPACITY = 0;
-  static const double COLLAPSED_TITLE_TOP_PADDING = 2.75;
-  static const double COLLAPSED_TITLE_HORIZONTAL_PADDING = 6;
-  static const double COLLAPSED_SAFE_PADDING = 3;
-
+  double safePadding;
   double previewOpacity = INITIAL_OPACITY;
   double elevation = INITIAL_ELEVATION;
-  double appBarSize = INITIAL_APP_BAR_HEIGHT;
-  double titleTopPadding = INITIAL_TITLE_TOP_PADDING;
-  double titleHorizontalPadding = INITIAL_TITLE_HORIZONTAL_PADDING;
-  double safePadding = INITIAL_SAFE_PADDING;
+  double largeTitleTopPadding = INITIAL_LARGE_TITLE_TOP_PADDING;
+  double horizontalPadding = INITIAL_HORIZONTAL_PADDING;
+  double smallHeaderOpacity = INITIAL_OPACITY - 1;
 
   double prevScrollPosition = 0;
+
   bool _isInit = false;
 
   @override
   void didChangeDependencies() {
     if (!_isInit) {
       widget._scrollController.addListener(_scrollListener);
+      safePadding = MediaQuery.of(context).padding.top;
     }
     super.didChangeDependencies();
   }
@@ -59,151 +57,215 @@ class _SongAppBarState extends State<SongAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: elevation,
-      child: AnimatedContainer(
-        duration: ANIMATION_DURATION,
-        color: AppColors.white,
-        height: SizeConfig.blockSizeVertical * appBarSize,
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 16.0,
-            top: SizeConfig.blockSizeVertical * safePadding,
-            right: 16.0,
-          ),
-          child: Stack(
-            children: [
-              ..._buildTopBar(widget._song, context),
-            ],
-          ),
-        ),
+    return AnimatedContainer(
+      curve: CURVE,
+      padding: EdgeInsets.only(
+        bottom: 5,
       ),
-    );
-  }
-
-  List<Widget> _buildTopBar(Song song, BuildContext context) {
-    return [_buildActions(context, song), _buildInfo(song, context)];
-  }
-
-  void _scrollListener() {
-    final ScrollController scrollController = widget._scrollController;
-    final maxScroll = scrollController.position.maxScrollExtent;
-    final double percents = scrollController.offset / maxScroll;
-    final scrollPercents = _calculatePercents(percents);
-
-    if (scrollPercents > 20) return;
-
-    setState(() {
-      prevScrollPosition > scrollPercents ? _expandAppBar() : _collapseAppBar();
-    });
-
-    prevScrollPosition = scrollPercents;
-  }
-
-  _expandAppBar() {
-    previewOpacity = INITIAL_OPACITY;
-    appBarSize = INITIAL_APP_BAR_HEIGHT;
-    elevation = INITIAL_ELEVATION;
-    titleTopPadding = INITIAL_TITLE_TOP_PADDING;
-    safePadding = INITIAL_SAFE_PADDING;
-    titleHorizontalPadding = INITIAL_TITLE_HORIZONTAL_PADDING;
-  }
-
-  _collapseAppBar() {
-    previewOpacity = COLLAPSED_OPACITY;
-    appBarSize = COLLAPSED_APP_BAR_HEIGHT;
-    elevation = COLLAPSED_ELEVATION;
-    titleTopPadding = COLLAPSED_TITLE_TOP_PADDING;
-    safePadding = COLLAPSED_SAFE_PADDING;
-    titleHorizontalPadding = COLLAPSED_TITLE_HORIZONTAL_PADDING;
-  }
-
-  double _calculatePercents(double percents) {
-    if (percents < 0) {
-      return 0;
-    } else if (percents > 1) {
-      return 100;
-    } else {
-      return percents * 100;
-    }
-  }
-
-  Widget _buildActions(BuildContext context, Song song) {
-    return Container(
-      height: SizeConfig.blockSizeVertical * 10,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      duration: FAST_ANIMATION_DURATION,
+      color: AppColors.white,
+      child: Stack(
         children: [
-          CloseButton(
-            onPressed: Navigator.of(context).pop,
-          ),
-          AnimatedOpacity(
-            duration: ANIMATION_DURATION,
-            opacity: previewOpacity,
-            child: Hero(
-              tag: song.uuid,
-              child: SongCoverImage(
-                title: song.title,
-                author: song.author,
-                isBig: true,
-              ),
-            ),
-          ),
-          SongFavoriteAction(song.uuid),
+          ..._buildTopBar(widget._song, context),
         ],
       ),
     );
   }
 
-  Widget _buildInfo(Song song, BuildContext context) {
-    return AnimatedContainer(
-      duration: ANIMATION_DURATION,
+  List<Widget> _buildTopBar(Song song, BuildContext context) {
+    return [
+      _buildActions(context, song),
+      _buildInfo(context, song),
+    ];
+  }
+
+  Widget _buildSmallHeader(BuildContext context, Song song) {
+    return Padding(
       padding: EdgeInsets.only(
-        top: SizeConfig.blockSizeVertical * titleTopPadding,
-        left: SizeConfig.blockSizeVertical * titleHorizontalPadding,
-        right: SizeConfig.blockSizeVertical * titleHorizontalPadding,
+        left: SizeConfig.blockSizeVertical * TITLE_HORIZONTAL_PADDING,
+        right: SizeConfig.blockSizeVertical * TITLE_HORIZONTAL_PADDING,
+      ),
+      child: AnimatedOpacity(
+        duration: FAST_ANIMATION_DURATION,
+        opacity: smallHeaderOpacity,
+        curve: CURVE,
+        child: Text(
+          song.title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.headline3,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfo(BuildContext context, Song song) {
+    return AnimatedContainer(
+      duration: FAST_ANIMATION_DURATION,
+      curve: CURVE,
+      padding: EdgeInsets.only(
+        top: SizeConfig.blockSizeVertical * largeTitleTopPadding,
+        left: SizeConfig.blockSizeVertical * TITLE_HORIZONTAL_PADDING,
+        right: SizeConfig.blockSizeVertical * TITLE_HORIZONTAL_PADDING,
       ),
       child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AnimatedDefaultTextStyle(
-              duration: ANIMATION_DURATION,
-              textAlign: isCollapsed() ? TextAlign.left : TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: isCollapsed() ? 1 : 3,
-              style: isCollapsed()
-                  ? Theme.of(context).textTheme.headline3
-                  : Theme.of(context).textTheme.headline2,
-              child: Text(
-                song.title,
-              ),
-            ),
+            _buildTitle(song, context),
             SizedBox(
               height: 8,
             ),
-            if (previewOpacity > 0.2)
-              AnimatedOpacity(
-                duration: ANIMATION_DURATION,
-                opacity: previewOpacity,
-                child: Hero(
-                  tag: song.uuid + song.author.hashCode,
-                  child: Text(
-                    song.author,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2
-                        .copyWith(color: AppColors.gray),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+            _buildAuthor(song, context),
           ],
         ),
       ),
     );
   }
 
-  bool isCollapsed() => elevation == COLLAPSED_ELEVATION;
+  Widget _buildAuthor(Song song, BuildContext context) {
+    return AnimatedContainer(
+      duration: FAST_ANIMATION_DURATION,
+      curve: CURVE,
+      child: previewOpacity == 0
+          ? null
+          : AnimatedOpacity(
+              duration: FAST_ANIMATION_DURATION,
+              opacity: previewOpacity,
+              child: Text(
+                song.author,
+                style: Theme.of(context).textTheme.subtitle2.copyWith(
+                      color: AppColors.gray,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+    );
+  }
+
+  Widget _buildTitle(Song song, BuildContext context) {
+    return AnimatedContainer(
+      duration: FAST_ANIMATION_DURATION,
+      curve: CURVE,
+      child: previewOpacity == 0
+          ? null
+          : AnimatedOpacity(
+              duration: FAST_ANIMATION_DURATION,
+              opacity: previewOpacity,
+              curve: CURVE,
+              child: Text(
+                song.title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ),
+    );
+  }
+
+  Widget _buildActions(BuildContext context, Song song) {
+    return Material(
+      elevation: elevation,
+      color: AppColors.white,
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: safePadding,
+              left: horizontalPadding,
+              right: horizontalPadding,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CloseButton(
+                  onPressed: Navigator.of(context).pop,
+                ),
+                AnimatedContainer(
+                  curve: CURVE,
+                  duration: SLOW_ANIMATION_DURATION,
+                  height: previewOpacity == 0 ? 0 : 88,
+                  width: previewOpacity == 0 ? 0 : 88,
+                  margin:
+                      EdgeInsets.only(top: SizeConfig.safeBlockVertical * 2),
+                  child: AnimatedOpacity(
+                    curve: CURVE,
+                    duration: FAST_ANIMATION_DURATION,
+                    opacity: previewOpacity,
+                    child: Hero(
+                      tag: song.uuid,
+                      child: SongCoverImage(
+                        title: song.title,
+                        author: song.author,
+                        isBig: true,
+                      ),
+                    ),
+                  ),
+                ),
+                SongFavoriteAction(song.uuid),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: safePadding,
+            ),
+            child: _buildSmallHeader(context, song),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _scrollListener() {
+    final ScrollController scrollController = widget._scrollController;
+    final double scrollOffset = scrollController.offset / 4;
+    final double maxScrollRange = 20;
+    print(scrollController.offset);
+
+    if (scrollOffset > maxScrollRange &&
+        smallHeaderOpacity == INITIAL_OPACITY) {
+      return;
+    }
+
+    if (scrollOffset < maxScrollRange / 3) {
+      setState(() {
+        previewOpacity = INITIAL_OPACITY;
+        elevation = INITIAL_ELEVATION;
+        largeTitleTopPadding = INITIAL_LARGE_TITLE_TOP_PADDING;
+        smallHeaderOpacity = 0;
+      });
+      return;
+    }
+
+    if (scrollOffset >= maxScrollRange) {
+      setState(() {
+        previewOpacity = 0.0;
+        elevation = 5;
+        largeTitleTopPadding = SizeConfig.blockSizeVertical / 5;
+        smallHeaderOpacity = INITIAL_OPACITY;
+        horizontalPadding = 8;
+      });
+      return;
+    }
+
+    setState(() {
+      elevation = INITIAL_ELEVATION + scrollOffset / 5;
+      largeTitleTopPadding =
+          INITIAL_LARGE_TITLE_TOP_PADDING - scrollOffset / 1.8;
+      horizontalPadding =
+          INITIAL_HORIZONTAL_PADDING / (scrollOffset * 2 / maxScrollRange);
+
+      final _theoryPreviewOpacity =
+          INITIAL_OPACITY - scrollOffset / maxScrollRange;
+      if (scrollOffset < maxScrollRange / 1.5) {
+        previewOpacity = _theoryPreviewOpacity / 1.5;
+      } else {
+        smallHeaderOpacity = 1 - _theoryPreviewOpacity * 3;
+      }
+    });
+  }
+
+  bool isCollapsed() => elevation > INITIAL_ELEVATION + 2;
 }

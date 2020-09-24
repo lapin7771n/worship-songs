@@ -75,14 +75,6 @@ class Song {
         .join("\n");
   }
 
-  String _replaceChords(String text, List<String> old, List<String> newChords) {
-    // print(text);
-    for (int i = 0; i < old.length; i++) {
-      text = text.replaceFirst(RegExp(old[i]), newChords[i]);
-    }
-    return text;
-  }
-
   String _replaceMarkers() {
     var formattedText = text
         .replaceAll('[V', '<bold>Verse ')

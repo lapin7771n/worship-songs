@@ -38,10 +38,10 @@ class _SongLyricsState extends State<SongLyrics> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: 16.0,
         top: 24.0,
-        bottom: 80.0,
+        bottom: SizeConfig.blockSizeVertical * 50,
         right: 16.0,
       ),
       child: Column(

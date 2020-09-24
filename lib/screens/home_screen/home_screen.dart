@@ -88,7 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       var songsProvider = Provider.of<SongsProvider>(context, listen: false);
       songsProvider.clearLoadedSongs();
-      songsProvider.loadSongs();
     });
   }
 
