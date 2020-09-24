@@ -24,7 +24,7 @@ class _SongAppBarState extends State<SongAppBar> {
   static const Curve CURVE = Curves.linear;
 
   static const double INITIAL_OPACITY = 1;
-  static const double INITIAL_LARGE_TITLE_TOP_PADDING = 20;
+  static const double INITIAL_LARGE_TITLE_TOP_PADDING = 130;
   static const double INITIAL_ELEVATION = 0;
   static const double INITIAL_HORIZONTAL_PADDING = 16.0;
   static const double TITLE_HORIZONTAL_PADDING = 8;
@@ -104,9 +104,9 @@ class _SongAppBarState extends State<SongAppBar> {
       duration: FAST_ANIMATION_DURATION,
       curve: CURVE,
       padding: EdgeInsets.only(
-        top: SizeConfig.blockSizeVertical * largeTitleTopPadding,
-        left: SizeConfig.blockSizeVertical * TITLE_HORIZONTAL_PADDING,
-        right: SizeConfig.blockSizeVertical * TITLE_HORIZONTAL_PADDING,
+        top: safePadding + largeTitleTopPadding,
+        left: SizeConfig.blockSizeHorizontal * TITLE_HORIZONTAL_PADDING,
+        right: SizeConfig.blockSizeHorizontal * TITLE_HORIZONTAL_PADDING,
       ),
       child: Center(
         child: Column(
@@ -220,16 +220,17 @@ class _SongAppBarState extends State<SongAppBar> {
 
   void _scrollListener() {
     final ScrollController scrollController = widget._scrollController;
-    final double scrollOffset = scrollController.offset / 4;
+    final double offset = scrollController.offset;
+    final double computedOffset = scrollController.offset / 4;
     final double maxScrollRange = 20;
     print(scrollController.offset);
 
-    if (scrollOffset > maxScrollRange &&
+    if (computedOffset > maxScrollRange &&
         smallHeaderOpacity == INITIAL_OPACITY) {
       return;
     }
 
-    if (scrollOffset < maxScrollRange / 3) {
+    if (computedOffset < maxScrollRange / 3) {
       setState(() {
         previewOpacity = INITIAL_OPACITY;
         elevation = INITIAL_ELEVATION;
@@ -239,11 +240,11 @@ class _SongAppBarState extends State<SongAppBar> {
       return;
     }
 
-    if (scrollOffset >= maxScrollRange) {
+    if (computedOffset >= maxScrollRange) {
       setState(() {
         previewOpacity = 0.0;
         elevation = 5;
-        largeTitleTopPadding = SizeConfig.blockSizeVertical / 5;
+        largeTitleTopPadding = INITIAL_LARGE_TITLE_TOP_PADDING / 5;
         smallHeaderOpacity = INITIAL_OPACITY;
         horizontalPadding = 8;
       });
@@ -251,15 +252,14 @@ class _SongAppBarState extends State<SongAppBar> {
     }
 
     setState(() {
-      elevation = INITIAL_ELEVATION + scrollOffset / 5;
-      largeTitleTopPadding =
-          INITIAL_LARGE_TITLE_TOP_PADDING - scrollOffset / 1.8;
+      elevation = INITIAL_ELEVATION + computedOffset / 5;
+      largeTitleTopPadding = INITIAL_LARGE_TITLE_TOP_PADDING - offset;
       horizontalPadding =
-          INITIAL_HORIZONTAL_PADDING / (scrollOffset * 2 / maxScrollRange);
+          INITIAL_HORIZONTAL_PADDING / (computedOffset * 2 / maxScrollRange);
 
       final _theoryPreviewOpacity =
-          INITIAL_OPACITY - scrollOffset / maxScrollRange;
-      if (scrollOffset < maxScrollRange / 1.5) {
+          INITIAL_OPACITY - computedOffset / maxScrollRange;
+      if (computedOffset < maxScrollRange / 1.5) {
         previewOpacity = _theoryPreviewOpacity / 1.5;
       } else {
         smallHeaderOpacity = 1 - _theoryPreviewOpacity * 3;
