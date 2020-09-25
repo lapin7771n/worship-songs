@@ -34,14 +34,14 @@ class HomeAppBar extends StatelessWidget {
       padding: EdgeInsets.only(
         right: 16,
         left: 16,
-        top: SizeConfig.safeBlockVertical * 7,
+        top: MediaQuery.of(context).padding.top + SizeConfig.safeBlockVertical,
         bottom: SizeConfig.safeBlockVertical,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            height: SizeConfig.safeBlockVertical * 6,
+            height: SizeConfig.safeBlockVertical * 8,
             width: SizeConfig.safeBlockVertical * 100,
             child: Row(
               children: [
@@ -85,19 +85,19 @@ class HomeAppBar extends StatelessWidget {
           focusNode: _searchFocus,
           controller: _controller,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(5),
+            // contentPadding: EdgeInsets.all(10),
             enabledBorder: InputBorder.none,
+            hintText: Strings.of(context).typeSongName,
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.safeBlockVertical * 1.3,
-                vertical: SizeConfig.safeBlockVertical * 1.4,
+                horizontal: SizeConfig.safeBlockVertical * 1.8,
+                vertical: SizeConfig.safeBlockVertical * 1.6,
               ),
               child: SvgPicture.asset(
                 _searchIconPath,
                 color: AppColors.black,
               ),
             ),
-            hintText: Strings.of(context).typeSongName,
           ),
         ),
       ),

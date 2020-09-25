@@ -132,9 +132,13 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: SizeConfig.safeBlockVertical * 2,
+          horizontal: 16,
+        ),
         hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
               color: AppColors.gray,
+              height: 1.0,
             ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
