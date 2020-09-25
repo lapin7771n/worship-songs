@@ -196,5 +196,35 @@
   "@Ukrainian": {
     "type": "text",
     "placeholders": {}
+  },
+  "Password": "Пароль",
+  "@Password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Worship Songs": "Worship Songs",
+  "@Worship Songs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Version": "Версія",
+  "@Version": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No Lyrics Added": "Немає доданих пісень",
+  "@No Lyrics Added": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Browse our lyrics catalogue and find something for yourself": "Перегляньте наш каталог текстів пісень і знайдіть щось для себе",
+  "@Browse our lyrics catalogue and find something for yourself": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Explore Lyrics": "Перейти до пісень",
+  "@Explore Lyrics": {
+    "type": "text",
+    "placeholders": {}
   }
 }

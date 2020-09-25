@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-09-14T17:48:05.560267",
+  "@@last_modified": "2020-09-25T10:24:48.821528",
   "Home": "Home",
   "@Home": {
     "type": "text",
@@ -209,6 +209,36 @@
   },
   "Ukrainian": "Ukrainian",
   "@Ukrainian": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Password": "Password",
+  "@Password": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Worship Songs": "Worship Songs",
+  "@Worship Songs": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Version": "Version",
+  "@Version": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No Lyrics Added": "No Lyrics Added",
+  "@No Lyrics Added": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Browse our lyrics catalogue and find something for yourself": "Browse our lyrics catalogue and find something for yourself",
+  "@Browse our lyrics catalogue and find something for yourself": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Explore Lyrics": "Explore Lyrics",
+  "@Explore Lyrics": {
     "type": "text",
     "placeholders": {}
   }
