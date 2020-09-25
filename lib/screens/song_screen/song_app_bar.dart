@@ -59,9 +59,6 @@ class _SongAppBarState extends State<SongAppBar> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       curve: CURVE,
-      padding: EdgeInsets.only(
-        bottom: 5,
-      ),
       duration: FAST_ANIMATION_DURATION,
       color: AppColors.white,
       child: Stack(
@@ -187,8 +184,9 @@ class _SongAppBarState extends State<SongAppBar> {
                   duration: SLOW_ANIMATION_DURATION,
                   height: previewOpacity == 0 ? 0 : 88,
                   width: previewOpacity == 0 ? 0 : 88,
-                  margin:
-                      EdgeInsets.only(top: SizeConfig.safeBlockVertical * 2),
+                  margin: EdgeInsets.only(
+                    top: SizeConfig.safeBlockVertical * 2,
+                  ),
                   child: AnimatedOpacity(
                     curve: CURVE,
                     duration: FAST_ANIMATION_DURATION,
@@ -223,7 +221,6 @@ class _SongAppBarState extends State<SongAppBar> {
     final double offset = scrollController.offset;
     final double computedOffset = scrollController.offset / 4;
     final double maxScrollRange = 20;
-    print(scrollController.offset);
 
     if (computedOffset > maxScrollRange &&
         smallHeaderOpacity == INITIAL_OPACITY) {
