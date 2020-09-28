@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class SongCoverImage extends StatelessWidget {
@@ -14,8 +16,8 @@ class SongCoverImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double saturation = _generate(title, 0.1, 0.4);
-    final double lightness = _generate(author, 0.9, 1);
+    final double saturation = _generate(author, 0.1, 0.4);
+    final double lightness = _generate(title, 0.9, 1);
     final double hue = 210.0;
     return Container(
       width: isBig ? 88 : 56,
@@ -45,9 +47,10 @@ class SongCoverImage extends StatelessWidget {
     int index = 0;
     do {
       int indexToGet = index % source.length;
-      result += source.codeUnitAt(indexToGet) / 10000;
+      var codeUnitAt = source.codeUnitAt(indexToGet);
+      result += min(codeUnitAt, 300) / low / high / 8000;
       index++;
-    } while (result < low || result > high);
-    return result;
+    } while (result < low);
+    return min(result, high);
   }
 }
