@@ -1,2 +1,6 @@
+version=0.3.0
+buildNumber=15
+
 flutter clean
-flutter build apk --release --build-name=0.2.0rc9 --build-number=13
+flutter build apk --release --build-name=$version --build-number=$buildNumber
+flutter build appbundle --release --build-name=$version --build-number=$buildNumber
