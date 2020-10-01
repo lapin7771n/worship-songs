@@ -4,11 +4,11 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/widgets/rounded_label.dart';
 import 'package:worshipsongs/widgets/song_cover_image.dart';
 
-class SongListItem extends StatelessWidget {
+class BrandListItem extends StatelessWidget {
   final Song song;
   final Function onTap;
 
-  const SongListItem({
+  const BrandListItem({
     this.song,
     this.onTap,
   });

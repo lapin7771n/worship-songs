@@ -6,10 +6,13 @@ import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/auth_status.dart';
 import 'package:worshipsongs/localizations/app_localizations_delegate.dart';
+import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/account_settings_screen.dart';
+import 'package:worshipsongs/screens/admin_portal/admin_main_screen.dart';
+import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen/home_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
@@ -39,6 +42,12 @@ class MyApp extends StatelessWidget {
           update: (_, auth, oldProvider) => SongsProvider(
             accessToken: auth.accessToken,
             songs: oldProvider?.songs ?? [],
+          ),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, ArtistsProvider>(
+          create: (_) => ArtistsProvider(accessToken: null),
+          update: (_, auth, oldProvider) => ArtistsProvider(
+            accessToken: auth.accessToken,
           ),
         ),
         ChangeNotifierProxyProvider2<AuthProvider, SongsProvider,
@@ -83,6 +92,8 @@ class MyApp extends StatelessWidget {
         MainScreen.routeName: (ctx) => MainScreen(),
         SongScreen.routeName: (ctx) => SongScreen(),
         AccountSettingsScreen.routeName: (ctx) => AccountSettingsScreen(),
+        AdminMainScreen.routeName: (ctx) => AdminMainScreen(),
+        CreateContentScreen.routeName: (ctx) => CreateContentScreen(),
       },
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
@@ -193,6 +204,7 @@ class MyApp extends StatelessWidget {
         headline5: TextStyle(
           // fontSize: 16,
           fontSize: SizeConfig.blockSizeVertical * 2,
+          color: null,
         ),
         /** Input/Regular Input **/
         headline6: TextStyle(
@@ -208,6 +220,7 @@ class MyApp extends StatelessWidget {
         /** Title/Navigation **/
         subtitle2: TextStyle(
           // fontSize: 12,
+          fontWeight: FontWeight.normal,
           fontSize: SizeConfig.blockSizeVertical * 1.5,
         ),
         /** Guitar Chords **/

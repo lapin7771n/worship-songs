@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_app_bar.dart';
 import 'package:worshipsongs/screens/song_screen/song_lyrics.dart';
 
@@ -21,8 +23,9 @@ class _SongScreenState extends State<SongScreen> {
   @override
   void didChangeDependencies() {
     if (!_isInit) {
-      _scrollController = ScrollController();
       song = ModalRoute.of(context).settings.arguments as Song;
+      Provider.of<SongsProvider>(context).incrementViews(song.uuid);
+      _scrollController = ScrollController();
       _isSongWithChords = song.text.contains(".  ");
       _isInit = true;
     }
@@ -40,18 +43,19 @@ class _SongScreenState extends State<SongScreen> {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
-          controller: _scrollController,
-          child: StickyHeader(
-            header: SongAppBar(
-              song,
-              _scrollController,
-            ),
-            content: SongLyrics(
-              song: song,
-              showInstruments: _isSongWithChords,
-            ),
-          )),
+        physics: ClampingScrollPhysics(),
+        controller: _scrollController,
+        child: StickyHeader(
+          header: SongAppBar(
+            song,
+            _scrollController,
+          ),
+          content: SongLyrics(
+            song: song,
+            showInstruments: _isSongWithChords,
+          ),
+        ),
+      ),
     );
   }
 }

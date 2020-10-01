@@ -5,7 +5,7 @@ import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
-import 'package:worshipsongs/widgets/song_list_item.dart';
+import 'package:worshipsongs/widgets/brand_list_item.dart';
 
 class HomeSongsList extends StatefulWidget {
   final List<Song> _songs;
@@ -50,7 +50,7 @@ class _HomeSongsListState extends State<HomeSongsList> {
           children: [
             if (index == 0) _buildAllLyrics(context),
             if (header != null) header,
-            SongListItem(
+            BrandListItem(
               song: currentSong,
               onTap: () => _handleSongClick(currentSong, context),
             ),

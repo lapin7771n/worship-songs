@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
-import 'package:worshipsongs/widgets/song_list_item.dart';
+import 'package:worshipsongs/widgets/brand_list_item.dart';
 
 class SearchScreen extends StatefulWidget {
   final TextEditingController _controller;
@@ -29,7 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (_, index) {
-        return SongListItem(
+        return BrandListItem(
           song: _searchedSongs[index],
           onTap: () {
             Navigator.of(context).pushNamed(

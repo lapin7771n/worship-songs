@@ -39,12 +39,12 @@ class SongsProvider extends BaseProvider {
   }
 
   Future<List<Song>> getSongsById(List<int> ids) async {
-    var loadSongsUrl = "$API_URL/songs/?ids=${ids.join(",")}";
+    final loadSongsUrl = "$API_URL/songs/?ids=${ids.join(",")}";
     return await _getSongsByUrl(loadSongsUrl);
   }
 
   Future<List<Song>> finByTitle(String title) async {
-    var loadSongsUrl =
+    final loadSongsUrl =
         "$API_URL/songs?title=$title&lang=${languagesToLoad.join(',')}";
     return await _getSongsByUrl(loadSongsUrl);
   }
@@ -54,7 +54,15 @@ class SongsProvider extends BaseProvider {
     currentPage = 0;
   }
 
-  Future addSong(Song song) {
+  Future incrementViews(int songId) async {
+    final url = '$API_URL/songs/$songId/viewings';
+    final response = await put(url, _accessToken, null);
+    print(
+      'Http Response: ${response.statusCode} | ${jsonDecode(response.body)}',
+    );
+  }
+
+  Future create(Song song) {
     throw UnimplementedError();
 //    return Firestore.instance.collection(_SONGS).add(song.toJson());
   }

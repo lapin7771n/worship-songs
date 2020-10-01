@@ -97,6 +97,13 @@ class AuthProvider extends BaseProvider {
         },
         body: jsonEncode({"accessToken": accessToken}),
       );
+      if (response.statusCode != 200) {
+        print(
+          "Status code: ${response.statusCode}, message: ${jsonDecode(response.body)}",
+        );
+        _updateUser(user);
+        return user;
+      }
       final signInResponse = SignInResponse.fromMap(jsonDecode(response.body));
       user = _userFromSignInResponse(signInResponse);
     }
@@ -113,7 +120,7 @@ class AuthProvider extends BaseProvider {
   }
 
   User _userFromSignInResponse(SignInResponse signInResponse) {
-    final User user = User(
+    return User(
       uuid: signInResponse.id,
       email: signInResponse.email,
       creationDate: signInResponse.creationDate,
@@ -121,7 +128,6 @@ class AuthProvider extends BaseProvider {
       lastSignIn: signInResponse.lastSignInDate,
       role: signInResponse.roles,
     );
-    return user;
   }
 
   void _updateUser(User user) {

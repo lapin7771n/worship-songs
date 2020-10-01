@@ -20,6 +20,7 @@ class SettingsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.only(left: 0),
       title: Text(
         _settingsItem.title,
         style: Theme.of(context).textTheme.headline4,

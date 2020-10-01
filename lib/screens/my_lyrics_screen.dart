@@ -9,7 +9,7 @@ import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
-import 'package:worshipsongs/widgets/song_list_item.dart';
+import 'package:worshipsongs/widgets/brand_list_item.dart';
 
 class MyLyricsScreen extends StatelessWidget {
   final Function goToMainPage;
@@ -44,7 +44,7 @@ class MyLyricsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (additionalWidget != null) additionalWidget,
-                    SongListItem(
+                    BrandListItem(
                       song: songs[index],
                       onTap: () => _handleSongClick(songs[index], context),
                     ),

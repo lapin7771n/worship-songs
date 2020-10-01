@@ -34,7 +34,7 @@ class SongCoverImage extends StatelessWidget {
       child: Center(
         child: Text(
           title.substring(0, 1),
-          style: Theme.of(context).textTheme.headline3.copyWith(
+          style: Theme.of(context).textTheme.headline2.copyWith(
                 color: HSVColor.fromAHSV(1, hue, saturation, 0.4).toColor(),
               ),
         ),

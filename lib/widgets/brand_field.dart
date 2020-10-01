@@ -12,6 +12,7 @@ class BrandField extends StatefulWidget {
   final TextInputAction textInputAction;
   final TextEditingController controller;
   final String errorText;
+  final int maxLines;
 
   final Function(String) onFieldSubmitted;
   final Function(String) validator;
@@ -27,6 +28,7 @@ class BrandField extends StatefulWidget {
     this.validator,
     this.controller,
     this.errorText,
+    this.maxLines = 1,
   });
 
   @override
@@ -50,7 +52,7 @@ class _BrandFieldState extends State<BrandField> {
         padding: const EdgeInsets.only(left: 8.0),
         child: Text(
           widget.title,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headline5,
         ),
       );
 
@@ -68,8 +70,7 @@ class _BrandFieldState extends State<BrandField> {
                 ),
                 child: SvgPicture.asset(
                   'assets/images/${_obscuringEnabled ? 'Closed' : 'Opened'}.svg',
-                  color:
-                      _obscuringEnabled ? AppColors.gray : AppColors.blue,
+                  color: _obscuringEnabled ? AppColors.gray : AppColors.blue,
                 ),
               ),
             )
@@ -77,6 +78,7 @@ class _BrandFieldState extends State<BrandField> {
     );
 
     var textFormField = TextFormField(
+      maxLines: widget.maxLines,
       controller: widget.controller,
       validator: widget.validator,
       focusNode: widget.focusNode,

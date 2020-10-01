@@ -18,49 +18,36 @@ class AccountSettingsScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline2,
         ),
       ),
-      body: ListView(
-        children: [
-          Consumer<AuthProvider>(
-            builder: (_, auth, __) => SettingsListItem.custom(
-              title: auth.user?.email ?? '',
+      body: Padding(
+        padding: const EdgeInsets.only(left: 16.0),
+        child: ListView(
+          children: [
+            Consumer<AuthProvider>(
+              builder: (_, auth, __) => SettingsListItem.custom(
+                title: auth.user?.email ?? '',
+              ),
             ),
-          ),
-          SettingsListItem.custom(
-            title: '',
-            subtitle: '',
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: FlatButton(
-              onPressed: () {
-                Provider.of<AuthProvider>(context, listen: false).logOut();
-                Provider.of<SongsProvider>(context, listen: false)
-                    .clearLoadedSongs();
-                Navigator.of(context).pop();
-              },
-              child: Text(Strings.of(context).logout),
-              textColor: AppColors.blue,
+            SettingsListItem.custom(
+              title: '',
+              subtitle: '',
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _onEmailClicked(BuildContext ctx) {
-    Scaffold.of(ctx).hideCurrentSnackBar();
-    Scaffold.of(ctx).showSnackBar(
-      SnackBar(
-        content: Text(Strings.of(ctx).notYetImplemented),
-      ),
-    );
-  }
-
-  void _onPasswordClicked(BuildContext ctx) {
-    Scaffold.of(ctx).hideCurrentSnackBar();
-    Scaffold.of(ctx).showSnackBar(
-      SnackBar(
-        content: Text(Strings.of(ctx).notYetImplemented),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: MaterialButton(
+                minWidth: 0,
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                onPressed: () {
+                  Provider.of<AuthProvider>(context, listen: false).logOut();
+                  Provider.of<SongsProvider>(context, listen: false)
+                      .clearLoadedSongs();
+                  Navigator.of(context).pop();
+                },
+                child: Text(Strings.of(context).logout),
+                textColor: AppColors.blue,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

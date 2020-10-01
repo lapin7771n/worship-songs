@@ -1,9 +1,12 @@
 import 'package:worshipsongs/services/chords_parser.dart';
 
+const String _ID = 'id';
 const String _TITLE = 'title';
 const String _TEXT = 'text';
 const String _AUTHOR = 'author';
-const String _KEY = 'key';
+const String _ARTIST = 'artistid';
+const String _ALBUM = 'albumid';
+const String _KEY = 'chordsKey';
 const String _AKA = 'aka';
 const String _CAPO = 'capo';
 const String _COPYRIGHT = 'copyright';
@@ -20,6 +23,9 @@ class Song {
   final String copyright;
   final String presentation;
 
+  final int artistID;
+  final int albumID;
+
   const Song({
     this.uuid,
     this.title,
@@ -30,18 +36,22 @@ class Song {
     this.capo,
     this.copyright,
     this.presentation,
+    this.artistID,
+    this.albumID,
   });
 
   Song.fromMap(Map<String, dynamic> data)
-      : uuid = data["id"],
-        title = data['title'],
-        author = data['author'] ?? 'Unknown',
-        aka = data['aka'],
-        text = data['text'],
-        capo = data['capo'],
-        key = data["chordsKey"],
-        copyright = data['copyright'],
-        presentation = data['presentation'];
+      : uuid = data[_ID],
+        title = data[_TITLE],
+        author = data[_AUTHOR] ?? 'Unknown',
+        aka = data[_AKA],
+        text = data[_TEXT],
+        capo = data[_CAPO],
+        key = data[_KEY],
+        copyright = data[_COPYRIGHT],
+        presentation = data[_PRESENTATION],
+        artistID = data[_ARTIST],
+        albumID = data[_ALBUM];
 
   Map<String, dynamic> toJson() {
     return {
@@ -53,6 +63,8 @@ class Song {
       _CAPO: capo,
       _COPYRIGHT: copyright,
       _PRESENTATION: presentation,
+      _ARTIST: artistID,
+      _ALBUM: albumID,
     };
   }
 

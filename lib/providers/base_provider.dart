@@ -26,6 +26,10 @@ class BaseProvider with ChangeNotifier {
     return http.put(url, headers: _getHeaders(accessToken), body: body);
   }
 
+  Future<http.Response> post(String url, String accessToken, String body) {
+    return http.post(url, headers: _getHeaders(accessToken), body: body);
+  }
+
   Future<http.Response> delete(String url, String accessToken) {
     return http.delete(url, headers: _getHeaders(accessToken));
   }
