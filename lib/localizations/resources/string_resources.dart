@@ -171,4 +171,72 @@ mixin StringResources {
     }
     return null;
   }
+
+  String get adminPortal => Intl.message('Admin Portal');
+
+  String get goToAdminPortal => Intl.message('Go to admin portal');
+
+  String get requests => Intl.message('Requests');
+
+  String get catalog => Intl.message('Catalog');
+
+  String albums(int count) => Intl.plural(
+        count,
+        one: 'Album',
+        other: 'Albums',
+      );
+
+  String get lyrics => Intl.message('Lyrics');
+
+  String artists(int count) => Intl.plural(
+        count,
+        one: 'Artist',
+        other: 'Artists',
+      );
+
+  String get creating => Intl.message('Creating');
+
+  String get generalInfo => Intl.message('General Info');
+
+  String get noAlbumAssigned => Intl.message('No Album Assigned');
+
+  String get assignToAlbum => Intl.message('Assign to Album');
+
+  String get databaseMatch => Intl.message('Database Match');
+
+  String get requestInfo => Intl.message('Request Info');
+
+  String get requestedBy => Intl.message('Requested by');
+
+  String get dateAndTime => Intl.message('Date and Time');
+
+  String get noMatchFound => Intl.message('No match found');
+
+  String get edit => Intl.message('Edit');
+
+  String get exampleWayMaker => Intl.message('ex. Way Maker');
+
+  String get lyricsTitle => Intl.message('Lyrics Title');
+
+  String get accept => Intl.message('Accept');
+
+  String get reject => Intl.message('Reject');
+
+  String get artistTitle => Intl.message('Artist Title');
+
+  String get exampleRoomForMore => Intl.message('ex. Room For More');
+
+  String get artistDescription => Intl.message('Artist Description');
+
+  String get fileShouldNotBeBigger =>
+      Intl.message('File should not be bigger than');
+
+  String get describeThisArtist => Intl.message('Describe this Artist');
+
+  String get selectNewPhotoFromGallery =>
+      Intl.message('Select new photo from gallery');
+
+  String get deletePhoto => Intl.message('Delete Photo');
+
+  String get success => Intl.message('Success');
 }
