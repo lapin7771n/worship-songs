@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/home_screen/filters_button.dart';
 import 'package:worshipsongs/services/size_config.dart';
+import 'package:worshipsongs/widgets/search_field.dart';
 
-import '../../app_colors.dart';
 import 'filter_bottom_sheet.dart';
 
 class HomeAppBar extends StatelessWidget {
-  static const String _searchIconPath = 'assets/images/Search.svg';
-
   final FocusNode _searchFocus;
   final TextEditingController _controller;
   final bool _isSearchFocused;
@@ -40,66 +37,16 @@ class HomeAppBar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            height: SizeConfig.safeBlockVertical * 8,
-            width: SizeConfig.safeBlockVertical * 100,
-            child: Row(
-              children: [
-                _buildSearchField(context),
-                if (_isSearchFocused)
-                  FlatButton(
-                    child: Text(Strings.of(context).cancel),
-                    onPressed: () {
-                      _controller.text = '';
-                      _searchFocus.unfocus();
-                    },
-                  ),
-              ],
-            ),
+          SearchField(
+            controller: _controller,
+            focusNode: _searchFocus,
+            hintText: Strings.of(context).typeSongName,
           ),
           SizedBox(
             height: SizeConfig.safeBlockVertical,
           ),
           _buildFilters(context),
         ],
-      ),
-    );
-  }
-
-  Flexible _buildSearchField(BuildContext context) {
-    return Flexible(
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.gray.withOpacity(0.1),
-              spreadRadius: 4,
-              offset: Offset(0, 5),
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: TextField(
-          focusNode: _searchFocus,
-          controller: _controller,
-          decoration: InputDecoration(
-            // contentPadding: EdgeInsets.all(10),
-            enabledBorder: InputBorder.none,
-            hintText: Strings.of(context).typeSongName,
-            prefixIcon: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.safeBlockVertical * 1.8,
-                vertical: SizeConfig.safeBlockVertical * 1.6,
-              ),
-              child: SvgPicture.asset(
-                _searchIconPath,
-                color: AppColors.black,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

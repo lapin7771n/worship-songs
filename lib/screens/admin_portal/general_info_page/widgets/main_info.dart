@@ -127,6 +127,7 @@ class _MainInfoState extends State<MainInfo> {
               height: 88,
               clipBehavior: Clip.antiAlias,
               child: FadeInImage(
+                fit: BoxFit.cover,
                 placeholder: MemoryImage(kTransparentImage),
                 image: FileImage(File(coverPath)),
               ),

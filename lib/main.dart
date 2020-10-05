@@ -152,7 +152,7 @@ class MyApp extends StatelessWidget {
               height: 1.0,
             ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
             color: Color(0xFF8DB1D9),
             width: 1,
@@ -160,7 +160,7 @@ class MyApp extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           gapPadding: 10,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
             color: AppColors.blue,
             width: 2,

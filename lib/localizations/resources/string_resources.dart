@@ -239,4 +239,10 @@ mixin StringResources {
   String get deletePhoto => Intl.message('Delete Photo');
 
   String get success => Intl.message('Success');
+
+  String get noArtistAssigned => Intl.message('No Artist Assigned');
+
+  String get assignArtist => Intl.message('Assign Artist');
+
+  String get typeArtistName => Intl.message('Type artist name...');
 }

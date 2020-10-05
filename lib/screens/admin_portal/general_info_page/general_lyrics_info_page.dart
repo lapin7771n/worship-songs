@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/add_lyrics_request.dart';
+import 'package:worshipsongs/data/artist.dart';
 import 'package:worshipsongs/localizations/strings.dart';
+import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
-import 'package:worshipsongs/screens/admin_portal/general_info_page/widgets/accept_content_button.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/widgets/main_info.dart';
-import 'package:worshipsongs/widgets/settings_list_item.dart';
 import 'package:worshipsongs/widgets/song_cover_image.dart';
+import 'package:worshipsongs/widgets/transparent_image.dart';
 
 class GeneralLyricsInfoPage extends StatefulWidget {
   final AddLyricsRequest addLyricsRequest;
@@ -20,6 +21,7 @@ class GeneralLyricsInfoPage extends StatefulWidget {
 
 class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   final TextEditingController songNameController = TextEditingController();
+  Artist artist;
 
   @override
   void initState() {
@@ -38,65 +40,77 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                top: 24,
-                bottom: AcceptContentButton.ACCEPT_BUTTON_HEIGHT,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildMainInfo(context),
-                  buildSpacer(),
-                  buildSubtitle(Strings.of(context).artists(1), context),
-                  SizedBox(height: 8),
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 0),
-                    leading:
-                        SongCoverImage(title: 'Hillsong', author: 'Hillsong'),
-                    title: Text(
-                      'Hillsong Worship',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    trailing: SvgPicture.asset('assets/images/ArrowRight.svg'),
-                  ),
-                  buildSpacer(),
-                  buildSubtitle(Strings.of(context).albums(1), context),
-                  SettingsListItem.custom(
-                    title: Strings.of(context).noAlbumAssigned,
-                    subtitle: Strings.of(context).assignToAlbum,
-                    onTap: (context) => () {},
-                  ),
-                  buildSpacer(),
-                  buildSubtitle(Strings.of(context).databaseMatch, context),
-                  buildNoDatabaseMatch(context),
-                  buildSpacer(),
-                  RequestInfo(
-                    timestamp: widget.addLyricsRequest.timestamp,
-                    authorID: widget.addLyricsRequest.authorID,
-                  )
-                ],
-              ),
-            ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 24,
           ),
-          AcceptContentButton(
-            text: 'ada',
-            onTap: () {},
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildMainInfo(context),
+              buildSpacer(),
+              buildSubtitle(Strings.of(context).artists(1), context),
+              SizedBox(height: 8),
+              buildArtist(),
+              buildSpacer(),
+              RequestInfo(
+                timestamp: widget.addLyricsRequest.timestamp,
+                authorID: widget.addLyricsRequest.authorID,
+              )
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
+  Widget buildArtist() {
+    return ListTile(
+      contentPadding: EdgeInsets.only(left: 0),
+      leading: artist == null ? null : buildArtistCoverImage(),
+      title: Text(
+        artist == null ? Strings.of(context).noAlbumAssigned : artist.title,
+        style: Theme.of(context).textTheme.headline4,
+      ),
+      subtitle: artist == null
+          ? Text(
+              Strings.of(context).assignArtist,
+              style: Theme.of(context).textTheme.subtitle2,
+            )
+          : null,
+      trailing: SvgPicture.asset('assets/images/ArrowRight.svg'),
+      onTap: onSelectArtist,
+    );
+  }
+
+  void onSelectArtist() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => AssignArtistScreen()),
+    );
+  }
+
+  Widget buildArtistCoverImage() {
+    return artist.uuid == null
+        ? SongCoverImage(title: artist.title, author: artist.title)
+        : Container(
+            width: 56,
+            height: 56,
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: FadeInImage(
+              placeholder: MemoryImage(kTransparentImage),
+              image: NetworkImage(artist.imageUrl),
+            ),
+          );
+  }
+
   Widget buildNoDatabaseMatch(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8),
+      margin: const EdgeInsets.only(top: 8),
       height: 56,
       decoration: BoxDecoration(
         color: AppColors.bluishGray,
