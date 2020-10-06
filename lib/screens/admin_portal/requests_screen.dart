@@ -10,6 +10,7 @@ class RequestsScreen extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: false,
           title: Text(Strings.of(context).requests),
           actions: [
             Ink(

@@ -24,7 +24,9 @@ class SettingsScreen extends StatelessWidget {
           title: Strings.of(context).adminPortal,
           subtitle: Strings.of(context).goToAdminPortal,
           onTap: (context) {
-            Navigator.of(context).pushNamed(AdminMainScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(
+              AdminMainScreen.routeName,
+            );
           },
         ),
       SettingsItem(title: '', subtitle: ''),
