@@ -25,27 +25,3 @@ class Button extends StatelessWidget {
     );
   }
 }
-
-class TextButton extends StatelessWidget {
-  final String title;
-  final Function onPressed;
-
-  const TextButton({
-    this.title,
-    this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: onPressed,
-      splashColor: AppColors.blueText.withAlpha(50),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headline4.copyWith(
-              color: onPressed == null ? AppColors.gray : AppColors.blueText,
-            ),
-      ),
-    );
-  }
-}

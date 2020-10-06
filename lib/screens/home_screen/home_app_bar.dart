@@ -12,7 +12,6 @@ import 'filter_bottom_sheet.dart';
 class HomeAppBar extends StatelessWidget {
   final FocusNode _searchFocus;
   final TextEditingController _controller;
-  final bool _isSearchFocused;
   final Function _updateFiltersCallback;
 
   const HomeAppBar({
@@ -22,7 +21,6 @@ class HomeAppBar extends StatelessWidget {
     Function updateFiltersCallback,
   })  : _searchFocus = searchFocusNode,
         _controller = controller,
-        _isSearchFocused = isSearchFocused,
         _updateFiltersCallback = updateFiltersCallback;
 
   @override

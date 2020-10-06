@@ -10,7 +10,7 @@ class SongsProvider extends BaseProvider {
   static const List<String> supportedLanguages = const ['en', 'ru', 'ua'];
 
   final List<Song> _songs;
-  final String _accessToken;
+  final String accessToken;
 
   int currentPage = 0;
 
@@ -22,7 +22,7 @@ class SongsProvider extends BaseProvider {
     @required String accessToken,
     List<Song> songs = const [],
   })  : _songs = songs,
-        _accessToken = accessToken;
+        accessToken = accessToken;
 
   Future<void> loadSongs() async {
     print('Fetching more songs... (current number of songs: ${_songs.length})');
@@ -56,19 +56,23 @@ class SongsProvider extends BaseProvider {
 
   Future incrementViews(int songId) async {
     final url = '$API_URL/songs/$songId/viewings';
-    final response = await put(url, _accessToken, null);
+    final response = await put(url, accessToken, null);
     print(
       'Http Response: ${response.statusCode} | ${jsonDecode(response.body)}',
     );
   }
 
-  Future create(Song song) {
-    throw UnimplementedError();
-//    return Firestore.instance.collection(_SONGS).add(song.toJson());
+  Future create(Song song) async {
+    final url = '$API_URL/songs';
+    final result = await post(url, accessToken, jsonEncode(song.toJson()));
+    print(
+      "SongProvider::create: ${result.statusCode}, body: ${jsonDecode(result.body)}",
+    );
+    return result.statusCode == 201;
   }
 
   Future<List<Song>> _getSongsByUrl(String url) async {
-    final response = await get(url, _accessToken);
+    final response = await get(url, accessToken);
     if (response.statusCode != 200) {
       return Future.error(
         throw HttpException(

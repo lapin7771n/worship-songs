@@ -59,7 +59,9 @@ class _SearchFieldState extends State<SearchField> {
             ),
             child: FlatButton(
               child: Text(
-                Strings.of(context).cancel,
+                Strings
+                    .of(context)
+                    .cancel,
                 maxLines: 1,
               ),
               onPressed: () {

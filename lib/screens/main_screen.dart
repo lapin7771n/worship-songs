@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
   BottomNavigationBarItem _buildBottomNavigationItem(MapEntry entry) {
     return BottomNavigationBarItem(
       icon: _getIconForBottomNavigationBar(entry.value),
-      title: Text(entry.key),
+      label: entry.key,
       activeIcon: _getActiveIconForBottomNavigationBar(entry.value),
     );
   }

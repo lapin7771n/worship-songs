@@ -3,13 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/providers/new_content_provider.dart';
 import 'package:worshipsongs/widgets/brand_field.dart';
 import 'package:worshipsongs/widgets/song_cover_image.dart';
 import 'package:worshipsongs/widgets/transparent_image.dart';
-
-import '../../../../app_colors.dart';
 
 class MainInfo extends StatefulWidget {
   final TextEditingController textEditingController;

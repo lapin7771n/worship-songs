@@ -1,8 +1,10 @@
+import 'package:worshipsongs/data/artist.dart';
+
 class Content {
   String title;
   String imagePath;
   String description;
-  int relatedToArtist;
+  Artist relatedToArtist;
   int relatedToAlbum;
   DateTime dateCreated;
   DateTime dateEdited;

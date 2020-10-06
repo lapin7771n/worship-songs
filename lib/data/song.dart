@@ -4,8 +4,8 @@ const String _ID = 'id';
 const String _TITLE = 'title';
 const String _TEXT = 'text';
 const String _AUTHOR = 'author';
-const String _ARTIST = 'artistid';
-const String _ALBUM = 'albumid';
+const String _ARTIST = 'artistID';
+const String _ALBUM = 'albumID';
 const String _KEY = 'chordsKey';
 const String _AKA = 'aka';
 const String _CAPO = 'capo';
@@ -95,5 +95,10 @@ class Song {
         .replaceAll('[P', '<bold>Pre-chorus ')
         .replaceAll(']', '</bold>');
     return formattedText;
+  }
+
+  @override
+  String toString() {
+    return 'Song{uuid: $uuid, title: $title, text: $text, author: $author, key: $key, aka: $aka, capo: $capo, copyright: $copyright, presentation: $presentation, artistID: $artistID, albumID: $albumID}';
   }
 }

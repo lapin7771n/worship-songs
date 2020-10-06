@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/add_lyrics_request.dart';
 import 'package:worshipsongs/data/artist.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
-import 'package:worshipsongs/screens/admin_portal/general_info_page/widgets/main_info.dart';
-import 'package:worshipsongs/widgets/song_cover_image.dart';
-import 'package:worshipsongs/widgets/transparent_image.dart';
+import 'package:worshipsongs/screens/admin_portal/providers/new_content_provider.dart';
+import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
+import 'package:worshipsongs/widgets/artist_list_item.dart';
 
 class GeneralLyricsInfoPage extends StatefulWidget {
   final AddLyricsRequest addLyricsRequest;
@@ -21,6 +22,8 @@ class GeneralLyricsInfoPage extends StatefulWidget {
 
 class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   final TextEditingController songNameController = TextEditingController();
+
+  bool _isInit = false;
   Artist artist;
 
   @override
@@ -28,6 +31,16 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
     songNameController.addListener(textChangeListener);
     songNameController.text = widget.addLyricsRequest.title;
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (!_isInit) {
+      final provider = Provider.of<NewContentProvider>(context, listen: false);
+      songNameController.text = provider.content.title;
+      artist = provider.content.relatedToArtist;
+    }
+    super.didChangeDependencies();
   }
 
   @override
@@ -67,45 +80,36 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   }
 
   Widget buildArtist() {
-    return ListTile(
-      contentPadding: EdgeInsets.only(left: 0),
-      leading: artist == null ? null : buildArtistCoverImage(),
-      title: Text(
-        artist == null ? Strings.of(context).noAlbumAssigned : artist.title,
-        style: Theme.of(context).textTheme.headline4,
-      ),
-      subtitle: artist == null
-          ? Text(
+    return artist == null
+        ? ListTile(
+            onTap: onSelectArtist,
+            contentPadding: EdgeInsets.only(left: 0),
+            title: Text(
+              Strings.of(context).noAlbumAssigned,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            subtitle: Text(
               Strings.of(context).assignArtist,
               style: Theme.of(context).textTheme.subtitle2,
-            )
-          : null,
-      trailing: SvgPicture.asset('assets/images/ArrowRight.svg'),
-      onTap: onSelectArtist,
-    );
+            ),
+            trailing: SvgPicture.asset('assets/images/ArrowRight.svg'),
+          )
+        : ArtistListItem(
+            contentPadding: EdgeInsets.symmetric(vertical: 5.0),
+            onTap: onSelectArtist,
+            coverUrl: artist.imageUrl,
+            title: artist.title,
+          );
   }
 
-  void onSelectArtist() {
-    Navigator.of(context).push(
+  void onSelectArtist() async {
+    final result = await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => AssignArtistScreen()),
     );
-  }
-
-  Widget buildArtistCoverImage() {
-    return artist.uuid == null
-        ? SongCoverImage(title: artist.title, author: artist.title)
-        : Container(
-            width: 56,
-            height: 56,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: FadeInImage(
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(artist.imageUrl),
-            ),
-          );
+    setState(() {
+      artist = result;
+      Provider.of<NewContentProvider>(context, listen: false).artist = artist;
+    });
   }
 
   Widget buildNoDatabaseMatch(BuildContext context) {

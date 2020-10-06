@@ -49,6 +49,20 @@ class ArtistsProvider extends BaseProvider {
   Future<List<Artist>> read() async {
     final url = '$API_URL/$ROUTE?page=$_currentPage';
 
+    final parsedArtists = await getByUrl(url);
+    _loadedArtists.addAll(parsedArtists);
+    _loadedArtists = _loadedArtists.toSet().toList();
+    _currentPage++;
+    notifyListeners();
+    return _loadedArtists.toList();
+  }
+
+  Future<List<Artist>> findByTitle(String title) async {
+    final url = '$API_URL/$ROUTE?title=$title';
+    return getByUrl(url);
+  }
+
+  Future<List<Artist>> getByUrl(String url) async {
     final response = await get(url, accessToken);
     if (response.statusCode != 200) {
       return Future.error(
@@ -59,11 +73,7 @@ class ArtistsProvider extends BaseProvider {
     }
 
     final List loadedArtistsJson = jsonDecode(response.body);
-    var parsedArtists = loadedArtistsJson.map((e) => Artist.fromMap(e));
-    _loadedArtists.addAll(parsedArtists);
-    _loadedArtists = _loadedArtists.toSet().toList();
-    notifyListeners();
-    return parsedArtists.toList();
+    return loadedArtistsJson.map((e) => Artist.fromMap(e)).toList();
   }
 
   void dispose() {

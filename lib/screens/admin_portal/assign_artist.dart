@@ -5,9 +5,8 @@ import 'package:worshipsongs/data/artist.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/services/size_config.dart';
+import 'package:worshipsongs/widgets/artist_list_item.dart';
 import 'package:worshipsongs/widgets/search_field.dart';
-import 'package:worshipsongs/widgets/song_cover_image.dart';
-import 'package:worshipsongs/widgets/transparent_image.dart';
 
 class AssignArtistScreen extends StatefulWidget {
   @override
@@ -19,6 +18,24 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
   final FocusNode searchFocusNode = FocusNode();
 
   bool isLoading = false;
+  bool _isInit = false;
+  List<Artist> artists = List();
+
+  @override
+  void initState() {
+    if (!_isInit) {
+      controller.addListener(textListenerCallback);
+      textListenerCallback();
+      _isInit = true;
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(textListenerCallback);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +58,7 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
                           .dispose();
                     },
                   ),
+                  SizedBox(width: 16.0),
                   Text(
                     Strings.of(context).assignArtist,
                     style: Theme.of(context).textTheme.headline2,
@@ -66,48 +84,31 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
             loadMoreArtists();
           }
         },
-        child: Consumer<ArtistsProvider>(
-          builder: (ctx, value, child) => ListView.builder(
-            itemBuilder: (context, index) {
-              if (index == value.loadedArtists.length) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final Artist artist = value.loadedArtists[index];
-              return ListTile(
-                title: Text(
-                  artist.title,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                leading: buildLeading(artist),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 5,
-                ),
-              );
-            },
-            itemCount: value.loadedArtists.length + 1,
-          ),
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            final Artist artist = artists[index];
+            return ArtistListItem(
+              title: artist.title,
+              onTap: () {
+                Navigator.of(context).pop(artist);
+              },
+              coverUrl: artist.imageUrl,
+            );
+          },
+          itemCount: artists.length,
         ),
       ),
     );
   }
 
-  Widget buildLeading(Artist artist) {
-    return artist.imageUrl == null
-        ? SongCoverImage(title: artist.title, author: artist.title)
-        : Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            clipBehavior: Clip.antiAlias,
-            child: FadeInImage(
-              fit: BoxFit.cover,
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(artist.imageUrl),
-            ),
-          );
+  Future textListenerCallback() async {
+    final List<Artist> artists =
+        await Provider.of<ArtistsProvider>(context, listen: false).findByTitle(
+      controller.text,
+    );
+    setState(() {
+      this.artists = artists;
+    });
   }
 
   void loadMoreArtists() async {

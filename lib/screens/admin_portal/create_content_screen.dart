@@ -7,8 +7,9 @@ import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/general_album_info.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/general_artist_info.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/general_lyrics_info_page.dart';
-import 'package:worshipsongs/screens/admin_portal/general_info_page/widgets/accept_content_button.dart';
+import 'package:worshipsongs/screens/admin_portal/lyrics_page.dart';
 import 'package:worshipsongs/screens/admin_portal/providers/new_content_provider.dart';
+import 'package:worshipsongs/screens/admin_portal/widgets/accept_content_button.dart';
 
 import '../../app_colors.dart';
 
@@ -62,7 +63,7 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
                 child: TabBarView(
                   children: [
                     contentType.widget,
-                    if (contentType == ContentType.lyrics) Container(),
+                    if (contentType == ContentType.lyrics) LyricsPage(),
                   ],
                 ),
               ),

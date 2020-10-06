@@ -245,4 +245,12 @@ mixin StringResources {
   String get assignArtist => Intl.message('Assign Artist');
 
   String get typeArtistName => Intl.message('Type artist name...');
+
+  String get howToAddChords => Intl.message('How to Add Chords');
+
+  String get toAddChordsToTheLyrics => Intl.message(
+        'To add chords to the lyrics insert “.”(Dot Sign) at start of Chords String',
+      );
+
+  String get lyricsAndChords => Intl.message('Lyrics and Chords');
 }

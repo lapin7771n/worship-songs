@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
@@ -83,7 +84,12 @@ class OnBoardingScreen extends StatelessWidget {
                   width: SizeConfig.safeBlockHorizontal * 90,
                   height: SizeConfig.safeBlockVertical * _BUTTON_HEIGHT,
                   child: TextButton(
-                    title: Strings.of(context).iAlreadyHaveAnAccount,
+                    child: Text(
+                      Strings.of(context).iAlreadyHaveAnAccount,
+                      style: Theme.of(context).textTheme.headline4.copyWith(
+                            color: AppColors.blue,
+                          ),
+                    ),
                     onPressed: () => _handleLogin(context),
                   ),
                 ),

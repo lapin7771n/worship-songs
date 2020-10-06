@@ -13,6 +13,7 @@ class BrandField extends StatefulWidget {
   final TextEditingController controller;
   final String errorText;
   final int maxLines;
+  final TextStyle textStyle;
 
   final Function(String) onFieldSubmitted;
   final Function(String) validator;
@@ -29,6 +30,7 @@ class BrandField extends StatefulWidget {
     this.controller,
     this.errorText,
     this.maxLines = 1,
+    this.textStyle,
   });
 
   @override
@@ -87,7 +89,7 @@ class _BrandFieldState extends State<BrandField> {
       obscureText: _obscuringEnabled,
       autocorrect: false,
       keyboardType: widget.textInputType,
-      style: Theme.of(context).textTheme.bodyText1,
+      style: widget.textStyle ?? Theme.of(context).textTheme.bodyText1,
       decoration: inputDecoration,
     );
 

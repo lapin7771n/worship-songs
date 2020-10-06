@@ -31,8 +31,8 @@ class NewContentProvider with ChangeNotifier {
     _content.description = description;
   }
 
-  set artistID(int artistID) {
-    _content.relatedToArtist = artistID;
+  set artist(Artist artist) {
+    _content.relatedToArtist = artist;
   }
 
   set albumID(int albumID) {
@@ -46,6 +46,8 @@ class NewContentProvider with ChangeNotifier {
   set dateEdited(DateTime dateEdited) {
     _content.dateEdited = dateEdited;
   }
+
+  Content get content => _content;
 
   Future saveContent() async {
     switch (contentType) {
@@ -69,7 +71,7 @@ class NewContentProvider with ChangeNotifier {
     return songsProvider.create(Song(
       title: _content.title,
       text: _content.description,
-      artistID: _content.relatedToArtist,
+      artistID: _content.relatedToArtist.uuid,
       albumID: _content.relatedToAlbum,
     ));
   }

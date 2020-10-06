@@ -210,6 +210,7 @@ class MyApp extends StatelessWidget {
         headline6: TextStyle(
           // fontSize: 14,
           fontSize: SizeConfig.blockSizeVertical * 1.75,
+          fontWeight: FontWeight.normal,
         ),
         /** Lyrics/Middle **/
         subtitle1: TextStyle(

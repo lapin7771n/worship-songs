@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worshipsongs/screens/admin_portal/general_info_page/widgets/main_info.dart';
+import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
 
 class GeneralAlbumInfo extends StatefulWidget {
   @override

@@ -186,8 +186,8 @@ class _SpeedDialState extends State<SpeedDial> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      vsync: this,
       duration: Duration(milliseconds: widget.animationDuration),
+      vsync: this,
     );
 
     widget.controller ?? SpeedDialController()
