@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/localizations/strings.dart';
-import 'package:worshipsongs/screens/admin_portal/catalog_screen.dart';
+import 'package:worshipsongs/screens/admin_portal/catalog/catalog_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
 import 'package:worshipsongs/data/admin_page_route.dart';
 import 'package:worshipsongs/data/content_type.dart';

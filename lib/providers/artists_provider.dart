@@ -76,6 +76,12 @@ class ArtistsProvider extends BaseProvider {
     return loadedArtistsJson.map((e) => Artist.fromMap(e)).toList();
   }
 
+  Future count() async {
+    final url = '$API_URL/$ROUTE/count';
+    final response = await get(url, accessToken);
+    return jsonDecode(response.body);
+  }
+
   void dispose() {
     _loadedArtists.clear();
     _currentPage = 0;

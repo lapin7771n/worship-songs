@@ -7,7 +7,7 @@ import 'package:worshipsongs/services/size_config.dart';
 class SearchField extends StatefulWidget {
   static const String _SEARCH_ICON_PATH = 'assets/images/Search.svg';
   static const double _SHADOW_OPACITY = 0.1;
-  static const double _SHADOW_SPREAD_RADIUS = 4;
+  static const double _SHADOW_SPREAD_RADIUS = 3;
   static const double _SHADOW_Y_OFFSET = 1;
   static const double _SHADOW_BLUR_RADIUS = 10;
 
@@ -15,10 +15,10 @@ class SearchField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
 
-  const SearchField({
+  SearchField({
     @required this.controller,
     @required this.hintText,
-    this.focusNode,
+    @required this.focusNode,
   });
 
   @override
@@ -53,16 +53,18 @@ class _SearchFieldState extends State<SearchField> {
           AnimatedContainer(
             duration: Duration(milliseconds: 150),
             constraints: BoxConstraints(
+              minWidth: 0,
               maxWidth: widget.focusNode.hasFocus
-                  ? SizeConfig.safeBlockHorizontal * 25
+                  ? SizeConfig.safeBlockHorizontal * 22
                   : 0,
             ),
-            child: FlatButton(
+            child: TextButton(
               child: Text(
-                Strings
-                    .of(context)
-                    .cancel,
+                Strings.of(context).cancel,
                 maxLines: 1,
+                style: Theme.of(context).textTheme.headline5.copyWith(
+                      color: AppColors.black,
+                    ),
               ),
               onPressed: () {
                 setState(() {

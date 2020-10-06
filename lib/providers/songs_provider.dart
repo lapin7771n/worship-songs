@@ -49,11 +49,6 @@ class SongsProvider extends BaseProvider {
     return await _getSongsByUrl(loadSongsUrl);
   }
 
-  clearLoadedSongs() {
-    _songs.clear();
-    currentPage = 0;
-  }
-
   Future incrementViews(int songId) async {
     final url = '$API_URL/songs/$songId/viewings';
     final response = await put(url, accessToken, null);
@@ -69,6 +64,17 @@ class SongsProvider extends BaseProvider {
       "SongProvider::create: ${result.statusCode}, body: ${jsonDecode(result.body)}",
     );
     return result.statusCode == 201;
+  }
+
+  Future count() async {
+    final url = '$API_URL/songs/count';
+    final response = await get(url, accessToken);
+    return jsonDecode(response.body);
+  }
+
+  clearLoadedSongs() {
+    _songs.clear();
+    currentPage = 0;
   }
 
   Future<List<Song>> _getSongsByUrl(String url) async {
