@@ -12,26 +12,36 @@ class BrandField extends StatefulWidget {
   final TextInputAction textInputAction;
   final TextEditingController controller;
   final String errorText;
-  final int maxLines;
   final TextStyle textStyle;
+
+  final bool dynamicLines;
+  final int maxLines;
+  final int defaultLinesCount;
+  final int maxLength;
 
   final Function(String) onFieldSubmitted;
   final Function(String) validator;
 
   const BrandField({
+    @required this.controller,
     this.title,
     this.hintText,
     this.textInputType,
-    this.obscureText = false,
     this.focusNode,
     this.onFieldSubmitted,
     this.textInputAction,
     this.validator,
-    this.controller,
     this.errorText,
-    this.maxLines = 1,
     this.textStyle,
-  });
+    this.maxLength,
+    this.obscureText = false,
+    this.maxLines = 1,
+    this.dynamicLines = false,
+    this.defaultLinesCount = 20,
+  }) : assert(
+          dynamicLines == false || maxLines == 1,
+          "Dynamic lines property doesn't work with max lines property",
+        );
 
   @override
   _BrandFieldState createState() => _BrandFieldState();
@@ -48,6 +58,10 @@ class _BrandFieldState extends State<BrandField> {
 
   @override
   Widget build(BuildContext context) {
+    widget.controller.selection = TextSelection.fromPosition(
+      TextPosition(offset: widget.controller.text.length),
+    );
+
     Widget title;
     if (widget.title != null)
       title = Padding(
@@ -80,8 +94,11 @@ class _BrandFieldState extends State<BrandField> {
     );
 
     var textFormField = TextFormField(
-      maxLines: widget.maxLines,
+      minLines: widget.dynamicLines ? widget.defaultLinesCount : 1,
+      maxLines: widget.dynamicLines ? null : widget.maxLines,
       controller: widget.controller,
+      maxLength: widget.maxLength,
+      maxLengthEnforced: false,
       validator: widget.validator,
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onFieldSubmitted,

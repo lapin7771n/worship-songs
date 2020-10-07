@@ -33,6 +33,8 @@ class ArtistListItem extends StatelessWidget {
 
   Widget buildLeading() {
     return Container(
+      width: 56,
+      height: 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
       ),

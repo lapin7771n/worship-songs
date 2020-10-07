@@ -21,8 +21,8 @@ class CreateContentScreen extends StatefulWidget {
 }
 
 class _CreateContentScreenState extends State<CreateContentScreen> {
-  ContentType contentType;
   final GlobalKey scaffoldKey = GlobalKey();
+  ContentType contentType;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
         songsProvider: Provider.of<SongsProvider>(context, listen: false),
         artistsProvider: Provider.of<ArtistsProvider>(context, listen: false),
       ),
-      builder: (context, _) => DefaultTabController(
+      builder: (context, child) => DefaultTabController(
         length: contentType == ContentType.lyrics ? 2 : 1,
         child: Scaffold(
           key: scaffoldKey,
@@ -54,29 +54,38 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
                   )
                 : null,
           ),
-          body: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: AcceptContentButton.ACCEPT_BUTTON_HEIGHT,
+          body: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: AcceptContentButton.ACCEPT_BUTTON_HEIGHT,
+                  ),
+                  child: TabBarView(
+                    children: [
+                      contentType.widget,
+                      if (contentType == ContentType.lyrics) LyricsPage(),
+                    ],
+                  ),
                 ),
-                child: TabBarView(
-                  children: [
-                    contentType.widget,
-                    if (contentType == ContentType.lyrics) LyricsPage(),
-                  ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Consumer<NewContentProvider>(
+                    builder: (ctx, value, __) => AcceptContentButton(
+                      text: Strings.of(context).accept +
+                          " " +
+                          contentType.name(context),
+                      onTap: value.isContentValid
+                          ? () => acceptContent(context)
+                          : null,
+                    ),
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: AcceptContentButton(
-                  text: Strings.of(context).accept +
-                      " " +
-                      contentType.name(context),
-                  onTap: () => acceptContent(context),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

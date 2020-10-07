@@ -48,14 +48,14 @@ class _GeneralArtistInfoState extends State<GeneralArtistInfo> {
                 hintText: Strings.of(context).exampleRoomForMore,
                 imagePathCallBack: onImageChosen,
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               BrandField(
                 maxLines: 4,
                 title: Strings.of(context).artistDescription,
                 hintText: Strings.of(context).describeThisArtist,
                 controller: descriptionController,
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               RequestInfo(
                 timestamp: timeStamp,
                 authorID: null,

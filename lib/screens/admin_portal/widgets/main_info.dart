@@ -81,6 +81,7 @@ class _MainInfoState extends State<MainInfo> {
             title: widget.fieldTitle,
             hintText: widget.hintText,
             controller: widget.textEditingController,
+            maxLength: 40,
           ),
         ],
       ),

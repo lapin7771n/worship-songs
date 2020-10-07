@@ -5,11 +5,14 @@ import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/providers/content.dart';
+import 'package:worshipsongs/services/debouncer.dart';
 
 class NewContentProvider with ChangeNotifier {
   final ContentType contentType;
   final ArtistsProvider artistsProvider;
   final SongsProvider songsProvider;
+
+  final _debouncer = Debouncer(milliseconds: 300);
 
   NewContentProvider({
     this.contentType,
@@ -21,33 +24,49 @@ class NewContentProvider with ChangeNotifier {
 
   set title(String title) {
     _content.title = title;
+    _updateIsContentValid();
   }
 
   set localImagePath(String localImagePath) {
     _content.imagePath = localImagePath;
+    _updateIsContentValid();
   }
 
   set description(String description) {
     _content.description = description;
+    _updateIsContentValid();
   }
 
   set artist(Artist artist) {
     _content.relatedToArtist = artist;
+    _updateIsContentValid();
   }
 
   set albumID(int albumID) {
     _content.relatedToAlbum = albumID;
+    _updateIsContentValid();
   }
 
   set dateCreated(DateTime dateCreated) {
     _content.dateCreated = dateCreated;
+    _updateIsContentValid();
   }
 
   set dateEdited(DateTime dateEdited) {
     _content.dateEdited = dateEdited;
+    _updateIsContentValid();
   }
 
   Content get content => _content;
+
+  bool isContentValid = false;
+
+  void _updateIsContentValid() {
+    _debouncer(() {
+      isContentValid = contentType.isValid(_content);
+      notifyListeners();
+    });
+  }
 
   Future saveContent() async {
     switch (contentType) {
@@ -94,5 +113,26 @@ class NewContentProvider with ChangeNotifier {
       ),
       _content.imagePath,
     );
+  }
+}
+
+extension NewContentProviderExtention on ContentType {
+  bool isValid(Content content) {
+    switch (this) {
+      case ContentType.lyrics:
+        return content.title != null &&
+            (content.description != null && content.description.isNotEmpty) &&
+            content.relatedToArtist != null;
+        break;
+      case ContentType.album:
+        return content.title != null && content.relatedToArtist != null;
+        break;
+      case ContentType.artist:
+        return content.title != null &&
+            (content.description != null && content.description.isNotEmpty) &&
+            content.imagePath != null;
+        break;
+    }
+    throw UnsupportedError("Unsupported content type: $content");
   }
 }
