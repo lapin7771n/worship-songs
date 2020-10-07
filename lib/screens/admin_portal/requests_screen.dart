@@ -46,13 +46,31 @@ class RequestsScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Tab(text: Strings.of(context).all),
-            Tab(text: Strings.of(context).lyrics),
-            Tab(text: Strings.of(context).albums(1)),
-            Tab(text: Strings.of(context).artists(1)),
+            buildThereIsNoRequests(context),
+            buildThereIsNoRequests(context),
+            buildThereIsNoRequests(context),
+            buildThereIsNoRequests(context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildThereIsNoRequests(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 32,
+        ),
+        SvgPicture.asset('assets/images/illustrations/WorkingMan.svg'),
+        const SizedBox(
+          height: 16,
+        ),
+        Text(
+          Strings.of(context).noNewRequests,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+      ],
     );
   }
 }

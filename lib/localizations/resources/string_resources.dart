@@ -255,4 +255,6 @@ mixin StringResources {
   String get lyricsAndChords => Intl.message('Lyrics and Chords');
 
   String get loading => Intl.message('Loading...');
+
+  String get noNewRequests => Intl.message('No new requests');
 }
