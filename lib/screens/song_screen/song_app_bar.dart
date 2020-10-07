@@ -192,7 +192,7 @@ class _SongAppBarState extends State<SongAppBar> {
                     duration: FAST_ANIMATION_DURATION,
                     opacity: previewOpacity,
                     child: Hero(
-                      tag: song.uuid,
+                      tag: song.title.hashCode + song.author.hashCode,
                       child: SongCoverImage(
                         title: song.title,
                         author: song.author,

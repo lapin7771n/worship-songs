@@ -15,15 +15,23 @@ class CategoriesPage extends StatelessWidget {
           CategoryListItem(
             title: Strings.of(context).lyrics,
             countFuture: Provider.of<SongsProvider>(context).count(),
-            onTap: () {},
+            onTap: () => lyricsClickListener(context),
           ),
           CategoryListItem(
             title: Strings.of(context).artists(2),
             countFuture: Provider.of<ArtistsProvider>(context).count(),
-            onTap: () {},
+            onTap: () => artistClickListener(context),
           ),
         ],
       ),
     );
+  }
+
+  void lyricsClickListener(BuildContext context) {
+    
+  }
+
+  void artistClickListener(BuildContext context) {
+
   }
 }

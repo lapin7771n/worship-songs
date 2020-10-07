@@ -101,7 +101,7 @@ class _MainScreenState extends State<MainScreen> {
       _pageController.animateToPage(
         newSelectedItemIndex,
         duration: Duration(milliseconds: 300),
-        curve: Curves.easeOut,
+        curve: Curves.ease,
       );
     });
   }

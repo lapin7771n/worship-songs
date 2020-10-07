@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
-import 'package:worshipsongs/widgets/brand_list_item.dart';
+import 'package:worshipsongs/widgets/brand_content_list.dart';
 
 class HomeSongsList extends StatefulWidget {
   final List<Song> _songs;
@@ -32,68 +31,20 @@ class _HomeSongsListState extends State<HomeSongsList> {
     );
   }
 
-  ListView buildListView(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (c, index) {
-        if (index == widget._songs.length) {
-          return const Center(child: const CircularProgressIndicator());
-        }
-        final Song previousSong = index > 0 ? widget._songs[index - 1] : null;
-        final Song currentSong = widget._songs[index];
-        Widget header;
-        if (previousSong == null ||
-            !_isFirstLetterEqual(currentSong, previousSong)) {
-          header = _buildHeader(currentSong, context);
-        }
-
-        return Column(
-          children: [
-            if (index == 0) _buildAllLyrics(context),
-            if (header != null) header,
-            BrandListItem(
-              song: currentSong,
-              onTap: () => _handleSongClick(currentSong, context),
+  Widget buildListView(BuildContext context) {
+    return BrantContentList(
+      title: Strings.of(context).allLyrics,
+      content: widget._songs
+          .map(
+            (e) => ContentForList(
+              title: e.title,
+              subtitle: e.author,
+              imageUrl: null,
+              chipText: e.hasChords ? Strings.of(context).chords : null,
+              onTap: () => _handleSongClick(e, context),
             ),
-          ],
-        );
-      },
-      itemCount: widget._songs.length + 1,
-    );
-  }
-
-  Widget _buildHeader(Song currentSong, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        padding: EdgeInsets.only(left: 16),
-        height: 37,
-        decoration: BoxDecoration(
-          color: AppColors.blue,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            currentSong.title.substring(0, 1),
-            style: Theme.of(context).textTheme.headline3.copyWith(
-                  color: AppColors.white,
-                ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAllLyrics(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
-          Strings.of(context).allLyrics,
-          style: Theme.of(context).textTheme.headline2,
-        ),
-      ),
+          )
+          .toList(),
     );
   }
 
@@ -102,11 +53,6 @@ class _HomeSongsListState extends State<HomeSongsList> {
     _isLoading = true;
     await Provider.of<SongsProvider>(context, listen: false).loadSongs();
     _isLoading = false;
-  }
-
-  bool _isFirstLetterEqual(Song currentSong, Song previousSong) {
-    return currentSong.title.substring(0, 1) ==
-        previousSong.title.substring(0, 1);
   }
 
   _handleSongClick(Song song, BuildContext context) {

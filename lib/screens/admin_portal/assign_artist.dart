@@ -6,7 +6,7 @@ import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/services/size_config.dart';
-import 'package:worshipsongs/widgets/artist_list_item.dart';
+import 'package:worshipsongs/widgets/brand_list_item.dart';
 import 'package:worshipsongs/widgets/search_field.dart';
 
 class AssignArtistScreen extends StatefulWidget {
@@ -88,12 +88,12 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             final Artist artist = artists[index];
-            return ArtistListItem(
+            return BrandListItem(
               title: artist.title,
               onTap: () {
                 Navigator.of(context).pop(artist);
               },
-              coverUrl: artist.imageUrl,
+              imageUrl: artist.imageUrl,
             );
           },
           itemCount: artists.length,

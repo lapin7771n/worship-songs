@@ -68,6 +68,13 @@ class Song {
     };
   }
 
+  bool get hasChords {
+    return text
+        .split("\n")
+        .where((element) => element.startsWith("."))
+        .isNotEmpty;
+  }
+
   String formattedText([int amount = 0]) {
     String formattedText = _replaceMarkers();
 

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
-import 'package:worshipsongs/widgets/brand_list_item.dart';
+import 'package:worshipsongs/widgets/song_list_item.dart';
 
 class SearchScreen extends StatefulWidget {
   final TextEditingController _controller;
@@ -29,18 +29,18 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (_, index) {
-        return BrandListItem(
-          song: _searchedSongs[index],
-          onTap: () {
-            Navigator.of(context).pushNamed(
-              SongScreen.routeName,
-              arguments: _searchedSongs[index],
-            );
-          },
+        var searchedSong = _searchedSongs[index];
+        return SongListItem(
+          song: searchedSong,
+          onTap: () => songClickListener(searchedSong),
         );
       },
       itemCount: _searchedSongs.length,
     );
+  }
+
+  void songClickListener(Song song) {
+    Navigator.of(context).pushNamed(SongScreen.routeName, arguments: song);
   }
 
   _searchSongs(String title) async {

@@ -9,7 +9,7 @@ import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
 import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
-import 'package:worshipsongs/widgets/artist_list_item.dart';
+import 'package:worshipsongs/widgets/brand_list_item.dart';
 
 class GeneralLyricsInfoPage extends StatefulWidget {
   final AddLyricsRequest addLyricsRequest;
@@ -94,10 +94,10 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
             ),
             trailing: SvgPicture.asset(ImagePathsHolder.ARROW_RIGHT),
           )
-        : ArtistListItem(
+        : BrandListItem(
             contentPadding: EdgeInsets.symmetric(vertical: 5.0),
             onTap: onSelectArtist,
-            coverUrl: artist.imageUrl,
+            imageUrl: artist.imageUrl,
             title: artist.title,
           );
   }
