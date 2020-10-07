@@ -7,7 +7,7 @@ import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
-import 'package:worshipsongs/screens/admin_portal/providers/new_content_provider.dart';
+import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
 import 'package:worshipsongs/widgets/artist_list_item.dart';
 

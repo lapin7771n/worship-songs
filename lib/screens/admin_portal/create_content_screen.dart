@@ -8,7 +8,7 @@ import 'package:worshipsongs/screens/admin_portal/general_info_page/general_albu
 import 'package:worshipsongs/screens/admin_portal/general_info_page/general_artist_info.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/general_lyrics_info_page.dart';
 import 'package:worshipsongs/screens/admin_portal/lyrics_page.dart';
-import 'package:worshipsongs/screens/admin_portal/providers/new_content_provider.dart';
+import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/accept_content_button.dart';
 
 import '../../app_colors.dart';

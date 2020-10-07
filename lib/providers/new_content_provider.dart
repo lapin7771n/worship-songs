@@ -4,7 +4,7 @@ import 'package:worshipsongs/data/content_type.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
-import 'package:worshipsongs/screens/admin_portal/providers/content.dart';
+import 'package:worshipsongs/data/content.dart';
 import 'package:worshipsongs/services/debouncer.dart';
 
 class NewContentProvider with ChangeNotifier {

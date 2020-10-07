@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/localizations/strings.dart';
-import 'package:worshipsongs/screens/admin_portal/providers/new_content_provider.dart';
+import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/services/lyrics_parser.dart';
 import 'package:worshipsongs/widgets/brand_field.dart';
 
