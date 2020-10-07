@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/admin_page_route.dart';
@@ -8,7 +9,6 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/catalog/catalog_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/requests_screen.dart';
-import 'package:worshipsongs/widgets/speed_dial/flutter_speed_dial_material_design.dart';
 
 class AdminMainScreen extends StatefulWidget {
   static const String routeName = '/admin-home';
@@ -32,7 +32,7 @@ class AdminMainScreen extends StatefulWidget {
 
 class _AdminMainScreenState extends State<AdminMainScreen> {
   int currentScreenIndex = 0;
-  bool isFabVisible = true;
+  bool isOpened = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,34 +52,39 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
             getBottomNavigationItem(1, AdminMainScreen.routes(context)[1]),
           ],
         ),
-        shape: CircularNotchedRectangle(),
         color: Color(0xFFF2F4F6),
-        notchMargin: 10,
       ),
     );
   }
 
   Widget buildFab() {
-    final icons = [
+    final actions = [
       buildSpeedDialAction(
         Strings.of(context).albums(1),
         ImagePathsHolder.MY_LYRICS,
+        () => speedDialActionClicked(0),
       ),
       buildSpeedDialAction(
         Strings.of(context).lyrics,
         ImagePathsHolder.ADD_LYRICS,
+        () => speedDialActionClicked(1),
       ),
       buildSpeedDialAction(
         Strings.of(context).artists(1),
         ImagePathsHolder.ADD_ARTIST,
+        () => speedDialActionClicked(2),
       ),
     ];
 
-    return SpeedDialFloatingActionButton(
-      actions: icons,
-      childOnFold: Icon(Icons.add),
-      useRotateAnimation: true,
-      onAction: speedDialActionClicked,
+    return SpeedDial(
+      elevation: 1,
+      children: actions,
+      animatedIconTheme: IconThemeData(size: 22.0),
+      marginBottom: 90,
+      child: Icon(isOpened ? Icons.close : Icons.add),
+      onOpen: () => setState(() => isOpened = true),
+      onClose: () => setState(() => isOpened = false),
+      marginRight: MediaQuery.of(context).size.width / 2 - 11,
     );
   }
 
@@ -112,31 +117,26 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
         throw UnsupportedError("unknown id: $index");
     }
 
-    setState(() {
-      isFabVisible = !isFabVisible;
-    });
-    await Navigator.of(context).pushNamed(
+    Navigator.of(context).pushNamed(
       CreateContentScreen.routeName,
       arguments: contentType,
     );
-    setState(() {
-      isFabVisible = !isFabVisible;
-    });
   }
 
-  SpeedDialAction buildSpeedDialAction(String title, String iconPath) {
-    return SpeedDialAction(
+  SpeedDialChild buildSpeedDialAction(
+      String title, String iconPath, Function onTap) {
+    return SpeedDialChild(
       backgroundColor: AppColors.blue,
-      child: SvgPicture.asset(
-        iconPath,
-        color: AppColors.white,
-        height: 16,
-        width: 16,
+      child: Container(
+        padding: EdgeInsets.all(12),
+        child: SvgPicture.asset(
+          iconPath,
+          color: AppColors.white,
+        ),
       ),
-      label: Text(
-        title,
-        style: Theme.of(context).textTheme.subtitle2,
-      ),
+      label: title,
+      labelStyle: Theme.of(context).textTheme.subtitle2,
+      onTap: onTap,
     );
   }
 
