@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/data/settings_item.dart';
 
 class SettingsListItem extends StatelessWidget {
@@ -35,7 +36,7 @@ class SettingsListItem extends StatelessWidget {
           ? () => _settingsItem.onTap(context)
           : null,
       trailing: _settingsItem.showArrow
-          ? SvgPicture.asset('assets/images/ArrowRight.svg')
+          ? SvgPicture.asset(ImagePathsHolder.ARROW_RIGHT)
           : null,
     );
   }

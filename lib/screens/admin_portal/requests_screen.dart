@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 
 class RequestsScreen extends StatelessWidget {
@@ -20,7 +21,7 @@ class RequestsScreen extends StatelessWidget {
               ),
               child: IconButton(
                 icon: SvgPicture.asset(
-                  'assets/images/Archive.svg',
+                  ImagePathsHolder.ARCHIVE,
                 ),
                 onPressed: () {},
               ),
@@ -62,7 +63,7 @@ class RequestsScreen extends StatelessWidget {
         const SizedBox(
           height: 32,
         ),
-        SvgPicture.asset('assets/images/illustrations/WorkingMan.svg'),
+        SvgPicture.asset(ImagePathsHolder.WORKING_MAN),
         const SizedBox(
           height: 16,
         ),

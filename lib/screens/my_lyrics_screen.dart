@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/favorite_song.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/favorite_songs_provider.dart';
@@ -101,7 +102,7 @@ class MyLyricsScreen extends StatelessWidget {
         ),
         Center(
           child: SvgPicture.asset(
-            'assets/images/illustrations/MyLyricsEmptyImage.svg',
+            ImagePathsHolder.MY_LYRICS_EMPTY_IMAGE,
           ),
         ),
         SizedBox(

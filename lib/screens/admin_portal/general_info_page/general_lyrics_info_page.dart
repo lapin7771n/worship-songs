@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/add_lyrics_request.dart';
 import 'package:worshipsongs/data/artist.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
@@ -85,14 +85,14 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
             onTap: onSelectArtist,
             contentPadding: EdgeInsets.only(left: 0),
             title: Text(
-              Strings.of(context).noAlbumAssigned,
+              Strings.of(context).noArtistAssigned,
               style: Theme.of(context).textTheme.headline4,
             ),
             subtitle: Text(
               Strings.of(context).assignArtist,
               style: Theme.of(context).textTheme.subtitle2,
             ),
-            trailing: SvgPicture.asset('assets/images/ArrowRight.svg'),
+            trailing: SvgPicture.asset(ImagePathsHolder.ARROW_RIGHT),
           )
         : ArtistListItem(
             contentPadding: EdgeInsets.symmetric(vertical: 5.0),
@@ -110,29 +110,6 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
       artist = result;
       Provider.of<NewContentProvider>(context, listen: false).artist = artist;
     });
-  }
-
-  Widget buildNoDatabaseMatch(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 8),
-      height: 56,
-      decoration: BoxDecoration(
-        color: AppColors.bluishGray,
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset('assets/images/CheckIcon.svg'),
-          ),
-          Text(
-            Strings.of(context).noMatchFound,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        ],
-      ),
-    );
   }
 
   Text buildSubtitle(String subtitle, BuildContext context) {

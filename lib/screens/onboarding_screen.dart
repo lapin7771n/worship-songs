@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
@@ -30,9 +31,9 @@ class OnBoardingScreen extends StatelessWidget {
         Strings.of(context).readTheGreatStories,
       ],
       'image': [
-        'assets/images/illustrations/ValueProposition1.svg',
-        'assets/images/illustrations/ValueProposition2.svg',
-        'assets/images/illustrations/ValueProposition3.svg',
+        ImagePathsHolder.VALUE_PROP1,
+        ImagePathsHolder.VALUE_PROP2,
+        ImagePathsHolder.VALUE_PROP3,
       ],
     };
   }

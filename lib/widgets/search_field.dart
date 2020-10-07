@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/services/size_config.dart';
 
 class SearchField extends StatefulWidget {
-  static const String _SEARCH_ICON_PATH = 'assets/images/Search.svg';
   static const double _SHADOW_OPACITY = 0.1;
   static const double _SHADOW_SPREAD_RADIUS = 3;
   static const double _SHADOW_Y_OFFSET = 1;
@@ -106,7 +106,7 @@ class _SearchFieldState extends State<SearchField> {
                 vertical: SizeConfig.safeBlockVertical * 1.6,
               ),
               child: SvgPicture.asset(
-                SearchField._SEARCH_ICON_PATH,
+                ImagePathsHolder.SEARCH,
                 color: widget.focusNode.hasFocus
                     ? AppColors.blue
                     : AppColors.black,

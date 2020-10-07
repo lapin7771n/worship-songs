@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/artist.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/services/size_config.dart';
@@ -51,7 +52,7 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
               Row(
                 children: [
                   IconButton(
-                    icon: SvgPicture.asset('assets/images/ArrowLeft.svg'),
+                    icon: SvgPicture.asset(ImagePathsHolder.ARROW_LEFT),
                     onPressed: () {
                       Navigator.of(context).pop();
                       Provider.of<ArtistsProvider>(context, listen: false)

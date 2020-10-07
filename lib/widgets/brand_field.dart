@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/services/size_config.dart';
 
 class BrandField extends StatefulWidget {
@@ -85,7 +86,9 @@ class _BrandFieldState extends State<BrandField> {
                   right: SizeConfig.safeBlockVertical,
                 ),
                 child: SvgPicture.asset(
-                  'assets/images/${_obscuringEnabled ? 'Closed' : 'Opened'}.svg',
+                  _obscuringEnabled
+                      ? ImagePathsHolder.EYE_CLOSED
+                      : ImagePathsHolder.EYE_OPENED,
                   color: _obscuringEnabled ? AppColors.gray : AppColors.blue,
                 ),
               ),

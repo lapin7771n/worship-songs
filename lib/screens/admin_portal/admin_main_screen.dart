@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/admin_page_route.dart';
+import 'package:worshipsongs/data/content_type.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/catalog/catalog_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
-import 'package:worshipsongs/data/admin_page_route.dart';
-import 'package:worshipsongs/data/content_type.dart';
 import 'package:worshipsongs/screens/admin_portal/requests_screen.dart';
 import 'package:worshipsongs/widgets/speed_dial/flutter_speed_dial_material_design.dart';
 
@@ -15,13 +16,13 @@ class AdminMainScreen extends StatefulWidget {
   static List<AdminPageRoute> routes(BuildContext context) => [
         AdminPageRoute(
           title: Strings.of(context).requests,
-          activeIconPath: 'assets/images/RequestsActive.svg',
-          iconPath: 'assets/images/Requests.svg',
+          activeIconPath: ImagePathsHolder.REQUESTS_ACTIVE,
+          iconPath: ImagePathsHolder.REQUESTS,
         ),
         AdminPageRoute(
           title: Strings.of(context).catalog,
-          activeIconPath: 'assets/images/CatalogActive.svg',
-          iconPath: 'assets/images/Catalog.svg',
+          activeIconPath: ImagePathsHolder.CATALOG_ACTIVE,
+          iconPath: ImagePathsHolder.CATALOG,
         ),
       ];
 
@@ -59,19 +60,18 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
   }
 
   Widget buildFab() {
-    var prefixIconPath = 'assets/images/';
     final icons = [
       buildSpeedDialAction(
         Strings.of(context).albums(1),
-        prefixIconPath + 'MyLyrics.svg',
+        ImagePathsHolder.MY_LYRICS,
       ),
       buildSpeedDialAction(
         Strings.of(context).lyrics,
-        prefixIconPath + 'AddLyrics.svg',
+        ImagePathsHolder.ADD_LYRICS,
       ),
       buildSpeedDialAction(
         Strings.of(context).artists(1),
-        prefixIconPath + 'AddArtist.svg',
+        ImagePathsHolder.ADD_ARTIST,
       ),
     ];
 

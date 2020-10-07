@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 
 class CategoryListItem extends StatelessWidget {
@@ -28,9 +29,8 @@ class CategoryListItem extends StatelessWidget {
           style: Theme.of(context).textTheme.subtitle2,
         ),
       ),
-      trailing: onTap == null
-          ? null
-          : SvgPicture.asset('assets/images/ArrowRight.svg'),
+      trailing:
+          onTap == null ? null : SvgPicture.asset(ImagePathsHolder.ARROW_RIGHT),
       onTap: onTap,
     );
   }

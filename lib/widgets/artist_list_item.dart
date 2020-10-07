@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/widgets/song_cover_image.dart';
 import 'package:worshipsongs/widgets/transparent_image.dart';
 
@@ -58,7 +59,7 @@ class ArtistListItem extends StatelessWidget {
 
   Widget buildTrailing() {
     return SvgPicture.asset(
-      'assets/images/ArrowRight.svg',
+      ImagePathsHolder.ARROW_RIGHT,
       color: AppColors.gray,
     );
   }

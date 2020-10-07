@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/catalog/categories_page.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
@@ -49,7 +50,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
         color: Color(0xFFFAFAFA),
       ),
       child: IconButton(
-        icon: SvgPicture.asset('assets/images/Logo.svg'),
+        icon: SvgPicture.asset(ImagePathsHolder.LOGO),
         onPressed: () {
           Navigator.of(context).pushReplacementNamed(
             MainScreen.routeName,
