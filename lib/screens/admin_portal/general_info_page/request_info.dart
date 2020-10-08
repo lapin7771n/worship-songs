@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:worshipsongs/localizations/strings.dart';
-import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/widgets/settings_list_item.dart';
 
 class RequestInfo extends StatelessWidget {
@@ -23,10 +21,11 @@ class RequestInfo extends StatelessWidget {
           Strings.of(context).requestInfo,
           style: Theme.of(context).textTheme.headline3,
         ),
-        buildRequestInfoItem(
-          Strings.of(context).requestedBy,
-          authorID ?? Provider.of<AuthProvider>(context).user.email,
-        ),
+        if (authorID != null)
+          buildRequestInfoItem(
+            Strings.of(context).requestedBy,
+            "$authorID",
+          ),
         buildRequestInfoItem(
           Strings.of(context).dateAndTime,
           getFormattedDate(timestamp),

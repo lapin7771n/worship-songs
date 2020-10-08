@@ -32,7 +32,7 @@ class _HomeSongsListState extends State<HomeSongsList> {
   }
 
   Widget buildListView(BuildContext context) {
-    return BrantContentList(
+    return BrandContentList(
       title: Strings.of(context).allLyrics,
       content: widget._songs
           .map(

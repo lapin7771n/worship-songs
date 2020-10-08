@@ -119,7 +119,7 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
 
     Navigator.of(context).pushNamed(
       CreateContentScreen.routeName,
-      arguments: contentType,
+      arguments: {'contentType': contentType},
     );
   }
 

@@ -66,6 +66,12 @@ class SongsProvider extends BaseProvider {
     return result.statusCode == 201;
   }
 
+  Future remove(int uuid) async {
+    final url = '$API_URL/songs/$uuid';
+    final response = await delete(url, accessToken);
+    return response.statusCode == 200;
+  }
+
   Future count() async {
     final url = '$API_URL/songs/count';
     final response = await get(url, accessToken);

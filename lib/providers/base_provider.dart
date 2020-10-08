@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-class BaseProvider with ChangeNotifier {
+abstract class BaseProvider with ChangeNotifier {
   static const String _ANDROID_DEBUG_URL = 'http://10.0.2.2';
   static const String _IOS_DEBUG_URL = 'http://localhost';
   static const String _PROD_URL = 'http://worship-songs-lyrics.tk';

@@ -1,26 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:worshipsongs/data/artist.dart';
+import 'package:worshipsongs/data/content.dart';
 import 'package:worshipsongs/data/content_type.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
-import 'package:worshipsongs/data/content.dart';
 import 'package:worshipsongs/services/debouncer.dart';
 
 class NewContentProvider with ChangeNotifier {
+  final _debouncer = Debouncer(milliseconds: 300);
+
   final ContentType contentType;
   final ArtistsProvider artistsProvider;
   final SongsProvider songsProvider;
 
-  final _debouncer = Debouncer(milliseconds: 300);
+  Content _content;
 
   NewContentProvider({
-    this.contentType,
-    this.songsProvider,
-    this.artistsProvider,
-  });
-
-  Content _content = Content.empty();
+    @required this.contentType,
+    @required this.songsProvider,
+    @required this.artistsProvider,
+    Content content,
+  }) : _content = content;
 
   set title(String title) {
     _content.title = title;
@@ -82,6 +83,19 @@ class NewContentProvider with ChangeNotifier {
     }
   }
 
+  Future<bool> deleteContent() async {
+    switch (contentType) {
+      case ContentType.lyrics:
+        // TODO: Handle this case.
+        break;
+      case ContentType.album:
+        // TODO: Handle this case.
+        break;
+      case ContentType.artist:
+        return artistsProvider.remove(content.uuid);
+    }
+  }
+
   Future _saveLyrics() async {
     assert(_content.title != null);
     assert(_content.description != null);
@@ -106,6 +120,7 @@ class NewContentProvider with ChangeNotifier {
 
     return artistsProvider.create(
       Artist(
+        uuid: content.uuid,
         title: _content.title,
         description: _content.description,
         dateEdited: _content.dateEdited,

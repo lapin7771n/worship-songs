@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/data/artist.dart';
+import 'package:worshipsongs/services/storage_repository.dart';
 
 import 'base_provider.dart';
 
@@ -21,6 +21,7 @@ class ArtistsProvider extends BaseProvider {
 
   List<Artist> get loadedArtists => [..._loadedArtists];
 
+  /// Method to create and update Artist
   Future<bool> create(Artist artist, String imagePath) async {
     final response = await put(
       '$API_URL/$ROUTE',
@@ -30,7 +31,10 @@ class ArtistsProvider extends BaseProvider {
     if (response.statusCode == 201) {
       final body = jsonDecode(response.body);
       final id = body["id"];
-      final downloadUrl = await _uploadArtistCover(id, imagePath);
+      final downloadUrl = await StorageRepository().uploadArtistCover(
+        id,
+        imagePath,
+      );
       artist.imageUrl = downloadUrl;
       artist.uuid = id;
       put('$API_URL/$ROUTE', accessToken, artist.encodedJson);
@@ -39,17 +43,12 @@ class ArtistsProvider extends BaseProvider {
     return Future.value(response.statusCode == 201);
   }
 
-  Future _uploadArtistCover(int artistID, String imagePath) async {
-    var reference = FirebaseStorage().ref().child('artists/covers/$artistID');
-    var uploadTask = reference.putFile(File(imagePath));
-    notifyListeners();
-    return await (await uploadTask.onComplete).ref.getDownloadURL();
-  }
-
+  ///Method to fetch $_current page of Artists
+  ///to fetch first page call ArtistsProvider::dispose first
   Future<List<Artist>> read() async {
     final url = '$API_URL/$ROUTE?page=$_currentPage';
 
-    final parsedArtists = await getByUrl(url);
+    final parsedArtists = await _getByUrl(url);
     _loadedArtists.addAll(parsedArtists);
     _loadedArtists = _loadedArtists.toSet().toList();
     _currentPage++;
@@ -57,23 +56,17 @@ class ArtistsProvider extends BaseProvider {
     return _loadedArtists.toList();
   }
 
-  Future<List<Artist>> findByTitle(String title) async {
-    final url = '$API_URL/$ROUTE?title=$title';
-    return getByUrl(url);
+  ///Method to remove Artist
+  Future<bool> remove(int uuid) async {
+    final url = '$API_URL/$ROUTE/$uuid';
+    final response = await delete(url, accessToken);
+    await StorageRepository().removeArtistCover(uuid);
+    return response.statusCode == 204;
   }
 
-  Future<List<Artist>> getByUrl(String url) async {
-    final response = await get(url, accessToken);
-    if (response.statusCode != 200) {
-      return Future.error(
-        throw HttpException(
-          "Status code: ${response.statusCode} | " + jsonDecode(response.body),
-        ),
-      );
-    }
-
-    final List loadedArtistsJson = jsonDecode(response.body);
-    return loadedArtistsJson.map((e) => Artist.fromMap(e)).toList();
+  Future<List<Artist>> findByTitle(String title) async {
+    final url = '$API_URL/$ROUTE?title=$title';
+    return _getByUrl(url);
   }
 
   Future count() async {
@@ -85,7 +78,20 @@ class ArtistsProvider extends BaseProvider {
   void dispose() {
     _loadedArtists.clear();
     _currentPage = 0;
-    notifyListeners();
+  }
+
+  Future<List<Artist>> _getByUrl(String url) async {
+    final response = await get(url, accessToken);
+    if (response.statusCode != 200) {
+      return Future.error(
+        throw HttpException(
+          "Status code: ${response.statusCode} | " + jsonDecode(response.body),
+        ),
+      );
+    }
+
+    final List loadedArtistsJson = jsonDecode(response.body);
+    return loadedArtistsJson.map((e) => Artist.fromMap(e)).toList();
   }
 }
 

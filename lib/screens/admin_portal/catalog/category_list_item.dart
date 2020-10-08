@@ -29,8 +29,11 @@ class CategoryListItem extends StatelessWidget {
           style: Theme.of(context).textTheme.subtitle2,
         ),
       ),
-      trailing:
-          onTap == null ? null : SvgPicture.asset(ImagePathsHolder.ARROW_RIGHT),
+      trailing: onTap == null
+          ? null
+          : SvgPicture.asset(
+              ImagePathsHolder.ARROW_RIGHT,
+            ),
       onTap: onTap,
     );
   }

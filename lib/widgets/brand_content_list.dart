@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/widgets/brand_list_item.dart';
 
-class BrantContentList extends StatelessWidget {
+class BrandContentList extends StatelessWidget {
   final String title;
   final List<ContentForList> content;
+  final EdgeInsets contentPadding;
+  final bool withArrow;
 
-  const BrantContentList({
+  const BrandContentList({
     this.title,
     this.content,
+    this.contentPadding,
+    this.withArrow = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
       itemBuilder: (item, index) {
         if (index == content.length) {
           return buildLoadingIndicator();
@@ -36,7 +41,10 @@ class BrantContentList extends StatelessWidget {
               title: currentContent.title,
               subtitle: currentContent.subtitle,
               chipText: currentContent.chipText,
+              imageUrl: currentContent.imageUrl,
               onTap: currentContent.onTap,
+              contentPadding: contentPadding,
+              withArrow: withArrow,
             ),
           ],
         );

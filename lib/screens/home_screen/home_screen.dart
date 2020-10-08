@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.hasError) {
                 return Center(
                     child: Text(
-                  Strings.of(context).error + ": " + snapshot.error,
+                  Strings.of(context).error + ": " + snapshot.error.toString(),
                 ));
               }
               if (snapshot.connectionState == ConnectionState.waiting) {

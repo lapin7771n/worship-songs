@@ -257,4 +257,13 @@ mixin StringResources {
   String get loading => Intl.message('Loading...');
 
   String get noNewRequests => Intl.message('No new requests');
+
+  String get preview => Intl.message('Preview');
+
+  String get contentSuccessfullyDeleted =>
+      Intl.message('Content successfully deleted');
+
+  String get contentDeleteError => Intl.message('Content delete error');
+
+  String get exampleAlive => Intl.message('ex. Alive');
 }

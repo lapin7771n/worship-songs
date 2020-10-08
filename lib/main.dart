@@ -12,6 +12,7 @@ import 'package:worshipsongs/providers/favorite_songs_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/account_settings_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/admin_main_screen.dart';
+import 'package:worshipsongs/screens/admin_portal/catalog/category_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen/home_screen.dart';
@@ -94,6 +95,7 @@ class MyApp extends StatelessWidget {
         AccountSettingsScreen.routeName: (ctx) => AccountSettingsScreen(),
         AdminMainScreen.routeName: (ctx) => AdminMainScreen(),
         CreateContentScreen.routeName: (ctx) => CreateContentScreen(),
+        CategoryScreen.routeName: (ctx) => CategoryScreen(),
       },
       localizationsDelegates: [
         const AppLocalizationsDelegate(),

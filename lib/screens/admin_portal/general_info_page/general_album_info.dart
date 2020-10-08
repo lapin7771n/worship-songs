@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
 
 class GeneralAlbumInfo extends StatefulWidget {
@@ -30,6 +31,7 @@ class _GeneralAlbumInfoState extends State<GeneralAlbumInfo> {
     return MainInfo(
       textEditingController: albumTitleController,
       fieldTitle: albumTitle,
+      hintText: Strings.of(context).exampleAlive,
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/data/content.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/widgets/brand_field.dart';
@@ -32,7 +33,16 @@ class _MainInfoState extends State<MainInfo> {
 
   @override
   void initState() {
-    widget.textEditingController.addListener(textListenerCallback);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        final Content content = Provider.of<NewContentProvider>(
+          context,
+          listen: false,
+        ).content;
+        widget.textEditingController.text = content.title;
+        widget.textEditingController.addListener(textListenerCallback);
+      },
+    );
     super.initState();
   }
 
@@ -43,23 +53,25 @@ class _MainInfoState extends State<MainInfo> {
   }
 
   void textListenerCallback() {
-    setState(() => null);
-    Provider.of<NewContentProvider>(
-      context,
-      listen: false,
-    ).title = widget.textEditingController.text;
+    setState(() {
+      Provider.of<NewContentProvider>(
+        context,
+        listen: false,
+      ).title = widget.textEditingController.text;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final String writtenText = widget.textEditingController.text;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildCover(writtenText),
+            Consumer<NewContentProvider>(
+              builder: (ctx, provider, child) => buildCover(provider.content),
+            ),
             buildEditButton(context),
           ],
         ),
@@ -105,15 +117,15 @@ class _MainInfoState extends State<MainInfo> {
     );
   }
 
-  Widget buildCover(String writtenText) {
-    return coverPath == null
+  Widget buildCover(Content content) {
+    return coverPath == null && content.imagePath == null
         ? buildTapableCoverPhoto(
             SongCoverImage(
-              title: writtenText.isNotEmpty
-                  ? writtenText
+              title: content.title.isNotEmpty
+                  ? content.title
                   : widget.hintText.substring(0),
-              author: writtenText.isNotEmpty
-                  ? writtenText
+              author: content.title.isNotEmpty
+                  ? content.title
                   : widget.hintText.substring(0),
               isBig: true,
             ),
@@ -129,7 +141,9 @@ class _MainInfoState extends State<MainInfo> {
               child: FadeInImage(
                 fit: BoxFit.cover,
                 placeholder: MemoryImage(kTransparentImage),
-                image: FileImage(File(coverPath)),
+                image: coverPath != null
+                    ? FileImage(File(coverPath))
+                    : NetworkImage(content.imagePath),
               ),
             ),
           );

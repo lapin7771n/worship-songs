@@ -1,6 +1,7 @@
 import 'package:worshipsongs/data/artist.dart';
 
 class Content {
+  int uuid;
   String title;
   String imagePath;
   String description;
@@ -10,12 +11,18 @@ class Content {
   DateTime dateEdited;
 
   Content({
+    this.uuid,
     this.title,
     this.imagePath,
     this.description,
     this.relatedToAlbum,
     this.relatedToArtist,
+    this.dateEdited,
+    this.dateCreated,
   });
 
-  Content.empty();
+  Content.empty()
+      : title = "",
+        description = "",
+        dateCreated = DateTime.now();
 }
