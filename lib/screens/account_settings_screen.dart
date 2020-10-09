@@ -4,6 +4,7 @@ import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
+import 'package:worshipsongs/screens/onboarding_screen.dart';
 import 'package:worshipsongs/widgets/settings_list_item.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
@@ -37,10 +38,13 @@ class AccountSettingsScreen extends StatelessWidget {
                 minWidth: 0,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    OnBoardingScreen.routeName,
+                    (route) => false,
+                  );
                   Provider.of<AuthProvider>(context, listen: false).logOut();
                   Provider.of<SongsProvider>(context, listen: false)
                       .clearLoadedSongs();
-                  Navigator.of(context).pop();
                 },
                 child: Text(Strings.of(context).logout),
                 textColor: AppColors.blue,

@@ -153,5 +153,6 @@ class AuthProvider extends BaseProvider {
   Future _removeAccessToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_ACCESS_TOKEN_KEY);
+    _accessToken = null;
   }
 }
