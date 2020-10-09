@@ -23,8 +23,7 @@ class StorageRepository {
   }
 
   Future<String> _uploadFile(String path, File file) async {
-    final StorageReference reference =
-        _storageReference.child(_rootFolder + path);
+    final StorageReference reference = _storageReference.child(path);
     final StorageUploadTask uploadTask = reference.putFile(file);
     return await (await uploadTask.onComplete).ref.getDownloadURL();
   }

@@ -61,7 +61,9 @@ class ArtistsProvider extends BaseProvider {
   Future<bool> remove(int uuid) async {
     final url = '$API_URL/$ROUTE/$uuid';
     final response = await delete(url, accessToken);
-    await StorageRepository().removeArtistCover(uuid);
+    if (response.statusCode == 200) {
+      await StorageRepository().removeArtistCover(uuid);
+    }
     return response.statusCode == 200;
   }
 
