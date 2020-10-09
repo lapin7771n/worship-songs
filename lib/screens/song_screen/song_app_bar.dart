@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/screens/song_screen/song_favorite_action.dart';
 import 'package:worshipsongs/services/size_config.dart';
-import 'package:worshipsongs/widgets/song_cover_image.dart';
+import 'package:worshipsongs/widgets/songs/song_cover_image.dart';
 
 import '../../app_colors.dart';
 

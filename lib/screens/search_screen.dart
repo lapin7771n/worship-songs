@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
-import 'package:worshipsongs/widgets/song_list_item.dart';
+import 'package:worshipsongs/widgets/songs/song_list_item.dart';
 
 class SearchScreen extends StatefulWidget {
-  final TextEditingController _controller;
+  final TextEditingController controller;
 
-  const SearchScreen(this._controller);
+  const SearchScreen({this.controller});
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -20,8 +20,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    widget._controller.addListener(
-      () => _searchSongs(widget._controller.text.trim()),
+    widget.controller.addListener(
+      () => _searchSongs(widget.controller.text.trim()),
     );
   }
 

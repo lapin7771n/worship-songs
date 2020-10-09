@@ -27,8 +27,6 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        right: 16,
-        left: 16,
         top: MediaQuery.of(context).padding.top + SizeConfig.safeBlockVertical,
         bottom: SizeConfig.safeBlockVertical,
       ),
@@ -56,7 +54,10 @@ class HomeAppBar extends StatelessWidget {
     ).languagesToLoad.map((e) => _getLanguageFromCode(e, context)).toList();
     return Align(
       alignment: Alignment.centerLeft,
-      child: FiltersButton(languagesToLoad, _showFilterBottomSheet),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: FiltersButton(languagesToLoad, _showFilterBottomSheet),
+      ),
     );
   }
 

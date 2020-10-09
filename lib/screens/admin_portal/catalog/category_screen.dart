@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/data/content_type.dart';
-import 'package:worshipsongs/screens/admin_portal/artist_screen.dart';
-import 'package:worshipsongs/screens/home_screen/home_screen.dart';
+import 'package:worshipsongs/screens/admin_portal/catalog/category_all_lyrics/category_all_lyrics.dart';
+import 'package:worshipsongs/screens/admin_portal/catalog/category_artists/artists_screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   static const String routeName = '/category-screen';
@@ -15,21 +15,19 @@ class CategoryScreen extends StatelessWidget {
         centerTitle: false,
         elevation: 0,
       ),
-      body: buildBody(contentType),
+      body: buildBody(contentType, context),
     );
   }
 
-  Widget buildBody(ContentType contentType) {
+  Widget buildBody(ContentType contentType, BuildContext context) {
     switch (contentType) {
       case ContentType.lyrics:
-        return HomeScreen();
-        break;
+        return CategoryAllLyricsScreen();
       case ContentType.album:
         // TODO: Handle this case.
         break;
       case ContentType.artist:
         return ArtistsScreen();
-        break;
     }
     throw UnsupportedError('Unsupported content type $contentType');
   }

@@ -25,7 +25,7 @@ class CategoryListItem extends StatelessWidget {
       subtitle: FutureBuilder(
         future: countFuture,
         builder: (_, snapshot) => Text(
-          '${snapshot.data} $title' ?? Strings.of(context).loading,
+          '${snapshot.data ?? Strings.of(context).loading} $title',
           style: Theme.of(context).textTheme.subtitle2,
         ),
       ),

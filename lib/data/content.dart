@@ -6,6 +6,7 @@ class Content {
   String imagePath;
   String description;
   Artist relatedToArtist;
+  String languageCode;
   int relatedToAlbum;
   DateTime dateCreated;
   DateTime dateEdited;
@@ -19,6 +20,7 @@ class Content {
     this.relatedToArtist,
     this.dateEdited,
     this.dateCreated,
+    this.languageCode,
   });
 
   Content.empty()

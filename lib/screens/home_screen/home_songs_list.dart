@@ -7,9 +7,14 @@ import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/widgets/brand_content_list.dart';
 
 class HomeSongsList extends StatefulWidget {
-  final List<Song> _songs;
+  final List<Song> songs;
+  final Function(Song) onTap;
 
-  HomeSongsList(this._songs);
+  const HomeSongsList({
+    Key key,
+    this.songs,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   _HomeSongsListState createState() => _HomeSongsListState();
@@ -34,14 +39,16 @@ class _HomeSongsListState extends State<HomeSongsList> {
   Widget buildListView(BuildContext context) {
     return BrandContentList(
       title: Strings.of(context).allLyrics,
-      content: widget._songs
+      content: widget.songs
           .map(
             (e) => ContentForList(
               title: e.title,
               subtitle: e.author,
               imageUrl: null,
               chipText: e.hasChords ? Strings.of(context).chords : null,
-              onTap: () => _handleSongClick(e, context),
+              onTap: () => widget.onTap != null
+                  ? widget.onTap(e)
+                  : songClickListenerFallback(e, context),
             ),
           )
           .toList(),
@@ -55,7 +62,7 @@ class _HomeSongsListState extends State<HomeSongsList> {
     _isLoading = false;
   }
 
-  _handleSongClick(Song song, BuildContext context) {
+  songClickListenerFallback(Song song, BuildContext context) {
     Navigator.of(context).pushNamed(SongScreen.routeName, arguments: song);
   }
 }

@@ -45,7 +45,11 @@ class _SearchFieldState extends State<SearchField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.safeBlockVertical * 8,
+      padding: EdgeInsets.only(
+        left: 16,
+        right: widget.focusNode.hasFocus ? 5 : 16,
+      ),
+      height: SizeConfig.safeBlockVertical * 11,
       width: SizeConfig.safeBlockHorizontal * 100,
       child: Row(
         children: [

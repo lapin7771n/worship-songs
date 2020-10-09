@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:http/src/response.dart';
 import 'package:worshipsongs/data/artist.dart';
 import 'package:worshipsongs/services/storage_repository.dart';
 
@@ -61,12 +62,22 @@ class ArtistsProvider extends BaseProvider {
     final url = '$API_URL/$ROUTE/$uuid';
     final response = await delete(url, accessToken);
     await StorageRepository().removeArtistCover(uuid);
-    return response.statusCode == 204;
+    return response.statusCode == 200;
   }
 
   Future<List<Artist>> findByTitle(String title) async {
     final url = '$API_URL/$ROUTE?title=$title';
     return _getByUrl(url);
+  }
+
+  Future<Artist> fingById(int uuid) async {
+    final url = '$API_URL/$ROUTE/$uuid';
+    final response = await get(url, accessToken);
+    if (response.statusCode != 200) {
+      return futureError(response);
+    }
+    final decodedJson = jsonDecode(response.body);
+    return Artist.fromMap(decodedJson);
   }
 
   Future count() async {
@@ -80,14 +91,18 @@ class ArtistsProvider extends BaseProvider {
     _currentPage = 0;
   }
 
+  Future futureError(Response response) {
+    return Future.error(
+      throw HttpException(
+        "Status code: ${response.statusCode} | " + jsonDecode(response.body),
+      ),
+    );
+  }
+
   Future<List<Artist>> _getByUrl(String url) async {
     final response = await get(url, accessToken);
     if (response.statusCode != 200) {
-      return Future.error(
-        throw HttpException(
-          "Status code: ${response.statusCode} | " + jsonDecode(response.body),
-        ),
-      );
+      return futureError(response);
     }
 
     final List loadedArtistsJson = jsonDecode(response.body);

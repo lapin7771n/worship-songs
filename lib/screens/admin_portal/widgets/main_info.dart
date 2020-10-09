@@ -8,7 +8,7 @@ import 'package:worshipsongs/data/content.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/widgets/brand_field.dart';
-import 'package:worshipsongs/widgets/song_cover_image.dart';
+import 'package:worshipsongs/widgets/songs/song_cover_image.dart';
 import 'package:worshipsongs/widgets/transparent_image.dart';
 
 class MainInfo extends StatefulWidget {

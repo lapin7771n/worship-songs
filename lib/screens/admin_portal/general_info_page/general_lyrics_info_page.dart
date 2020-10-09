@@ -5,10 +5,11 @@ import 'package:worshipsongs/data/add_lyrics_request.dart';
 import 'package:worshipsongs/data/artist.dart';
 import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
+import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
-import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
+import 'package:worshipsongs/services/debouncer.dart';
 import 'package:worshipsongs/widgets/brand_list_item.dart';
 
 class GeneralLyricsInfoPage extends StatefulWidget {
@@ -22,14 +23,17 @@ class GeneralLyricsInfoPage extends StatefulWidget {
 
 class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   final TextEditingController songNameController = TextEditingController();
+  final _debouncer = Debouncer(milliseconds: 300);
 
   bool _isInit = false;
   Artist artist;
 
   @override
   void initState() {
-    songNameController.addListener(textChangeListener);
-    songNameController.text = widget.addLyricsRequest.title;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      songNameController.addListener(textChangeListener);
+      songNameController.text = widget.addLyricsRequest.title;
+    });
     super.initState();
   }
 
@@ -39,6 +43,7 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
       final provider = Provider.of<NewContentProvider>(context, listen: false);
       songNameController.text = provider.content.title;
       artist = provider.content.relatedToArtist;
+      provider.languageCode = 'en';
     }
     super.didChangeDependencies();
   }
@@ -107,7 +112,7 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
       MaterialPageRoute(builder: (context) => AssignArtistScreen()),
     );
     setState(() {
-      artist = result;
+      artist = result ?? artist;
       Provider.of<NewContentProvider>(context, listen: false).artist = artist;
     });
   }
@@ -130,6 +135,8 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   }
 
   void textChangeListener() {
-    setState(() => null);
+    _debouncer(() {
+      setState(() => null);
+    });
   }
 }

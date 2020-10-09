@@ -4,8 +4,9 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
 import 'package:worshipsongs/screens/home_screen/home_app_bar.dart';
 import 'package:worshipsongs/screens/home_screen/home_songs_list.dart';
-import 'package:worshipsongs/screens/search_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
+
+import '../search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/home";
@@ -32,9 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _searchFocus.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _isSearchFocused || _controller.text.isNotEmpty
-          ? SearchScreen(_controller)
+          ? SearchScreen(controller: _controller)
           : _buildDefaultSection(),
     );
   }
@@ -93,7 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Consumer<SongsProvider> _buildSongList() {
     return Consumer<SongsProvider>(
-      builder: (_, songsProvider, __) => HomeSongsList(songsProvider.songs),
+      builder: (_, songsProvider, __) =>
+          HomeSongsList(songs: songsProvider.songs),
     );
   }
 }

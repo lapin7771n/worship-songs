@@ -4,7 +4,7 @@ import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/widgets/rounded_label.dart';
-import 'package:worshipsongs/widgets/song_cover_image.dart';
+import 'package:worshipsongs/widgets/songs/song_cover_image.dart';
 import 'package:worshipsongs/widgets/transparent_image.dart';
 
 class BrandListItem extends StatelessWidget {
@@ -73,7 +73,7 @@ class BrandListItem extends StatelessWidget {
 
   Widget buildLeading() {
     return Hero(
-      tag: title.hashCode + subtitle.hashCode,
+      tag: title.hashCode + (subtitle != null ? subtitle.hashCode : 0),
       child: Container(
         width: 56,
         height: 56,

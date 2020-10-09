@@ -10,7 +10,7 @@ class BrandContentList extends StatelessWidget {
 
   const BrandContentList({
     this.title,
-    this.content,
+    @required this.content,
     this.contentPadding,
     this.withArrow = false,
   });

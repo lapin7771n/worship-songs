@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:worshipsongs/data/artist.dart';
 import 'package:worshipsongs/data/content.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/general_album_info.dart';

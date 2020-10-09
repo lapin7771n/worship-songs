@@ -58,6 +58,11 @@ class NewContentProvider with ChangeNotifier {
     _updateIsContentValid();
   }
 
+  set languageCode(String languageCode) {
+    _content.languageCode = languageCode;
+    _updateIsContentValid();
+  }
+
   Content get content => _content;
 
   bool isContentValid = false;
@@ -86,14 +91,14 @@ class NewContentProvider with ChangeNotifier {
   Future<bool> deleteContent() async {
     switch (contentType) {
       case ContentType.lyrics:
-        // TODO: Handle this case.
-        break;
+        return songsProvider.remove(content.uuid);
       case ContentType.album:
         // TODO: Handle this case.
         break;
       case ContentType.artist:
         return artistsProvider.remove(content.uuid);
     }
+    return false;
   }
 
   Future _saveLyrics() async {
@@ -106,6 +111,7 @@ class NewContentProvider with ChangeNotifier {
       text: _content.description,
       artistID: _content.relatedToArtist.uuid,
       albumID: _content.relatedToAlbum,
+      language: content.languageCode,
     ));
   }
 
@@ -135,19 +141,31 @@ extension NewContentProviderExtention on ContentType {
   bool isValid(Content content) {
     switch (this) {
       case ContentType.lyrics:
-        return content.title != null &&
-            (content.description != null && content.description.isNotEmpty) &&
-            content.relatedToArtist != null;
+        return isLyricsValid(content);
         break;
       case ContentType.album:
-        return content.title != null && content.relatedToArtist != null;
+        return isAlbumValid(content);
         break;
       case ContentType.artist:
-        return content.title != null &&
-            (content.description != null && content.description.isNotEmpty) &&
-            content.imagePath != null;
+        return isArtistValid(content);
         break;
     }
     throw UnsupportedError("Unsupported content type: $content");
+  }
+
+  bool isArtistValid(Content content) {
+    return content.title != null &&
+        (content.description != null && content.description.isNotEmpty) &&
+        content.imagePath != null;
+  }
+
+  bool isAlbumValid(Content content) =>
+      content.title != null && content.relatedToArtist != null;
+
+  bool isLyricsValid(Content content) {
+    return content.title != null &&
+        (content.description != null && content.description.isNotEmpty) &&
+        content.relatedToArtist != null &&
+        content.languageCode != null;
   }
 }

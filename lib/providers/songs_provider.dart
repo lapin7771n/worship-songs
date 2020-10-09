@@ -24,7 +24,7 @@ class SongsProvider extends BaseProvider {
   })  : _songs = songs,
         accessToken = accessToken;
 
-  Future<void> loadSongs() async {
+  Future<List<Song>> loadSongs() async {
     print('Fetching more songs... (current number of songs: ${_songs.length})');
 
     final loadSongsUrl =
@@ -36,6 +36,7 @@ class SongsProvider extends BaseProvider {
     currentPage++;
     notifyListeners();
     print('Songs fetched (current number of songs: ${_songs.length})');
+    return songs;
   }
 
   Future<List<Song>> getSongsById(List<int> ids) async {
@@ -66,10 +67,10 @@ class SongsProvider extends BaseProvider {
     return result.statusCode == 201;
   }
 
-  Future remove(int uuid) async {
+  Future<bool> remove(int uuid) async {
     final url = '$API_URL/songs/$uuid';
     final response = await delete(url, accessToken);
-    return response.statusCode == 200;
+    return Future.value(response.statusCode == 200);
   }
 
   Future count() async {
