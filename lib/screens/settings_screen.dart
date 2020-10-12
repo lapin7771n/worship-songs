@@ -11,6 +11,7 @@ import 'package:worshipsongs/widgets/settings_list_item.dart';
 
 class SettingsScreen extends StatelessWidget {
   List<SettingsItem> _settingItems(BuildContext context) {
+    var wSongsUser = Provider.of<AuthProvider>(context).user;
     return [
       SettingsItem(
         title: Strings.of(context).accountSettings,
@@ -19,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
           Navigator.of(context).pushNamed(AccountSettingsScreen.routeName);
         },
       ),
-      if (Provider.of<AuthProvider>(context).user.role.contains("ADMIN"))
+      if (wSongsUser != null && wSongsUser.role.contains("ADMIN"))
         SettingsItem(
           title: Strings.of(context).adminPortal,
           subtitle: Strings.of(context).goToAdminPortal,

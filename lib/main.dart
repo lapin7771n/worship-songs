@@ -20,6 +20,7 @@ import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/screens/splash_screen.dart';
+import 'package:worshipsongs/screens/start_auth_screen/start_auth_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
 
 void main() {
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
         AdminMainScreen.routeName: (ctx) => AdminMainScreen(),
         CreateContentScreen.routeName: (ctx) => CreateContentScreen(),
         CategoryScreen.routeName: (ctx) => CategoryScreen(),
+        StartAuthScreen.routeName: (ctx) => StartAuthScreen(),
       },
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
@@ -129,6 +131,14 @@ class MyApp extends StatelessWidget {
         buttonColor: AppColors.blue,
         focusColor: AppColors.blueText,
         disabledColor: Color(0xFF8FADCC),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(
+            color: AppColors.blue,
+            width: 2,
+          ),
+        ),
       ),
       errorColor: AppColors.red,
       scaffoldBackgroundColor: AppColors.white,

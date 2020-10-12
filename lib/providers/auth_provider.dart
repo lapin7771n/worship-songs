@@ -7,17 +7,17 @@ import 'package:worshipsongs/data/auth_status.dart';
 import 'package:worshipsongs/data/payloads/requests/sign_in_request.dart';
 import 'package:worshipsongs/data/payloads/requests/sign_up_request.dart';
 import 'package:worshipsongs/data/payloads/responses/sign_in_response.dart';
-import 'package:worshipsongs/data/user.dart';
+import 'package:worshipsongs/data/wsongs_user.dart';
 import 'package:worshipsongs/providers/base_provider.dart';
 
 class AuthProvider extends BaseProvider {
   static const String _AUTH_PATH = '/api/v1/auth';
   static const String _ACCESS_TOKEN_KEY = "accessToken";
 
-  User _user;
+  WSongsUser _user;
   String _accessToken;
 
-  User get user {
+  WSongsUser get user {
     return _user;
   }
 
@@ -27,7 +27,7 @@ class AuthProvider extends BaseProvider {
 
   AuthStatus authStatus = AuthStatus.UNINITIALIZED;
 
-  Future<User> createUser(String email, String password) async {
+  Future<WSongsUser> createUser(String email, String password) async {
     final String signUpUrl = "$API_URL$_AUTH_PATH/signup";
     final Map requestBody = SignUpRequest(
       email: email,
@@ -50,7 +50,7 @@ class AuthProvider extends BaseProvider {
     throw HttpException(jsonDecode(response.body)["message"]);
   }
 
-  Future<User> signIn(String email, String password) async {
+  Future<WSongsUser> signIn(String email, String password) async {
     final String signInUrl = "$API_URL$_AUTH_PATH/signin";
     final Map requestBody = SignInRequest(
       email: email,
@@ -70,7 +70,7 @@ class AuthProvider extends BaseProvider {
       final SignInResponse signInResponse = SignInResponse.fromMap(
         jsonBody,
       );
-      User user = _userFromSignInResponse(signInResponse);
+      WSongsUser user = _userFromSignInResponse(signInResponse);
       await _saveAccessToken(signInResponse.accessToken);
       _updateUser(user);
       return user;
@@ -79,14 +79,10 @@ class AuthProvider extends BaseProvider {
     throw HttpException(jsonBody["error"]);
   }
 
-  Future signInViaGoogle() async {
-    throw UnimplementedError();
-  }
-
   Future tryToLogin() async {
     _accessToken = await _tryToGetAuthToken();
 
-    User user;
+    WSongsUser user;
     if (accessToken is String) {
       final String url = "$API_URL/users";
       final response = await post(
@@ -113,14 +109,12 @@ class AuthProvider extends BaseProvider {
   }
 
   Future logOut() async {
-    authStatus = AuthStatus.UNAUTHENTICATED;
-    _user = null;
     await _removeAccessToken();
-    notifyListeners();
+    _updateUser(null);
   }
 
-  User _userFromSignInResponse(SignInResponse signInResponse) {
-    return User(
+  WSongsUser _userFromSignInResponse(SignInResponse signInResponse) {
+    return WSongsUser(
       uuid: signInResponse.id,
       email: signInResponse.email,
       creationDate: signInResponse.creationDate,
@@ -130,7 +124,7 @@ class AuthProvider extends BaseProvider {
     );
   }
 
-  void _updateUser(User user) {
+  void _updateUser(WSongsUser user) {
     authStatus =
         user == null ? AuthStatus.UNAUTHENTICATED : AuthStatus.AUTHENTICATED;
     _user = user;

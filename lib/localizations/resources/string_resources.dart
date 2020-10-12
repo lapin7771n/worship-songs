@@ -15,8 +15,8 @@ mixin StringResources {
     return Intl.message('Create new Account');
   }
 
-  String get iAlreadyHaveAnAccount {
-    return Intl.message('I already have an Account');
+  String get alreadyHaveAnAccount {
+    return Intl.message('Already have an Account');
   }
 
   String get passwordHasToInclude {
@@ -266,4 +266,22 @@ mixin StringResources {
   String get contentDeleteError => Intl.message('Content delete error');
 
   String get exampleAlive => Intl.message('ex. Alive');
+
+  String get start => Intl.message('Start');
+
+  String get easierWayToLogin => Intl.message('Easier way to login');
+
+  String get weRespectYourTime => Intl.message('We respect your time!');
+
+  String get usingSocialMediaLoginYouWill => Intl.message(
+      'Using Social Media Login you will save tremendous amount of time ');
+
+  String get itsReallySave => Intl.message('It’s really save!');
+
+  String get noMorePasswordsToForgot =>
+      Intl.message('No more passwords to forgot');
+
+  String get or => Intl.message('Or');
+
+  String get signUpWithEmail => Intl.message('Sign up with E-Mail');
 }

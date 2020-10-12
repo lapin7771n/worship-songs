@@ -24,6 +24,8 @@ class ImagePathsHolder {
   static const String EYE_OPENED = 'assets/images/Opened.svg';
 
   static const String DELETE = 'assets/images/Delete.svg';
+  static const String SHIELD = 'assets/images/Shield.svg';
+  static const String ZAP = 'assets/images/Zap.svg';
 
   /// Illustrations
   static const String WORKING_MAN =

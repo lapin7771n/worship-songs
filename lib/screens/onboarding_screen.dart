@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
-import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
+import 'package:worshipsongs/screens/start_auth_screen/start_auth_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
 import 'package:worshipsongs/widgets/buttons.dart';
 import 'package:worshipsongs/widgets/carousel_with_indicator.dart';
@@ -23,17 +22,14 @@ class OnBoardingScreen extends StatelessWidget {
       'title': [
         Strings.of(context).wordsToPrayGod,
         Strings.of(context).playSongsYouLike,
-        Strings.of(context).theWordsOfTruth,
       ],
       'text': [
         Strings.of(context).findTheLyricsOfPopular,
         Strings.of(context).besideLyricsYouAlso,
-        Strings.of(context).readTheGreatStories,
       ],
       'image': [
         ImagePathsHolder.VALUE_PROP1,
         ImagePathsHolder.VALUE_PROP2,
-        ImagePathsHolder.VALUE_PROP3,
       ],
     };
   }
@@ -58,7 +54,7 @@ class OnBoardingScreen extends StatelessWidget {
                           _PICTURE_HEIGHT +
                           10),
                   children: <Widget>[
-                    ...[0, 1, 2]
+                    ...[0, 1]
                         .map(
                           (e) => buildCarouselChild(context, e),
                         )
@@ -77,25 +73,9 @@ class OnBoardingScreen extends StatelessWidget {
                   ),
                   width: SizeConfig.safeBlockHorizontal * 100,
                   child: Button(
-                    title: Strings.of(context).createNewAccount,
+                    title: Strings.of(context).start,
                     onPressed: () => _handleCreateAccount(context),
                   ),
-                ),
-                Container(
-                  width: SizeConfig.safeBlockHorizontal * 90,
-                  height: SizeConfig.safeBlockVertical * _BUTTON_HEIGHT,
-                  child: TextButton(
-                    child: Text(
-                      Strings.of(context).iAlreadyHaveAnAccount,
-                      style: Theme.of(context).textTheme.headline4.copyWith(
-                            color: AppColors.blue,
-                          ),
-                    ),
-                    onPressed: () => _handleLogin(context),
-                  ),
-                ),
-                SizedBox(
-                  height: SizeConfig.safeBlockVertical * _BOTTOM_INSET,
                 ),
               ],
             ),
@@ -107,15 +87,8 @@ class OnBoardingScreen extends StatelessWidget {
 
   _handleCreateAccount(BuildContext context) {
     Navigator.of(context).pushNamed(
-      AuthScreen.routeName,
+      StartAuthScreen.routeName,
       arguments: false,
-    );
-  }
-
-  _handleLogin(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      AuthScreen.routeName,
-      arguments: true,
     );
   }
 

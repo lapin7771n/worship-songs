@@ -37,15 +37,7 @@ class AccountSettingsScreen extends StatelessWidget {
               child: MaterialButton(
                 minWidth: 0,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    OnBoardingScreen.routeName,
-                    (route) => false,
-                  );
-                  Provider.of<AuthProvider>(context, listen: false).logOut();
-                  Provider.of<SongsProvider>(context, listen: false)
-                      .clearLoadedSongs();
-                },
+                onPressed: () => logoutPressed(context),
                 child: Text(Strings.of(context).logout),
                 textColor: AppColors.blue,
               ),
@@ -54,5 +46,15 @@ class AccountSettingsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void logoutPressed(BuildContext context) async {
+    await Provider.of<AuthProvider>(context, listen: false).logOut();
+    Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed(OnBoardingScreen.routeName);
+    Provider.of<SongsProvider>(
+      context,
+      listen: false,
+    ).clearLoadedSongs();
   }
 }

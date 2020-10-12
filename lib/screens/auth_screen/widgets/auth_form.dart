@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/app_colors.dart';
-import 'package:worshipsongs/data/user.dart';
+import 'package:worshipsongs/data/wsongs_user.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
+import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/services/size_config.dart';
 import 'package:worshipsongs/widgets/buttons.dart';
 
@@ -40,11 +41,13 @@ class _AuthFormState extends State<AuthForm> {
     _emailFocusNode = FocusNode();
     _passwordFocusNode = FocusNode();
 
-    _emailFocusNode.addListener(_emailFocusCallback);
-    _passwordFocusNode.addListener(_passwordFocusCallback);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _emailFocusNode.addListener(_emailFocusCallback);
+      _passwordFocusNode.addListener(_passwordFocusCallback);
 
-    _emailController.addListener(_emailFocusCallback);
-    _passwordController.addListener(_passwordFocusCallback);
+      _emailController.addListener(_emailFocusCallback);
+      _passwordController.addListener(_passwordFocusCallback);
+    });
   }
 
   @override
@@ -177,7 +180,7 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   _handleAuth() async {
-    User user;
+    WSongsUser user;
     if (widget.isLogin) {
       user = await _signIn(user);
     } else {
@@ -185,12 +188,13 @@ class _AuthFormState extends State<AuthForm> {
     }
 
     if (user != null) {
-      Navigator.of(context).pop();
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
       return;
     }
   }
 
-  Future<User> _signUp(User user) async {
+  Future<WSongsUser> _signUp(WSongsUser user) async {
     try {
       user = await Provider.of<AuthProvider>(context, listen: false)
           .createUser(_emailController.text, _passwordController.text);
@@ -200,7 +204,7 @@ class _AuthFormState extends State<AuthForm> {
     return user;
   }
 
-  Future<User> _signIn(User user) async {
+  Future<WSongsUser> _signIn(WSongsUser user) async {
     try {
       user = await Provider.of<AuthProvider>(context, listen: false)
           .signIn(_emailController.text, _passwordController.text);

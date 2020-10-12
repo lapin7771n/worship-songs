@@ -1,4 +1,4 @@
-class User {
+class WSongsUser {
   final int uuid;
   final String email;
   final List<String> role;
@@ -8,7 +8,7 @@ class User {
   final DateTime creationDate;
   final DateTime lastSignIn;
 
-  const User({
+  const WSongsUser({
     this.uuid,
     this.email,
     this.creationDate,

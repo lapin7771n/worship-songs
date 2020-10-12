@@ -17,7 +17,6 @@ dependencies:
   flutter_svg: ^0.19.0
   carousel_slider: ^2.2.1
   http: ^0.12.2
-  google_sign_in: ^4.5.1
   path_provider: ^1.6.11
   styled_text: ^1.0.1+1
   provider: ^4.3.2
@@ -30,6 +29,12 @@ dependencies:
   sticky_headers: ^0.1.8
   image_picker: ^0.6.6+5
   flutter_speed_dial: ^1.2.5
+  flutter_auth_buttons: ^0.10.0
+
+  google_sign_in: ^4.5.4
+  apple_sign_in: ^0.1.0
+  firebase_auth: ^0.18.1+2
+  crypto: ^2.1.5
 
   firebase_core: ^0.5.0
   firebase_crashlytics: ^0.2.0
