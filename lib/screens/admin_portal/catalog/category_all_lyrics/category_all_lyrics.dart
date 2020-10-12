@@ -41,7 +41,10 @@ class _CategoryAllLyricsScreenState extends State<CategoryAllLyricsScreen> {
           ),
           focusNode.hasFocus
               ? Expanded(
-                  child: SearchScreen(controller: searchController),
+                  child: SearchScreen(
+                    controller: searchController,
+                    songClickListener: songClickListener,
+                  ),
                 )
               : buildAllLyrics(),
         ],

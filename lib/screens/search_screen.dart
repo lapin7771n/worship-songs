@@ -7,8 +7,12 @@ import 'package:worshipsongs/widgets/songs/song_list_item.dart';
 
 class SearchScreen extends StatefulWidget {
   final TextEditingController controller;
+  final Function(Song) songClickListener;
 
-  const SearchScreen({this.controller});
+  const SearchScreen({
+    this.controller,
+    this.songClickListener,
+  });
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -32,7 +36,9 @@ class _SearchScreenState extends State<SearchScreen> {
         var searchedSong = _searchedSongs[index];
         return SongListItem(
           song: searchedSong,
-          onTap: () => songClickListener(searchedSong),
+          onTap: () => widget.songClickListener != null
+              ? widget.songClickListener(searchedSong)
+              : songClickListener(searchedSong),
         );
       },
       itemCount: _searchedSongs.length,

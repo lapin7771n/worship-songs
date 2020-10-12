@@ -107,6 +107,7 @@ class NewContentProvider with ChangeNotifier {
     assert(_content.relatedToArtist != null);
 
     return songsProvider.create(Song(
+      uuid: _content.uuid,
       title: _content.title,
       text: _content.description,
       artistID: _content.relatedToArtist.uuid,
