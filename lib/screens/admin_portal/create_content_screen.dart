@@ -30,6 +30,7 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
   ContentType contentType;
   Content content;
   BuildContext providerContext;
+  bool isCreateButtonActive = true;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
                         text: Strings.of(context).accept +
                             " " +
                             contentType.name(context),
-                        onTap: value.isContentValid
+                        onTap: value.isContentValid && isCreateButtonActive
                             ? () => acceptContent(context)
                             : null,
                       ),
@@ -183,12 +184,19 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
   }
 
   void acceptContent(BuildContext ctx) async {
+    setState(() {
+      isCreateButtonActive = false;
+    });
     final isSuccess = await Provider.of<NewContentProvider>(
       ctx,
       listen: false,
     ).saveContent();
     if (isSuccess) {
       Navigator.of(ctx).pop();
+    } else {
+      setState(() {
+        isCreateButtonActive = true;
+      });
     }
   }
 }

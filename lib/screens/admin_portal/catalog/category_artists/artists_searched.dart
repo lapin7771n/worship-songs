@@ -31,36 +31,23 @@ class _ArtistsSearchedState extends State<ArtistsSearched> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: Text(
-            Strings.of(context).artists(2),
-            style: Theme.of(context).textTheme.headline2,
-          ),
-        ),
-        FutureBuilder(
-          future: loadArtists(widget.controller.text),
-          builder: (ctx, snapshot) {
-            final artists = snapshot.data as List<Artist>;
-            return ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                var artist = artists[index];
-                return BrandListItem(
-                  title: artist.title,
-                  imageUrl: artist.imageUrl,
-                  withArrow: true,
-                  onTap: () => widget.onTap(artist),
-                );
-              },
-              itemCount: snapshot.hasData ? (snapshot.data as List).length : 0,
+    return FutureBuilder(
+      future: loadArtists(widget.controller.text),
+      builder: (ctx, snapshot) {
+        final artists = snapshot.data as List<Artist>;
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            var artist = artists[index];
+            return BrandListItem(
+              title: artist.title,
+              imageUrl: artist.imageUrl,
+              withArrow: true,
+              onTap: () => widget.onTap(artist),
             );
           },
-        ),
-      ],
+          itemCount: snapshot.hasData ? (snapshot.data as List).length : 0,
+        );
+      },
     );
   }
 

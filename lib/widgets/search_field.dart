@@ -58,9 +58,10 @@ class _SearchFieldState extends State<SearchField> {
             duration: Duration(milliseconds: 150),
             constraints: BoxConstraints(
               minWidth: 0,
-              maxWidth: widget.focusNode.hasFocus
-                  ? SizeConfig.safeBlockHorizontal * 22
-                  : 0,
+              maxWidth:
+                  widget.focusNode.hasFocus || widget.controller.text.isNotEmpty
+                      ? SizeConfig.safeBlockHorizontal * 22
+                      : 0,
             ),
             child: TextButton(
               child: Text(

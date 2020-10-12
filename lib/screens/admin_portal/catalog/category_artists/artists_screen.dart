@@ -9,6 +9,7 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/screens/admin_portal/catalog/category_artists/artists_searched.dart';
 import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
+import 'package:worshipsongs/services/debouncer.dart';
 import 'package:worshipsongs/widgets/brand_content_list.dart';
 import 'package:worshipsongs/widgets/infinite_brand_list.dart';
 import 'package:worshipsongs/widgets/search_field.dart';
@@ -21,10 +22,14 @@ class ArtistsScreen extends StatefulWidget {
 class _ArtistsScreenState extends State<ArtistsScreen> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
+  final textControllerDebouncer = Debouncer(milliseconds: 500);
 
   @override
   void initState() {
     focusNode.addListener(() => setState(() => null));
+    controller.addListener(
+      () => textControllerDebouncer(() => setState(() => null)),
+    );
     super.initState();
   }
 
@@ -37,10 +42,12 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
           controller: controller,
           hintText: Strings.of(context).typeArtistName,
         ),
-        focusNode.hasFocus
-            ? ArtistsSearched(
-                controller: controller,
-                onTap: onArtistClicked,
+        focusNode.hasFocus || controller.text.isNotEmpty
+            ? Expanded(
+                child: ArtistsSearched(
+                  controller: controller,
+                  onTap: onArtistClicked,
+                ),
               )
             : buildArtistsList(context),
       ],
@@ -51,14 +58,16 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
     return FutureBuilder(
       future: loadFirstPageOfArtists(),
       builder: (_, snapshot) => Consumer<ArtistsProvider>(
-        builder: (ctx, value, _) => InfiniteBrandList(
-          title: buildTitle(context),
-          contentForList: snapshot.data ?? [],
-          loadMoreCallback: () => Provider.of<ArtistsProvider>(
-            ctx,
-            listen: false,
-          ).read(),
-          withArrow: true,
+        builder: (ctx, value, _) => Expanded(
+          child: InfiniteBrandList(
+            title: buildTitle(context),
+            contentForList: snapshot.data ?? [],
+            loadMoreCallback: () => Provider.of<ArtistsProvider>(
+              ctx,
+              listen: false,
+            ).read(),
+            withArrow: true,
+          ),
         ),
       ),
     );

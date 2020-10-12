@@ -73,7 +73,9 @@ class BrandListItem extends StatelessWidget {
 
   Widget buildLeading() {
     return Hero(
-      tag: title.hashCode + (subtitle != null ? subtitle.hashCode : 0),
+      tag: title +
+          (subtitle != null ? subtitle : "") +
+          (imageUrl != null ? imageUrl : ""),
       child: Container(
         width: 56,
         height: 56,

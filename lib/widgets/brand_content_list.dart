@@ -18,7 +18,6 @@ class BrandContentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
       itemBuilder: (item, index) {
         if (index == content.length) {
           return buildLoadingIndicator();
