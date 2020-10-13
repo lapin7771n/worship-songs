@@ -38,9 +38,6 @@ class HomeAppBar extends StatelessWidget {
             focusNode: _searchFocus,
             hintText: Strings.of(context).typeSongName,
           ),
-          SizedBox(
-            height: SizeConfig.safeBlockVertical,
-          ),
           _buildFilters(context),
         ],
       ),

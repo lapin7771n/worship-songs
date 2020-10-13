@@ -31,6 +31,13 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle get inputContent {
+    return _baseTextStyle.copyWith(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
   static TextStyle get _baseTextStyle {
     return TextStyle(
       fontFamily: 'Rubik',

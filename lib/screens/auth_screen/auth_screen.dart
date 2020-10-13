@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/auth_screen/widgets/auth_form.dart';
 
@@ -16,7 +17,8 @@ class AuthScreen extends StatelessWidget {
         title: Text(
           isLogin
               ? Strings.of(context).login
-              : Strings.of(context).createNewAccount,
+              : Strings.of(context).signUp,
+          style: AppTextStyles.title3,
         ),
       ),
       body: SafeArea(

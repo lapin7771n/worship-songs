@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/services/size_config.dart';
 
@@ -14,6 +15,9 @@ class BrandField extends StatefulWidget {
   final TextEditingController controller;
   final String errorText;
   final TextStyle textStyle;
+  final String pathToPrefixIcon;
+
+  final double borderRadius;
 
   final bool dynamicLines;
   final int maxLines;
@@ -39,6 +43,8 @@ class BrandField extends StatefulWidget {
     this.maxLines = 1,
     this.dynamicLines = false,
     this.defaultLinesCount = 20,
+    this.borderRadius = 8,
+    this.pathToPrefixIcon,
   }) : assert(
           dynamicLines == false || maxLines == 1,
           "Dynamic lines property doesn't work with max lines property",
@@ -76,6 +82,38 @@ class _BrandFieldState extends State<BrandField> {
     var inputDecoration = InputDecoration(
       errorText: widget.errorText,
       hintText: widget.hintText,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: SizeConfig.safeBlockVertical * 2,
+        horizontal: 16,
+      ),
+      hintStyle: AppTextStyles.inputContent.copyWith(
+        color: AppColors.gray,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(widget.borderRadius),
+        borderSide: BorderSide(
+          color: Color(0xFF8DB1D9),
+          width: 1,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        gapPadding: 10,
+        borderRadius: BorderRadius.circular(widget.borderRadius),
+        borderSide: BorderSide(
+          color: AppColors.blue,
+          width: 2,
+        ),
+      ),
+      errorBorder: _buildErrorBorder(),
+      focusedErrorBorder: _buildErrorBorder(),
+      errorStyle: TextStyle(
+        // fontSize: 12,
+        fontSize: SizeConfig.blockSizeVertical * 1.5,
+        fontWeight: FontWeight.w500,
+      ),
+      prefixIcon: widget.pathToPrefixIcon != null
+          ? SvgPicture.asset(widget.pathToPrefixIcon)
+          : null,
       suffixIcon: widget.obscureText
           ? GestureDetector(
               onTap: _toggleVisibility,
@@ -109,7 +147,7 @@ class _BrandFieldState extends State<BrandField> {
       obscureText: _obscuringEnabled,
       autocorrect: false,
       keyboardType: widget.textInputType,
-      style: widget.textStyle ?? Theme.of(context).textTheme.bodyText1,
+      style: widget.textStyle ?? AppTextStyles.inputContent,
       decoration: inputDecoration,
     );
 
@@ -122,6 +160,16 @@ class _BrandFieldState extends State<BrandField> {
         ),
         textFormField
       ],
+    );
+  }
+
+  OutlineInputBorder _buildErrorBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(
+        color: AppColors.red,
+        width: 1,
+      ),
     );
   }
 

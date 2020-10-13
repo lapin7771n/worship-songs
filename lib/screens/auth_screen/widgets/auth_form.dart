@@ -108,7 +108,7 @@ class _AuthFormState extends State<AuthForm> {
             child: Button(
               title: widget.isLogin
                   ? Strings.of(context).login
-                  : Strings.of(context).createNewAccount,
+                  : Strings.of(context).signUp,
               onPressed: isEmailValid && isPasswordValid ? _handleAuth : null,
             ),
           ),

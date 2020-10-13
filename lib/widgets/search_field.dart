@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/services/size_config.dart';
@@ -49,7 +50,7 @@ class _SearchFieldState extends State<SearchField> {
         left: 16,
         right: widget.focusNode.hasFocus ? 5 : 16,
       ),
-      height: SizeConfig.safeBlockVertical * 11,
+      height: SizeConfig.safeBlockVertical * 10,
       width: SizeConfig.safeBlockHorizontal * 100,
       child: Row(
         children: [
@@ -102,9 +103,14 @@ class _SearchFieldState extends State<SearchField> {
         child: TextField(
           focusNode: widget.focusNode,
           controller: widget.controller,
+          style: AppTextStyles.inputContent,
           decoration: InputDecoration(
             enabledBorder: InputBorder.none,
+            hintStyle: AppTextStyles.inputContent.copyWith(
+              color: AppColors.gray,
+            ),
             hintText: widget.hintText,
+            contentPadding: EdgeInsets.all(15),
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.safeBlockVertical * 1.8,
@@ -115,6 +121,14 @@ class _SearchFieldState extends State<SearchField> {
                 color: widget.focusNode.hasFocus
                     ? AppColors.blue
                     : AppColors.black,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              gapPadding: 10,
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(
+                color: AppColors.blue,
+                width: 2,
               ),
             ),
           ),

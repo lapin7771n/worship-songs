@@ -113,16 +113,6 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  OutlineInputBorder _buildErrorBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(
-        color: AppColors.red,
-        width: 1,
-      ),
-    );
-  }
-
   ThemeData _buildThemeData(BuildContext context) {
     SizeConfig.init(context);
     return ThemeData(
@@ -153,38 +143,6 @@ class MyApp extends StatelessWidget {
       buttonBarTheme: ButtonBarThemeData(),
       cupertinoOverrideTheme: CupertinoThemeData(
         primaryColor: Colors.black,
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.symmetric(
-          vertical: SizeConfig.safeBlockVertical * 2,
-          horizontal: 16,
-        ),
-        hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
-              color: AppColors.gray,
-              height: 1.0,
-            ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: Color(0xFF8DB1D9),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          gapPadding: 10,
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: AppColors.blue,
-            width: 2,
-          ),
-        ),
-        errorBorder: _buildErrorBorder(),
-        focusedErrorBorder: _buildErrorBorder(),
-        errorStyle: TextStyle(
-          // fontSize: 12,
-          fontSize: SizeConfig.blockSizeVertical * 1.5,
-          fontWeight: FontWeight.w500,
-        ),
       ),
       textTheme: TextTheme(
         /** Title 1 **/

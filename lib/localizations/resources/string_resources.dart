@@ -11,10 +11,6 @@ mixin StringResources {
     return Intl.message('Login');
   }
 
-  String get createNewAccount {
-    return Intl.message('Create new Account');
-  }
-
   String get alreadyHaveAnAccount {
     return Intl.message('Already have an Account');
   }
@@ -284,4 +280,6 @@ mixin StringResources {
   String get or => Intl.message('Or');
 
   String get signUpWithEmail => Intl.message('Sign up with E-Mail');
+
+  String get signUp => Intl.message('Sign Up');
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/localizations/strings.dart';
-import 'package:worshipsongs/services/size_config.dart';
 
 class FiltersButton extends StatelessWidget {
   final List<String> _languagesToLoad;
@@ -11,9 +11,11 @@ class FiltersButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: SizeConfig.safeBlockVertical * 6,
+    return ButtonTheme(
+      minWidth: 0,
+      height: 0,
       child: FlatButton(
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 7.5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
@@ -23,9 +25,9 @@ class FiltersButton extends StatelessWidget {
           _getText(context),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.headline4.copyWith(
-                color: _isAllLanguages() ? AppColors.blue : AppColors.white,
-              ),
+          style: AppTextStyles.inputContent.copyWith(
+            color: _isAllLanguages() ? AppColors.blue : AppColors.white,
+          ),
         ),
       ),
     );
