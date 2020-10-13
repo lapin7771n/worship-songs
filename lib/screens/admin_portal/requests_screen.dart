@@ -14,16 +14,19 @@ class RequestsScreen extends StatelessWidget {
           centerTitle: false,
           title: Text(Strings.of(context).requests),
           actions: [
-            Ink(
-              decoration: ShapeDecoration(
-                shape: CircleBorder(),
-                color: Color(0xFFFAFAFA),
-              ),
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  ImagePathsHolder.ARCHIVE,
+            Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Ink(
+                decoration: ShapeDecoration(
+                  shape: CircleBorder(),
+                  color: Color(0xFFFAFAFA),
                 ),
-                onPressed: () {},
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    ImagePathsHolder.ARCHIVE,
+                  ),
+                  onPressed: () {},
+                ),
               ),
             ),
           ],

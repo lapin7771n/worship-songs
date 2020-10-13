@@ -44,18 +44,21 @@ class _CatalogScreenState extends State<CatalogScreen> {
   }
 
   Widget buildAction(BuildContext context) {
-    return Ink(
-      decoration: ShapeDecoration(
-        shape: CircleBorder(),
-        color: Color(0xFFFAFAFA),
-      ),
-      child: IconButton(
-        icon: SvgPicture.asset(ImagePathsHolder.LOGO),
-        onPressed: () {
-          Navigator.of(context).pushReplacementNamed(
-            MainScreen.routeName,
-          );
-        },
+    return Padding(
+      padding: EdgeInsets.only(right: 16.0),
+      child: Ink(
+        decoration: ShapeDecoration(
+          shape: CircleBorder(),
+          color: Color(0xFFFAFAFA),
+        ),
+        child: IconButton(
+          icon: SvgPicture.asset(ImagePathsHolder.LOGO),
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(
+              MainScreen.routeName,
+            );
+          },
+        ),
       ),
     );
   }
