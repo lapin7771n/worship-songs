@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:worshipsongs/app_colors.dart';
+import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/data/admin_page_route.dart';
 import 'package:worshipsongs/data/content_type.dart';
 import 'package:worshipsongs/data/image_paths_holder.dart';
@@ -9,6 +10,7 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/screens/admin_portal/catalog/catalog_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/create_content_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/requests_screen.dart';
+import 'package:worshipsongs/services/size_config.dart';
 
 class AdminMainScreen extends StatefulWidget {
   static const String routeName = '/admin-home';
@@ -40,19 +42,24 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
       body: getBody(currentScreenIndex),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: buildFab(),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            getBottomNavigationItem(0, AdminMainScreen.routes(context)[0]),
-            SizedBox(
-              height: 0,
+      bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 12,
+        selectedLabelStyle: AppTextStyles.titleNavigation,
+        unselectedLabelStyle: AppTextStyles.titleNavigation,
+        currentIndex: currentScreenIndex,
+        items: [
+          ...[0, 1].map(
+            (e) => getBottomNavigationItem(
+              e,
+              AdminMainScreen.routes(context)[e],
             ),
-            getBottomNavigationItem(1, AdminMainScreen.routes(context)[1]),
-          ],
-        ),
-        color: Color(0xFFF2F4F6),
+          ),
+        ],
+        backgroundColor: Color(0xFFF2F4F6),
+        elevation: 2,
+        onTap: onBottomNavigationClicked,
+        selectedItemColor: AppColors.blue,
+        unselectedItemColor: AppColors.gray,
       ),
     );
   }
@@ -77,10 +84,10 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
     ];
 
     return SpeedDial(
-      elevation: 1,
+      elevation: 2,
       children: actions,
       animatedIconTheme: IconThemeData(size: 22.0),
-      marginBottom: 90,
+      marginBottom: SizeConfig.safeBlockVertical * 7,
       child: Icon(isOpened ? Icons.close : Icons.add),
       onOpen: () => setState(() => isOpened = true),
       onClose: () => setState(() => isOpened = false),
@@ -88,15 +95,9 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
     );
   }
 
-  void requestsClicked() {
+  void onBottomNavigationClicked(int index) {
     setState(() {
-      currentScreenIndex = 0;
-    });
-  }
-
-  void catalogClicked() {
-    setState(() {
-      currentScreenIndex = 1;
+      currentScreenIndex = index;
     });
   }
 
@@ -151,37 +152,23 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
     }
   }
 
-  Widget getBottomNavigationItem(int index, AdminPageRoute adminPageRoute) {
+  BottomNavigationBarItem getBottomNavigationItem(
+      int index, AdminPageRoute adminPageRoute) {
     final AdminPageRoute route = AdminMainScreen.routes(context)[index];
-    var isSelected = currentScreenIndex == index;
-    return FlatButton(
-      onPressed: index == 0 ? requestsClicked : catalogClicked,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(100),
+    return BottomNavigationBarItem(
+      activeIcon: SvgPicture.asset(
+        route.activeIconPath,
+        color: AppColors.blue,
+        width: 24,
+        height: 24,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 15,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              isSelected ? route.activeIconPath : route.iconPath,
-              color: isSelected ? AppColors.blue : AppColors.gray,
-            ),
-            SizedBox(
-              height: 3,
-            ),
-            Text(
-              route.title,
-              style: Theme.of(context).textTheme.subtitle2.copyWith(
-                    color: isSelected ? AppColors.blue : AppColors.gray,
-                  ),
-            ),
-          ],
-        ),
+      icon: SvgPicture.asset(
+        route.iconPath,
+        color: AppColors.gray,
+        width: 24,
+        height: 24,
       ),
+      label: route.title,
     );
   }
 }

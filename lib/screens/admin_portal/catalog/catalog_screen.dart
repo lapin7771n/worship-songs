@@ -30,7 +30,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: SearchField(
               controller: textController,
               hintText: Strings.of(context).typeSongName,

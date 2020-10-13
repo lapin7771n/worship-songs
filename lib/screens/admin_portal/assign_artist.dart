@@ -43,21 +43,21 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
     return Scaffold(
       appBar: PreferredSize(
         child: SafeArea(
-          minimum: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-          ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [
-                  IconButton(
-                    icon: SvgPicture.asset(ImagePathsHolder.ARROW_LEFT),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Provider.of<ArtistsProvider>(context, listen: false)
-                          .dispose();
-                    },
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: IconButton(
+                      icon: SvgPicture.asset(ImagePathsHolder.ARROW_LEFT),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Provider.of<ArtistsProvider>(context, listen: false)
+                            .dispose();
+                      },
+                    ),
                   ),
                   SizedBox(width: 16.0),
                   Text(
@@ -75,7 +75,7 @@ class _AssignArtistScreenState extends State<AssignArtistScreen> {
           ),
         ),
         preferredSize: Size.fromHeight(
-          SizeConfig.blockSizeVertical * 15,
+          SizeConfig.blockSizeVertical * 20,
         ),
       ),
       body: NotificationListener(

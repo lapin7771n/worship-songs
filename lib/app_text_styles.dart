@@ -9,6 +9,20 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle get titleSongPlaylist {
+    return _baseTextStyle.copyWith(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  static TextStyle get titleNavigation {
+    return _baseTextStyle.copyWith(
+      fontSize: 12,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
   static TextStyle get bodyTextRegular {
     return _baseTextStyle.copyWith(
       fontSize: 16,
@@ -21,13 +35,6 @@ class AppTextStyles {
     return _baseTextStyle.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.normal,
-    );
-  }
-
-  static TextStyle get titleSongPlaylist {
-    return _baseTextStyle.copyWith(
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
     );
   }
 
