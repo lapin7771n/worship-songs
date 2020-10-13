@@ -22,7 +22,8 @@ class _LanguageItemState extends State<LanguageItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onPressed,
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
         decoration: BoxDecoration(
           color: widget.isSelected ? AppColors.blue : Colors.transparent,
           borderRadius: BorderRadius.all(
@@ -33,7 +34,7 @@ class _LanguageItemState extends State<LanguageItem> {
             width: 2,
           ),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 7.5),
         child: Center(
           child: Text(
             widget.title,

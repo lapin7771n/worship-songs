@@ -282,4 +282,6 @@ mixin StringResources {
   String get signUpWithEmail => Intl.message('Sign up with E-Mail');
 
   String get signUp => Intl.message('Sign Up');
+
+  String get language => Intl.message('Language');
 }

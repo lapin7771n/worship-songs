@@ -94,7 +94,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Text(
-        Strings.of(context).songLanguage,
+        Strings.of(context).language,
         style: Theme.of(context).textTheme.headline4,
       ),
     );
