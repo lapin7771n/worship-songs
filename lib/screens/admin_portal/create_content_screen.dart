@@ -54,9 +54,7 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
               title: Text(
                 contentType.name(context),
               ),
-              actions: [
-                buildPopupMenuButton(),
-              ],
+              actions: [buildAction()],
               bottom: contentType == ContentType.lyrics
                   ? TabBar(
                       tabs: [
@@ -91,9 +89,7 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Consumer<NewContentProvider>(
                       builder: (ctx, value, __) => AcceptContentButton(
-                        text: Strings.of(context).accept +
-                            " " +
-                            contentType.name(context),
+                        text: buttonText,
                         onTap: value.isContentValid && isCreateButtonActive
                             ? () => acceptContent(context)
                             : null,
@@ -107,6 +103,25 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
         );
       },
     );
+  }
+
+  Widget buildAction() {
+    return content.uuid != null
+        ? IconButton(
+            padding: EdgeInsets.all(16),
+            icon: SvgPicture.asset(ImagePathsHolder.DELETE),
+            onPressed: rejectClicked,
+          )
+        : buildPopupMenuButton();
+  }
+
+  String get buttonText {
+    final String verb = content.uuid != null
+        ? Strings.of(context).save
+        : Strings.of(context).accept;
+
+    final String noun = contentType.name(context);
+    return "$verb $noun";
   }
 
   PopupMenuButton<PopupItem> buildPopupMenuButton() {
