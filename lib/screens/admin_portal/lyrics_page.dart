@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/new_content_provider.dart';
-import 'package:worshipsongs/services/lyrics_parser.dart';
 import 'package:worshipsongs/widgets/brand_field.dart';
+import 'package:worshipsongs/widgets/languages_row.dart';
 
 class LyricsPage extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class LyricsPage extends StatefulWidget {
 
 class _LyricsPageState extends State<LyricsPage> {
   final TextEditingController lyricsController = TextEditingController();
-  final lyricsParser = LyricsParser();
 
   @override
   void initState() {
@@ -44,6 +44,8 @@ class _LyricsPageState extends State<LyricsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              buildLanguages(),
+              SizedBox(height: 24),
               buildInfoCard(context),
               SizedBox(height: 24),
               Padding(
@@ -70,6 +72,30 @@ class _LyricsPageState extends State<LyricsPage> {
       context,
       listen: false,
     ).description = lyricsController.text;
+  }
+
+  Widget buildLanguages() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          Strings.of(context).lyrics + " " + Strings.of(context).language,
+          style: AppTextStyles.titleSongPlaylist,
+        ),
+        SizedBox(height: 8),
+        LanguagesRow(
+          languagesSelectedCallback: (lang) {
+            Provider.of<NewContentProvider>(
+              context,
+              listen: false,
+            ).languageCode = lang[0];
+          },
+          initialLanguages: [Localizations.localeOf(context).languageCode],
+          isSingleLanguage: true,
+          isWithAll: false,
+        ),
+      ],
+    );
   }
 
   Widget buildInfoCard(BuildContext context) {

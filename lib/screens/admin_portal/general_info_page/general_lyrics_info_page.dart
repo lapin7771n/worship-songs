@@ -43,7 +43,6 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
       final provider = Provider.of<NewContentProvider>(context, listen: false);
       songNameController.text = provider.content.title;
       artist = provider.content.relatedToArtist;
-      provider.languageCode = 'en';
     }
     super.didChangeDependencies();
   }

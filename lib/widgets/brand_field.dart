@@ -139,7 +139,6 @@ class _BrandFieldState extends State<BrandField> {
       maxLines: widget.dynamicLines ? null : widget.maxLines,
       controller: widget.controller,
       maxLength: widget.maxLength,
-      maxLengthEnforced: false,
       validator: widget.validator,
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onFieldSubmitted,
