@@ -104,8 +104,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockVertical,
-          vertical: SizeConfig.safeBlockVertical),
+        horizontal: 16.0,
+        vertical: SizeConfig.safeBlockVertical,
+      ),
       child: Wrap(
         spacing: 8,
         runSpacing: 8,
@@ -143,7 +144,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     return Container(
       height: SizeConfig.safeBlockVertical * 7,
       margin: EdgeInsets.symmetric(
-        horizontal: SizeConfig.safeBlockVertical,
+        horizontal: 16.0,
         vertical: SizeConfig.safeBlockVertical * 3,
       ),
       width: MediaQuery.of(context).size.width,
