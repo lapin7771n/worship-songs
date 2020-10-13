@@ -58,9 +58,9 @@ class BrandContentList extends StatelessWidget {
 
   Widget _buildHeader(ContentForList currentSong, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32),
       child: Container(
-        padding: EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.only(left: 16),
         height: 37,
         decoration: BoxDecoration(
           color: AppColors.blue,
@@ -83,7 +83,11 @@ class BrandContentList extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          left: 16.0,
+          right: 16.0,
+        ),
         child: Text(
           title,
           style: Theme.of(context).textTheme.headline2,
