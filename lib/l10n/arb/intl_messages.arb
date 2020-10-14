@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2020-09-25T10:24:48.821528",
+  "@@last_modified": "2020-10-14T11:52:43.717519",
   "Home": "Home",
   "@Home": {
     "type": "text",
@@ -20,13 +20,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "Create new Account": "Create new Account",
-  "@Create new Account": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "I already have an Account": "I already have an Account",
-  "@I already have an Account": {
+  "Already have an Account": "Already have an Account",
+  "@Already have an Account": {
     "type": "text",
     "placeholders": {}
   },
@@ -239,6 +234,300 @@
   },
   "Explore Lyrics": "Explore Lyrics",
   "@Explore Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Admin Portal": "Admin Portal",
+  "@Admin Portal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Go to the admin portal": "Go to the admin portal",
+  "@Go to the admin portal": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Requests": "Requests",
+  "@Requests": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Catalog": "Catalog",
+  "@Catalog": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "albums": "{count,plural, =1{Album}other{Albums}}",
+  "@albums": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "Lyrics": "Lyrics",
+  "@Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "artists": "{count,plural, =1{Artist}other{Artists}}",
+  "@artists": {
+    "type": "text",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "Creating": "Creating",
+  "@Creating": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "General Info": "General Info",
+  "@General Info": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No Album Assigned": "No Album Assigned",
+  "@No Album Assigned": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Assign to Album": "Assign to Album",
+  "@Assign to Album": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Database Match": "Database Match",
+  "@Database Match": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Request Info": "Request Info",
+  "@Request Info": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Requested by": "Requested by",
+  "@Requested by": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Date and Time": "Date and Time",
+  "@Date and Time": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No match found": "No match found",
+  "@No match found": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Edit": "Edit",
+  "@Edit": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ex. Way Maker": "ex. Way Maker",
+  "@ex. Way Maker": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Lyrics Title": "Lyrics Title",
+  "@Lyrics Title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Accept": "Accept",
+  "@Accept": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Reject": "Reject",
+  "@Reject": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Artist Title": "Artist Title",
+  "@Artist Title": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ex. Room For More": "ex. Room For More",
+  "@ex. Room For More": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Artist Description": "Artist Description",
+  "@Artist Description": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "File should not be bigger than": "File should not be bigger than",
+  "@File should not be bigger than": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Describe this Artist": "Describe this Artist",
+  "@Describe this Artist": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Select new photo from gallery": "Select new photo from gallery",
+  "@Select new photo from gallery": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Delete Photo": "Delete Photo",
+  "@Delete Photo": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Success": "Success",
+  "@Success": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No Artist Assigned": "No Artist Assigned",
+  "@No Artist Assigned": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Assign Artist": "Assign Artist",
+  "@Assign Artist": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Type artist name...": "Type artist name...",
+  "@Type artist name...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "How to Add Chords": "How to Add Chords",
+  "@How to Add Chords": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "To add chords to the lyrics insert “.”(Dot Sign) at start of Chords String": "To add chords to the lyrics insert “.”(Dot Sign) at start of Chords String",
+  "@To add chords to the lyrics insert “.”(Dot Sign) at start of Chords String": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Lyrics and Chords": "Lyrics and Chords",
+  "@Lyrics and Chords": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Loading...": "Loading...",
+  "@Loading...": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No new requests": "No new requests",
+  "@No new requests": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Preview": "Preview",
+  "@Preview": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Content successfully deleted": "Content successfully deleted",
+  "@Content successfully deleted": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Content delete error": "Content delete error",
+  "@Content delete error": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "ex. Alive": "ex. Alive",
+  "@ex. Alive": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Start": "Start",
+  "@Start": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Easier way to login": "Easier way to login",
+  "@Easier way to login": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "We respect your time!": "We respect your time!",
+  "@We respect your time!": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Using Social Media Login you will save tremendous amount of time ": "Using Social Media Login you will save tremendous amount of time ",
+  "@Using Social Media Login you will save tremendous amount of time ": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "It’s really save!": "It’s really save!",
+  "@It’s really save!": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "No more passwords to forgot": "No more passwords to forgot",
+  "@No more passwords to forgot": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Or": "Or",
+  "@Or": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sign up with E-Mail": "Sign up with E-Mail",
+  "@Sign up with E-Mail": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Sign Up": "Sign Up",
+  "@Sign Up": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Language": "Language",
+  "@Language": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Save": "Save",
+  "@Save": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Delete Artist": "Delete Artist",
+  "@Delete Artist": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Delete Lyrics": "Delete Lyrics",
+  "@Delete Lyrics": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Delete Album": "Delete Album",
+  "@Delete Album": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Are you sure you want to delete this artist? If deleted, artist will no longer be available to all users.": "Are you sure you want to delete this artist? If deleted, artist will no longer be available to all users.",
+  "@Are you sure you want to delete this artist? If deleted, artist will no longer be available to all users.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Are you sure you want to delete this lyrics? If deleted, lyrics will no longer be available to all users.": "Are you sure you want to delete this lyrics? If deleted, lyrics will no longer be available to all users.",
+  "@Are you sure you want to delete this lyrics? If deleted, lyrics will no longer be available to all users.": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.": "Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.",
+  "@Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.": {
     "type": "text",
     "placeholders": {}
   }

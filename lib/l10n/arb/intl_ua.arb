@@ -1,230 +1,107 @@
 {
-  "@@last_modified": "2020-09-14T11:24:01.131795",
-  "Login": "Login",
-  "@Login": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Create new Account": "Create new Account",
-  "@Create new Account": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "I already have an Account": "I already have an Account",
-  "@I already have an Account": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Password has to include at least 6 characters": "Password has to include at least 6 characters",
-  "@Password has to include at least 6 characters": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Create Password": "Create Password",
-  "@Create Password": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Email Address": "Email Address",
-  "@Email Address": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "This doesn’t looks like email address": "This doesn’t looks like email address",
-  "@This doesn’t looks like email address": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "yourPasswordContainChars": "Your password contain {length}/6 characters",
-  "@yourPasswordContainChars": {
-    "type": "text",
-    "placeholders": {
-      "length": {}
-    }
-  },
-  "Continue with Google": "Continue with Google",
-  "@Continue with Google": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Error": "Error",
-  "@Error": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Type song name, lyrics...": "Type song name, lyrics...",
-  "@Type song name, lyrics...": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Cancel": "Cancel",
-  "@Cancel": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "All Lyrics": "All Lyrics",
-  "@All Lyrics": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Account Settings": "Account Settings",
-  "@Account Settings": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Change email address": "Change email address",
-  "@Change email address": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Not yet implemented": "Not yet implemented",
-  "@Not yet implemented": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Change password": "Change password",
-  "@Change password": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Logout": "Logout",
-  "@Logout": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Change password, email, logout": "Change password, email, logout",
-  "@Change password, email, logout": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Notifications": "Notifications",
-  "@Notifications": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Manage notifications": "Manage notifications",
-  "@Manage notifications": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Report about bug": "Report about bug",
-  "@Report about bug": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Could not launch": "Could not launch",
-  "@Could not launch": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Chords": "Chords",
-  "@Chords": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Write us a line about problem you have": "Write us a line about problem you have",
-  "@Write us a line about problem you have": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Words to Pray God": "Words to Pray God",
-  "@Words to Pray God": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Play songs you like": "Play songs you like",
-  "@Play songs you like": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "The words of truth": "The words of truth",
-  "@The words of truth": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Find the lyrics of popular christian songs to sing with people you love": "Find the lyrics of popular christian songs to sing with people you love",
-  "@Find the lyrics of popular christian songs to sing with people you love": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Beside lyrics you also can find the chords for guitar and notes for piano!": "Beside lyrics you also can find the chords for guitar and notes for piano!",
-  "@Beside lyrics you also can find the chords for guitar and notes for piano!": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Read the great stories of great people how God changes their lives!": "Read the great stories of great people how God changes their lives!",
-  "@Read the great stories of great people how God changes their lives!": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Filters": "Filters",
-  "@Filters": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Reset": "Reset",
-  "@Reset": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Song Language": "Song Language",
-  "@Song Language": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Apply": "Apply",
-  "@Apply": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "All": "All",
-  "@All": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "English": "English",
-  "@English": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Russian": "Russian",
-  "@Russian": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Ukrainian": "Ukrainian",
-  "@Ukrainian": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Password": "Пароль",
-  "@Password": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Worship Songs": "Worship Songs",
-  "@Worship Songs": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Version": "Версія",
-  "@Version": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "No Lyrics Added": "Немає доданих пісень",
-  "@No Lyrics Added": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Browse our lyrics catalogue and find something for yourself": "Перегляньте наш каталог текстів пісень і знайдіть щось для себе",
-  "@Browse our lyrics catalogue and find something for yourself": {
-    "type": "text",
-    "placeholders": {}
-  },
-  "Explore Lyrics": "Перейти до пісень",
-  "@Explore Lyrics": {
-    "type": "text",
-    "placeholders": {}
-  }
+    "@@locale": "ua",
+    "@@last_modified": "2020-10-14T14:12:52+00:00",
+    "Home": "Головна",
+    "My Lyrics": "Вибране",
+    "Settings": "Налаштування",
+    "Login": "Вхід",
+    "Already have an Account": "Вже є аккаунт",
+    "Password has to include at least 6 characters": "Пароль повинен містити не менше 6 символів",
+    "Create Password": "Створити пароль",
+    "Email Address": "Email адреса",
+    "This doesn’t looks like email address": "Це не схоже на email адресу",
+    "yourPasswordContainChars": "Ваш пароль містить {length}\/6 символів",
+    "Continue with Google": "Продовжити з Google",
+    "Error": "Помилка",
+    "Type song name, lyrics...": "Введіть назву пісні...",
+    "Cancel": "Скасування",
+    "All Lyrics": "Усі пісні",
+    "Account Settings": "Налаштування профілю",
+    "Change email address": "Змінити email адресу",
+    "Not yet implemented": "Ще не реалізовано",
+    "Change password": "Змінити пароль",
+    "Logout": "Вийти",
+    "Change password, email, logout": "Змінити пароль, email, вийти",
+    "Notifications": "Повідомлення",
+    "Manage notifications": "Управління повідомленнями",
+    "Report about bug": "Повідомте про помилку",
+    "Could not launch": "Не вдалося запустити",
+    "Chords": "Акорди",
+    "Write us a line about problem you have": "Напишіть нам рядок про вашу проблему",
+    "Words to Pray God": "Слова молитви Богу",
+    "Play songs you like": "Відтворюйте пісні, які вам подобаються",
+    "The words of truth": "Слова правди",
+    "Find the lyrics of popular christian songs to sing with people you love": "Знайдіть тексти популярних християнських пісень, щоб співати з улюбленними",
+    "Beside lyrics you also can find the chords for guitar and notes for piano!": "Поряд з текстами ви також можете знайти акорди для гітари та ноти для фортепіано!",
+    "Read the great stories of great people how God changes their lives!": "Прочитайте чудові історії великих людей про те, як Бог змінює їхнє життя!",
+    "Filters": "Фільтри",
+    "Reset": "Скинути",
+    "Song Language": "Мова пісні",
+    "Apply": "Застосувати",
+    "All": "Всі",
+    "English": "Англійська",
+    "Russian": "Російська",
+    "Ukrainian": "Українська",
+    "Password": "Пароль",
+    "Worship Songs": "Worship Songs",
+    "Version": "Версія",
+    "No Lyrics Added": "Немає доданих пісень",
+    "Browse our lyrics catalogue and find something for yourself": "Перегляньте наш каталог текстів пісень і знайдіть щось для себе",
+    "Explore Lyrics": "Перейти до пісень",
+    "Admin Portal": "Портал адміністратора",
+    "Go to the admin portal": "Перейти на портал адміністратора",
+    "Requests": "Запити",
+    "Catalog": "Каталог",
+    "Lyrics": "Текст пісні",
+    "Creating": "Створення",
+    "General Info": "Головна інформація",
+    "No Album Assigned": "Немає прикріпленого альбому",
+    "Assign to Album": "Прикріпити до альбому",
+    "Request Info": "Інформація про запит",
+    "Requested by": "Створено",
+    "Date and Time": "Дата і час",
+    "Edit": "Редагувати",
+    "ex. Way Maker": "напр. Дев'яносто дев'ять",
+    "Lyrics Title": "Назва пісні",
+    "Accept": "Прийняти",
+    "Reject": "Відхилити",
+    "Artist Title": "Назва виконавця",
+    "ex. Room For More": "напр. Room For More",
+    "Artist Description": "Опис виконавця",
+    "File should not be bigger than": "Файл не повинен перевищувати",
+    "Describe this Artist": "Описати виконавця",
+    "Select new photo from gallery": "Вибрати нове зображення з галереї",
+    "Delete Photo": "Видалити зображення",
+    "Success": "Успішно",
+    "No Artist Assigned": "Немає прикріпленого виконавця",
+    "Assign Artist": "Прикріпити виконавця",
+    "Type artist name...": "Введіть назву виконавця",
+    "How to Add Chords": "Як додати акорди",
+    "To add chords to the lyrics insert “.”(Dot Sign) at start of Chords String": "Щоб додати акорди до тексту, вставте «.» (Знак точки) на початку рядка акордів.",
+    "Lyrics and Chords": "Текст і акорди",
+    "Loading...": "Завантаження...",
+    "No new requests": "Немає нових запитів",
+    "Preview": "Попередній перегляд",
+    "Content successfully deleted": "Контент успішно видалений",
+    "Content delete error": "Помилка видалення контенту",
+    "ex. Alive": "прим. Alive",
+    "Start": "Почати",
+    "Easier way to login": "Ще простіше увійти",
+    "We respect your time!": "Ми поважаємо ваш час!",
+    "Using Social Media Login you will save tremendous amount of time ": "Використовуючи вхід через соціальні мережі, ви заощадите величезну кількість часу",
+    "It’s really save!": "Це дійсно безпечно!",
+    "No more passwords to forgot": "Можна не боятися забути пароль",
+    "Or": "Або",
+    "Sign up with E-Mail": "Увійдіть за допомогою E-Mail",
+    "Sign Up": "Зареєструватися",
+    "Language": "Мова",
+    "Save": "Зберегти",
+    "Delete Artist": "Видалити артиста",
+    "Delete Lyrics": "Видалити пісню",
+    "Delete Album": "Видалити альбом",
+    "Are you sure you want to delete this artist? If deleted, artist will no longer be available to all users.": "Ви впевнені, що хочете видалити цього виконавця? У разі видалення виконавець більше не буде доступний для всіх користувачів.",
+    "Are you sure you want to delete this lyrics? If deleted, lyrics will no longer be available to all users.": "Ви впевнені, що хочете видалити цей текст пісні? У разі видалення, текст пісні стане недоступний для всіх користувачів.",
+    "Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.": "Ви впевнені, що хочете видалити цей альбом? У разі видалення альбом стане недоступний для всіх користувачів.",
+    "albums": "{count, plural, few {Альбомів} one {Альбом} many {Альбомів} other {Альбоми}}",
+    "artists": "{count, plural, one {Виконавець} few {Виконавців} many {Виконавців} other {Виконавці}}"
 }
