@@ -37,4 +37,30 @@ extension WidgetForContent on ContentType {
         return null;
     }
   }
+
+  String deleteTitle(BuildContext context) {
+    switch (this) {
+      case ContentType.lyrics:
+        return Strings.of(context).deleteLyrics;
+      case ContentType.album:
+        return Strings.of(context).deleteAlbum;
+      case ContentType.artist:
+        return Strings.of(context).deleteArtist;
+      default:
+        return null;
+    }
+  }
+
+  String deleteDescription(BuildContext context) {
+    switch (this) {
+      case ContentType.lyrics:
+        return Strings.of(context).deleteLyricsMessage;
+      case ContentType.album:
+        return Strings.of(context).deleteAlbumMessage;
+      case ContentType.artist:
+        return Strings.of(context).deleteArtistMessage;
+      default:
+        return null;
+    }
+  }
 }

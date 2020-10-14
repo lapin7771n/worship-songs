@@ -80,6 +80,7 @@ class _CategoryAllLyricsScreenState extends State<CategoryAllLyricsScreen> {
       title: song.title,
       description: song.text,
       relatedToArtist: artist,
+      languageCode: song.language,
     );
 
     await Navigator.of(context)

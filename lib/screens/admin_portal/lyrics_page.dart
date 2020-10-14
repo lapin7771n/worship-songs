@@ -26,6 +26,13 @@ class _LyricsPageState extends State<LyricsPage> {
         Provider.of<NewContentProvider>(context, listen: false)
             .content
             .description;
+
+    if (songLanguage == null) {
+      Provider.of<NewContentProvider>(
+        context,
+        listen: false,
+      ).languageCode = Localizations.localeOf(context).languageCode;
+    }
     super.didChangeDependencies();
   }
 
@@ -90,12 +97,18 @@ class _LyricsPageState extends State<LyricsPage> {
               listen: false,
             ).languageCode = lang[0];
           },
-          initialLanguages: [Localizations.localeOf(context).languageCode],
+          initialLanguages: [songLanguage],
           isSingleLanguage: true,
           isWithAll: false,
         ),
       ],
     );
+  }
+
+  String get songLanguage {
+    return Provider.of<NewContentProvider>(context, listen: false)
+        .content
+        .languageCode;
   }
 
   Widget buildInfoCard(BuildContext context) {

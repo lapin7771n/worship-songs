@@ -6,7 +6,7 @@ class Button extends StatelessWidget {
   final Function onPressed;
 
   const Button({
-    this.title,
+    @required this.title,
     this.onPressed,
   });
 

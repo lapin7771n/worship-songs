@@ -11,6 +11,7 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/providers/new_content_provider.dart';
 import 'package:worshipsongs/providers/songs_provider.dart';
+import 'package:worshipsongs/screens/admin_portal/delete_confirmation_dialog.dart';
 import 'package:worshipsongs/screens/admin_portal/lyrics_page.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/accept_content_button.dart';
 
@@ -183,6 +184,14 @@ class _CreateContentScreenState extends State<CreateContentScreen> {
   }
 
   void rejectClicked() async {
+    final isConfirmed = await showDialog(
+      context: context,
+      builder: (ctx) => DeleteConfirmationDialog(
+        contentType: contentType,
+      ),
+    );
+    if (!isConfirmed) return;
+
     final response = await Provider.of<NewContentProvider>(
       providerContext,
       listen: false,

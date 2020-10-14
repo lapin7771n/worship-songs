@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
 
 class AppTextStyles {
+  static TextStyle get title2 {
+    return _baseTextStyle.copyWith(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   static TextStyle get title3 {
     return _baseTextStyle.copyWith(
       fontSize: 18,

@@ -39,10 +39,6 @@ mixin StringResources {
     );
   }
 
-  String get continueWithGoogle {
-    return Intl.message('Continue with Google');
-  }
-
   String get error {
     return Intl.message('Error');
   }
@@ -170,7 +166,7 @@ mixin StringResources {
 
   String get adminPortal => Intl.message('Admin Portal');
 
-  String get goToAdminPortal => Intl.message('Go to admin portal');
+  String get goToAdminPortal => Intl.message('Go to the admin portal');
 
   String get requests => Intl.message('Requests');
 
@@ -180,6 +176,8 @@ mixin StringResources {
         count,
         one: 'Album',
         other: 'Albums',
+        name: 'albums',
+        args: [count],
       );
 
   String get lyrics => Intl.message('Lyrics');
@@ -188,6 +186,8 @@ mixin StringResources {
         count,
         one: 'Artist',
         other: 'Artists',
+        name: 'artists',
+        args: [count],
       );
 
   String get creating => Intl.message('Creating');
@@ -286,4 +286,22 @@ mixin StringResources {
   String get language => Intl.message('Language');
 
   String get save => Intl.message('Save');
+
+  String get deleteArtist => Intl.message('Delete Artist');
+
+  String get deleteLyrics => Intl.message('Delete Lyrics');
+
+  String get deleteAlbum => Intl.message('Delete Album');
+
+  String get deleteArtistMessage => Intl.message(
+        'Are you sure you want to delete this artist? If deleted, artist will no longer be available to all users.',
+      );
+
+  String get deleteLyricsMessage => Intl.message(
+        'Are you sure you want to delete this lyrics? If deleted, lyrics will no longer be available to all users.',
+      );
+
+  String get deleteAlbumMessage => Intl.message(
+        'Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.',
+      );
 }
