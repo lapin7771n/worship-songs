@@ -142,14 +142,18 @@ class _SongLyricsState extends State<SongLyrics> {
   void _increaseTone() {
     setState(() {
       ++currentTone;
-      currentKey = ChordsParser.transposeChord(widget.song.key, currentTone);
+      if (currentKey != null) {
+        currentKey = ChordsParser.transposeChord(widget.song.key, currentTone);
+      }
     });
   }
 
   void _decreaseTone() {
     setState(() {
       --currentTone;
-      currentKey = ChordsParser.transposeChord(widget.song.key, currentTone);
+      if (currentKey != null) {
+        currentKey = ChordsParser.transposeChord(widget.song.key, currentTone);
+      }
     });
   }
 }

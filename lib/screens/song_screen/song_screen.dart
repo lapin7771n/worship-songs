@@ -15,7 +15,6 @@ class SongScreen extends StatefulWidget {
 
 class _SongScreenState extends State<SongScreen> {
   bool _isInit = false;
-  bool _isSongWithChords;
 
   Song song;
   ScrollController _scrollController;
@@ -26,7 +25,6 @@ class _SongScreenState extends State<SongScreen> {
       song = ModalRoute.of(context).settings.arguments as Song;
       Provider.of<SongsProvider>(context).incrementViews(song.uuid);
       _scrollController = ScrollController();
-      _isSongWithChords = song.text.contains(".  ");
       _isInit = true;
     }
     super.didChangeDependencies();
@@ -52,7 +50,7 @@ class _SongScreenState extends State<SongScreen> {
           ),
           content: SongLyrics(
             song: song,
-            showInstruments: _isSongWithChords,
+            showInstruments: song.hasChords,
           ),
         ),
       ),

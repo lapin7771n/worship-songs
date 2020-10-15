@@ -77,7 +77,7 @@ class Song {
   bool get hasChords {
     return text
         .split("\n")
-        .where((element) => element.startsWith("."))
+        .where((element) => ChordsParser.isChordsLine(element))
         .isNotEmpty;
   }
 
@@ -87,7 +87,9 @@ class Song {
     var transposedText = ChordsParser.transposeSong(formattedText, amount);
     return transposedText
         .split('\n')
-        .map((e) => e.startsWith('.') ? ' <bold> ${e.substring(1)}</bold>' : e)
+        .map((e) => ChordsParser.isChordsLine(e)
+            ? '<bold> ${e.replaceFirst('.', '')}</bold>'
+            : e)
         .join('\n');
   }
 
@@ -96,7 +98,7 @@ class Song {
 
     return formattedText
         .split("\n")
-        .where((e) => !e.startsWith("."))
+        .where((e) => !ChordsParser.isChordsLine(e))
         .join("\n");
   }
 
