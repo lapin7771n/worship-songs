@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/widgets/brand_list_item.dart';
+import 'package:worshipsongs/widgets/sorted_list_headline.dart';
 
 class BrandContentList extends StatelessWidget {
   final String title;
@@ -59,23 +59,7 @@ class BrandContentList extends StatelessWidget {
   Widget _buildHeader(ContentForList currentSong, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32),
-      child: Container(
-        padding: const EdgeInsets.only(left: 16),
-        height: 37,
-        decoration: BoxDecoration(
-          color: AppColors.blue,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            currentSong.title.substring(0, 1),
-            style: Theme.of(context).textTheme.headline3.copyWith(
-                  color: AppColors.white,
-                ),
-          ),
-        ),
-      ),
+      child: SortedListHeadline(text: currentSong.title.substring(0, 1)),
     );
   }
 

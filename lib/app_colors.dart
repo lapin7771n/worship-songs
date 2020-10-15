@@ -11,4 +11,6 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color white60 = Color(0x99FFFFFF);
   static const Color red = Color(0xFFE20338);
+
+  AppColors._();
 }

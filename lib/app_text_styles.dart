@@ -58,4 +58,6 @@ class AppTextStyles {
       color: AppColors.black,
     );
   }
+
+  AppTextStyles._();
 }
