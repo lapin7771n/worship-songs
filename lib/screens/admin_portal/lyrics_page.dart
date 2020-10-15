@@ -53,8 +53,6 @@ class _LyricsPageState extends State<LyricsPage> {
             children: [
               buildLanguages(),
               SizedBox(height: 24),
-              buildInfoCard(context),
-              SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
@@ -109,30 +107,5 @@ class _LyricsPageState extends State<LyricsPage> {
     return Provider.of<NewContentProvider>(context, listen: false)
         .content
         .languageCode;
-  }
-
-  Widget buildInfoCard(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF7CC),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            Strings.of(context).howToAddChords,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            Strings.of(context).toAddChordsToTheLyrics,
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        ],
-      ),
-    );
   }
 }
