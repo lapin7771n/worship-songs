@@ -6,30 +6,44 @@ class BrandContentList extends StatelessWidget {
   final String title;
   final List<ContentForList> content;
   final EdgeInsets contentPadding;
+  final ScrollPhysics scrollPhysics;
+
+  final bool shrinkWrap;
   final bool withArrow;
+  final bool withLoadingAtTheEnd;
+  final bool withSortedTitle;
 
   const BrandContentList({
     this.title,
     @required this.content,
     this.contentPadding,
     this.withArrow = false,
+    this.shrinkWrap = false,
+    this.scrollPhysics = const AlwaysScrollableScrollPhysics(),
+    this.withLoadingAtTheEnd = true,
+    this.withSortedTitle = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: EdgeInsets.all(0),
+      physics: scrollPhysics,
+      shrinkWrap: shrinkWrap,
       itemBuilder: (item, index) {
-        if (index == content.length) {
+        if (index == content.length && withLoadingAtTheEnd) {
           return buildLoadingIndicator();
         }
-
-        final previousContent = index > 0 ? content[index - 1] : null;
         final currentContent = content[index];
 
         Widget header;
-        if (previousContent == null ||
-            !_isFirstLetterEqual(currentContent, previousContent)) {
-          header = _buildHeader(currentContent, context);
+        if (withSortedTitle) {
+          final previousContent = index > 0 ? content[index - 1] : null;
+
+          if (previousContent == null ||
+              !_isFirstLetterEqual(currentContent, previousContent)) {
+            header = _buildHeader(currentContent, context);
+          }
         }
 
         return Column(
@@ -48,7 +62,7 @@ class BrandContentList extends StatelessWidget {
           ],
         );
       },
-      itemCount: content.length + 1,
+      itemCount: content.length + (withLoadingAtTheEnd ? 1 : 0),
     );
   }
 
@@ -58,7 +72,11 @@ class BrandContentList extends StatelessWidget {
 
   Widget _buildHeader(ContentForList currentSong, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 32),
+      padding: EdgeInsets.only(
+        left: contentPadding?.left ?? 16,
+        right: contentPadding?.right ?? 16,
+        top: contentPadding?.top ?? 32,
+      ),
       child: SortedListHeadline(text: currentSong.title.substring(0, 1)),
     );
   }
@@ -67,10 +85,10 @@ class BrandContentList extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          left: 16.0,
-          right: 16.0,
+        padding: EdgeInsets.only(
+          top: contentPadding?.top ?? 16.0,
+          left: contentPadding?.left ?? 16.0,
+          right: contentPadding?.right ?? 16.0,
         ),
         child: Text(
           title,

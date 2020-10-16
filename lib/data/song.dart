@@ -12,6 +12,7 @@ const String _CAPO = 'capo';
 const String _COPYRIGHT = 'copyright';
 const String _PRESENTATION = 'presentation';
 const String _LANGUAGE = 'language';
+const String _VIEWS = 'views';
 
 class Song {
   final int uuid;
@@ -27,6 +28,7 @@ class Song {
 
   final int artistID;
   final int albumID;
+  final int views;
 
   const Song({
     this.uuid,
@@ -41,6 +43,7 @@ class Song {
     this.language,
     this.artistID,
     this.albumID,
+    this.views = 0,
   });
 
   Song.fromMap(Map<String, dynamic> data)
@@ -55,7 +58,8 @@ class Song {
         presentation = data[_PRESENTATION],
         language = data[_LANGUAGE],
         artistID = data[_ARTIST],
-        albumID = data[_ALBUM];
+        albumID = data[_ALBUM],
+        views = data[_VIEWS];
 
   Map<String, dynamic> toJson() {
     return {
@@ -71,6 +75,7 @@ class Song {
       _LANGUAGE: language,
       _ARTIST: artistID,
       _ALBUM: albumID,
+      _VIEWS: views,
     };
   }
 
@@ -114,6 +119,8 @@ class Song {
 
   @override
   String toString() {
-    return 'Song{uuid: $uuid, title: $title, text: $text, author: $author, key: $key, aka: $aka, capo: $capo, copyright: $copyright, presentation: $presentation, artistID: $artistID, albumID: $albumID}';
+    return 'Song{uuid: $uuid, title: $title, text: $text, author: $author, '
+        'key: $key, aka: $aka, capo: $capo, copyright: $copyright, '
+        'presentation: $presentation, artistID: $artistID, albumID: $albumID}';
   }
 }

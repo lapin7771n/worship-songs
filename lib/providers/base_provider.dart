@@ -11,7 +11,7 @@ abstract class BaseProvider with ChangeNotifier {
 
   // ignore: non_constant_identifier_names
   String get API_URL {
-    if (kReleaseMode) {
+    if (kReleaseMode || kProfileMode) {
       return _PROD_URL;
     } else {
       return Platform.isAndroid ? _ANDROID_DEBUG_URL : _IOS_DEBUG_URL;

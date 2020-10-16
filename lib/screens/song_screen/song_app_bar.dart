@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:worshipsongs/data/artist.dart';
+import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/data/song.dart';
+import 'package:worshipsongs/providers/artists_provider.dart';
+import 'package:worshipsongs/screens/artist_screen.dart';
 import 'package:worshipsongs/screens/song_screen/song_favorite_action.dart';
 import 'package:worshipsongs/services/size_config.dart';
 import 'package:worshipsongs/widgets/songs/song_cover_image.dart';
@@ -129,14 +136,36 @@ class _SongAppBarState extends State<SongAppBar> {
           : AnimatedOpacity(
               duration: FAST_ANIMATION_DURATION,
               opacity: previewOpacity,
-              child: Text(
-                song.author,
-                style: Theme.of(context).textTheme.subtitle2.copyWith(
-                      color: AppColors.gray,
-                    ),
-                textAlign: TextAlign.center,
-              ),
+              child: song.artistID != null
+                  ? loadArtist(context, song)
+                  : buildAuthorTitle(song.author, context),
             ),
+    );
+  }
+
+  FutureBuilder<Artist> loadArtist(BuildContext context, Song song) {
+    return FutureBuilder(
+      future: Provider.of<ArtistsProvider>(context).fingById(song.artistID),
+      builder: (ctx, snapshot) =>
+          snapshot.connectionState == ConnectionState.waiting
+              ? buildAuthorTitle(song.author, context)
+              : GestureDetector(
+                  onTap: () => onArtistClicked(snapshot.data),
+                  child: buildAuthorTitle(snapshot.data.title, context, true),
+                ),
+    );
+  }
+
+  Text buildAuthorTitle(String title, BuildContext context,
+      [bool isUnderline = false]) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.subtitle2.copyWith(
+            color: AppColors.gray,
+            decoration:
+                isUnderline ? TextDecoration.underline : TextDecoration.none,
+          ),
+      textAlign: TextAlign.center,
     );
   }
 
@@ -176,8 +205,9 @@ class _SongAppBarState extends State<SongAppBar> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CloseButton(
+                IconButton(
                   onPressed: Navigator.of(context).pop,
+                  icon: SvgPicture.asset(ImagePathsHolder.ARROW_LEFT),
                 ),
                 AnimatedContainer(
                   curve: CURVE,
@@ -262,6 +292,12 @@ class _SongAppBarState extends State<SongAppBar> {
         smallHeaderOpacity = 1 - _theoryPreviewOpacity * 3;
       }
     });
+  }
+
+  void onArtistClicked(Artist artist) async {
+    await Navigator.of(context)
+        .pushNamed(ArtistScreen.routeName, arguments: artist);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
   bool isCollapsed() => elevation > INITIAL_ELEVATION + 2;

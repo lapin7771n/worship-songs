@@ -304,4 +304,9 @@ mixin StringResources {
   String get deleteAlbumMessage => Intl.message(
         'Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.',
       );
+  String get about => Intl.message('About');
+
+  String get popularLyrics => Intl.message('Popular Lyrics');
+
+  String get viewAllLyrics => Intl.message('View All Lyrics');
 }

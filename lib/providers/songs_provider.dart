@@ -50,6 +50,11 @@ class SongsProvider extends BaseProvider {
     return await _getSongsByUrl(loadSongsUrl);
   }
 
+  Future<List<Song>> findByArtistId(int artistId) async {
+    final url = '$API_URL/songs/artist/$artistId';
+    return await _getSongsByUrl(url);
+  }
+
   Future incrementViews(int songId) async {
     final url = '$API_URL/songs/$songId/viewings';
     final response = await put(url, accessToken, null);

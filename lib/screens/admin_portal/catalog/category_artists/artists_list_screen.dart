@@ -14,12 +14,12 @@ import 'package:worshipsongs/widgets/brand_content_list.dart';
 import 'package:worshipsongs/widgets/infinite_brand_list.dart';
 import 'package:worshipsongs/widgets/search_field.dart';
 
-class ArtistsScreen extends StatefulWidget {
+class ArtistsListScreen extends StatefulWidget {
   @override
-  _ArtistsScreenState createState() => _ArtistsScreenState();
+  _ArtistsListScreenState createState() => _ArtistsListScreenState();
 }
 
-class _ArtistsScreenState extends State<ArtistsScreen> {
+class _ArtistsListScreenState extends State<ArtistsListScreen> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
   final textControllerDebouncer = Debouncer(milliseconds: 500);
