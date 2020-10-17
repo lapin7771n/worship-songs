@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:worshipsongs/app_colors.dart';
 import 'package:worshipsongs/app_text_styles.dart';
 import 'package:worshipsongs/localizations/strings.dart';
+import 'package:worshipsongs/providers/songs_provider.dart';
 
 class FiltersButton extends StatelessWidget {
   final List<String> _languagesToLoad;
@@ -33,7 +34,8 @@ class FiltersButton extends StatelessWidget {
     );
   }
 
-  bool _isAllLanguages() => _languagesToLoad.length == 3;
+  bool _isAllLanguages() =>
+      _languagesToLoad.length == SongsProvider.supportedLanguages.length;
 
   String _getText(BuildContext context) => _isAllLanguages()
       ? Strings.of(context).filters

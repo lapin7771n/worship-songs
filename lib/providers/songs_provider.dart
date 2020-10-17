@@ -7,7 +7,11 @@ import 'package:worshipsongs/providers/base_provider.dart';
 
 class SongsProvider extends BaseProvider {
   static const int _LIMIT = 40;
-  static const List<String> supportedLanguages = const ['en', 'ru', 'ua'];
+  static List<String> supportedLanguages = [
+    if (!Platform.isIOS || !kReleaseMode) 'en',
+    'ru',
+    'ua'
+  ];
 
   final List<Song> _songs;
   final String accessToken;

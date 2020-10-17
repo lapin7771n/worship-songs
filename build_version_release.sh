@@ -1,5 +1,5 @@
 version=0.3.0
-buildNumber=23
+buildNumber=25
 
 flutter clean
 flutter build apk --release --build-name=$version --build-number=$buildNumber
