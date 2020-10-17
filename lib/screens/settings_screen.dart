@@ -7,6 +7,7 @@ import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/screens/account_settings_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/admin_main_screen.dart';
+import 'package:worshipsongs/screens/info_screen.dart';
 import 'package:worshipsongs/widgets/settings_list_item.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -18,6 +19,13 @@ class SettingsScreen extends StatelessWidget {
         subtitle: Strings.of(context).changePasswordEmailLogout,
         onTap: (BuildContext context) {
           Navigator.of(context).pushNamed(AccountSettingsScreen.routeName);
+        },
+      ),
+      SettingsItem(
+        title: Strings.of(context).information,
+        subtitle: Strings.of(context).copyrightAndGeneralInfo,
+        onTap: (BuildContext context) {
+          Navigator.of(context).pushNamed(InfoScreen.routeName);
         },
       ),
       if (wSongsUser != null && wSongsUser.role.contains("ADMIN"))

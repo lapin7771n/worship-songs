@@ -304,6 +304,22 @@ mixin StringResources {
   String get deleteAlbumMessage => Intl.message(
         'Are you sure you want to delete this lyrics? If deleted, album will no longer be available to all users.',
       );
+
+  String get information => Intl.message('Information');
+
+  String get copyrightAndGeneralInfo =>
+      Intl.message('Copyright and general info');
+
+  String get copyrightText => Intl.message(
+        'Songs are taken from the public sources.'
+        '\n'
+        '\n'
+        'We do not claim ownership and all information was taken from open sources'
+        '\n'
+        '\n'
+        'If you detect copyright violation, please contact us. wsongs.info@gmail.com',
+      );
+
   String get about => Intl.message('About');
 
   String get popularLyrics => Intl.message('Popular Lyrics');

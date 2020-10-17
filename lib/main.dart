@@ -18,6 +18,7 @@ import 'package:worshipsongs/screens/artist_screen.dart';
 import 'package:worshipsongs/screens/artist_songs_screen.dart';
 import 'package:worshipsongs/screens/auth_screen/auth_screen.dart';
 import 'package:worshipsongs/screens/home_screen/home_screen.dart';
+import 'package:worshipsongs/screens/info_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
         CreateContentScreen.routeName: (ctx) => CreateContentScreen(),
         CategoryScreen.routeName: (ctx) => CategoryScreen(),
         StartAuthScreen.routeName: (ctx) => StartAuthScreen(),
+        InfoScreen.routeName: (ctx) => InfoScreen(),
         ArtistScreen.routeName: (ctx) => ArtistScreen(),
         ArtistSongsScreen.routeName: (ctx) => ArtistSongsScreen(),
       },
