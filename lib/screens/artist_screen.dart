@@ -16,45 +16,56 @@ import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/widgets/brand_content_list.dart';
 import 'package:worshipsongs/widgets/transparent_image.dart';
 
-// ignore: must_be_immutable
-class ArtistScreen extends StatelessWidget {
+class ArtistScreen extends StatefulWidget {
   static const String routeName = '/artist-screen';
   static const double _IMAGE_HEIGHT = 304;
   static const int _POPULAR_SONGS_LIMIT = 5;
 
+  @override
+  _ArtistScreenState createState() => _ArtistScreenState();
+}
+
+class _ArtistScreenState extends State<ArtistScreen> {
   Artist artist;
+  double scrollAwareImageHeight = ArtistScreen._IMAGE_HEIGHT;
+  List<Song> popularSongs = [];
+
+  @override
+  void didChangeDependencies() {
+    artist = ModalRoute.of(context).settings.arguments as Artist;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-    artist = ModalRoute.of(context).settings.arguments as Artist;
-    SystemChrome.setSystemUIOverlayStyle(
-      artist.imageUrl != null
-          ? SystemUiOverlayStyle.light
-          : SystemUiOverlayStyle.dark,
-    );
+    updateStatusBar();
     return Scaffold(
       body: Stack(
         children: [
           Container(
             color: Color(0xFFB0D7FF),
-            height: _IMAGE_HEIGHT,
+            height: ArtistScreen._IMAGE_HEIGHT,
             width: double.infinity,
           ),
           if (artist.imageUrl != null)
             FadeInImage.memoryNetwork(
               fit: BoxFit.cover,
-              height: _IMAGE_HEIGHT,
+              height: scrollAwareImageHeight,
               width: double.infinity,
               placeholder: kTransparentImage,
               image: artist.imageUrl,
               fadeInDuration: Duration(milliseconds: 100),
               fadeOutDuration: Duration(milliseconds: 100),
             ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                buildMainCard(context),
-              ],
+          NotificationListener<ScrollNotification>(
+            onNotification: onCardScrolled,
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  buildMainCard(context),
+                ],
+              ),
             ),
           ),
           buildActionsRow(context),
@@ -64,9 +75,9 @@ class ArtistScreen extends StatelessWidget {
   }
 
   Widget buildActionsRow(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 60, left: 16),
-      // clipBehavior: Clip.antiAlias,
+    return Positioned(
+      top: 60,
+      left: 16,
       child: Material(
         clipBehavior: Clip.antiAlias,
         elevation: 5,
@@ -82,7 +93,7 @@ class ArtistScreen extends StatelessWidget {
 
   Widget buildMainCard(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: _IMAGE_HEIGHT - 80),
+      margin: const EdgeInsets.only(top: ArtistScreen._IMAGE_HEIGHT - 80),
       width: double.infinity,
       decoration: const BoxDecoration(
         color: AppColors.white,
@@ -125,7 +136,7 @@ class ArtistScreen extends StatelessWidget {
         Strings.of(context).about,
         style: AppTextStyles.title2,
       ),
-      SizedBox(height: 16),
+      const SizedBox(height: 16),
       ReadMoreText(
         artist.description,
         style: AppTextStyles.bodyTextRegular,
@@ -136,69 +147,105 @@ class ArtistScreen extends StatelessWidget {
   }
 
   Widget buildSongsList(BuildContext context) {
-    return FutureBuilder(
-      future: Provider.of<SongsProvider>(context).findByArtistId(artist.uuid),
-      builder: (ctx, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
+    return popularSongs.isEmpty
+        ? FutureBuilder(
+            future:
+                Provider.of<SongsProvider>(context).findByArtistId(artist.uuid),
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
 
-        if (snapshot.hasError || !snapshot.hasData) {
-          return Center(child: Text(Strings.of(context).error));
-        }
-        final songList = snapshot.data as List<Song>;
-        return Column(
+              if (snapshot.hasError || !snapshot.hasData) {
+                return Center(child: Text(Strings.of(context).error));
+              }
+              final songList = snapshot.data as List<Song>;
+              popularSongs = songList;
+              return buildPopularSongs(context, songList);
+            },
+          )
+        : buildPopularSongs(context, popularSongs);
+  }
+
+  Widget buildPopularSongs(BuildContext context, List<Song> songs) {
+    songs.sort((s1, s2) => s2.views.compareTo(s1.views));
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ...buildPopularSongs(context, songList),
+            Text(
+              Strings.of(context).popularLyrics,
+              style: AppTextStyles.title2,
+            ),
+            TextButton(
+              onPressed: viewPopularLyricsClicked,
+              child: Text(
+                Strings.of(context).viewAllLyrics,
+                style: AppTextStyles.buttonLink.copyWith(color: AppColors.blue),
+              ),
+            )
           ],
-        );
-      },
+        ),
+        BrandContentList(
+          withSortedTitle: false,
+          withLoadingAtTheEnd: false,
+          scrollPhysics: NeverScrollableScrollPhysics(),
+          contentPadding: const EdgeInsets.all(0),
+          shrinkWrap: true,
+          content: songs
+              .take(ArtistScreen._POPULAR_SONGS_LIMIT)
+              .map(
+                (e) => ContentForList(
+                  title: e.title,
+                  chipText: e.hasChords ? Strings.of(context).chords : null,
+                  subtitle: e.author,
+                  onTap: () => onSongClicked(e),
+                ),
+              )
+              .toList(),
+        ),
+      ],
     );
   }
 
-  List<Widget> buildPopularSongs(BuildContext context, List<Song> songs) {
-    songs.sort((s1, s2) => s2.views.compareTo(s1.views));
-    return [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            Strings.of(context).popularLyrics,
-            style: AppTextStyles.title2,
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                ArtistSongsScreen.routeName,
-                arguments: artist,
-              );
-            },
-            child: Text(
-              Strings.of(context).viewAllLyrics,
-              style: AppTextStyles.buttonLink.copyWith(color: AppColors.blue),
-            ),
-          )
-        ],
-      ),
-      BrandContentList(
-        withSortedTitle: false,
-        withLoadingAtTheEnd: false,
-        scrollPhysics: NeverScrollableScrollPhysics(),
-        contentPadding: const EdgeInsets.all(0),
-        shrinkWrap: true,
-        content: songs
-            .take(_POPULAR_SONGS_LIMIT)
-            .map(
-              (e) => ContentForList(
-                title: e.title,
-                chipText: e.hasChords ? Strings.of(context).chords : null,
-                subtitle: e.author,
-                onTap: () => Navigator.of(context)
-                    .pushNamed(SongScreen.routeName, arguments: e),
-              ),
-            )
-            .toList(),
-      ),
-    ];
+  void viewPopularLyricsClicked() async {
+    await Navigator.of(context).pushNamed(
+      ArtistSongsScreen.routeName,
+      arguments: artist,
+    );
+    updateStatusBar();
+  }
+
+  void onSongClicked(Song song) async {
+    await Navigator.of(context).pushNamed(
+      SongScreen.routeName,
+      arguments: song,
+    );
+    updateStatusBar();
+  }
+
+  void updateStatusBar() {
+    setState(() {
+      SystemChrome.setSystemUIOverlayStyle(
+        artist.imageUrl != null
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark,
+      );
+    });
+  }
+
+  bool onCardScrolled(ScrollNotification notification) {
+    final pixelsScrolled = notification.metrics.pixels;
+    if (pixelsScrolled <= 0) {
+      setState(() {
+        scrollAwareImageHeight = ArtistScreen._IMAGE_HEIGHT + (-pixelsScrolled);
+      });
+    } else {
+      setState(() {
+        scrollAwareImageHeight = ArtistScreen._IMAGE_HEIGHT;
+      });
+    }
+    return false;
   }
 }
