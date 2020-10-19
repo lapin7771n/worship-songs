@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/artist.dart';
-import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/artists_provider.dart';
 import 'package:worshipsongs/services/debouncer.dart';
 import 'package:worshipsongs/widgets/brand_list_item.dart';

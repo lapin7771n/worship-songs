@@ -11,7 +11,6 @@ class OnBoardingScreen extends StatelessWidget {
   static const String routeName = "/on-boarding";
 
   static const double _TOP_INSET = 5;
-  static const double _BOTTOM_INSET = 3;
   static const double _TITLE_HEIGHT = 4;
   static const double _DESCRIPTION_HEIGHT = 2.5;
   static const double _PICTURE_HEIGHT = 50;
