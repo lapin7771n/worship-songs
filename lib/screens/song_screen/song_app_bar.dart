@@ -64,6 +64,7 @@ class _SongAppBarState extends State<SongAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return AnimatedContainer(
       curve: CURVE,
       duration: FAST_ANIMATION_DURATION,
@@ -149,8 +150,8 @@ class _SongAppBarState extends State<SongAppBar> {
       builder: (ctx, snapshot) =>
           snapshot.connectionState == ConnectionState.waiting
               ? buildAuthorTitle(song.author, context)
-              : GestureDetector(
-                  onTap: () => onArtistClicked(snapshot.data),
+              : TextButton(
+                  onPressed: () => onArtistClicked(snapshot.data),
                   child: buildAuthorTitle(snapshot.data.title, context, true),
                 ),
     );
