@@ -43,7 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _isSearchFocused || _controller.text.isNotEmpty
-          ? SearchScreen(controller: _controller)
+          ? SearchScreen(
+              controller: _controller,
+              isWithArtist: true,
+            )
           : _buildDefaultSection(),
     );
   }

@@ -325,4 +325,6 @@ mixin StringResources {
   String get popularLyrics => Intl.message('Popular Lyrics');
 
   String get viewAllLyrics => Intl.message('View All Lyrics');
+
+  String get more => Intl.message('More');
 }

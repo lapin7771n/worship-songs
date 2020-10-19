@@ -67,8 +67,8 @@ class ArtistsProvider extends BaseProvider {
     return response.statusCode == 200;
   }
 
-  Future<List<Artist>> findByTitle(String title) async {
-    final url = '$API_URL/$ROUTE?title=$title';
+  Future<List<Artist>> findByTitle(String title, [int limit = 20]) async {
+    final url = '$API_URL/$ROUTE?title=$title&size=$limit';
     return _getByUrl(url);
   }
 

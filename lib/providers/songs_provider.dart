@@ -48,9 +48,9 @@ class SongsProvider extends BaseProvider {
     return await _getSongsByUrl(loadSongsUrl);
   }
 
-  Future<List<Song>> finByTitle(String title) async {
+  Future<List<Song>> finByTitle(String title, [int limit = 20]) async {
     final loadSongsUrl =
-        "$API_URL/songs?title=$title&lang=${languagesToLoad.join(',')}";
+        "$API_URL/songs?title=$title&lang=${languagesToLoad.join(',')}&size=$limit";
     return await _getSongsByUrl(loadSongsUrl);
   }
 
