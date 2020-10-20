@@ -1,6 +1,6 @@
 version=0.4.0
-buildNumber=28
-betaVersion=-beta2
+buildNumber=30
+betaVersion=-beta4
 
 # Build Android
 cd android || exit
