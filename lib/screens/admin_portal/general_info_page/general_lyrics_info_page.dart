@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:worshipsongs/data/add_lyrics_request.dart';
 import 'package:worshipsongs/data/artist.dart';
-import 'package:worshipsongs/data/image_paths_holder.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/providers/new_content_provider.dart';
-import 'package:worshipsongs/screens/admin_portal/assign_artist.dart';
 import 'package:worshipsongs/screens/admin_portal/general_info_page/request_info.dart';
 import 'package:worshipsongs/screens/admin_portal/widgets/main_info.dart';
 import 'package:worshipsongs/services/debouncer.dart';
-import 'package:worshipsongs/widgets/brand_list_item.dart';
+import 'package:worshipsongs/widgets/artist_selector.dart';
 
 class GeneralLyricsInfoPage extends StatefulWidget {
   final AddLyricsRequest addLyricsRequest;
@@ -84,34 +81,15 @@ class _GeneralLyricsInfoPageState extends State<GeneralLyricsInfoPage> {
   }
 
   Widget buildArtist() {
-    return artist == null
-        ? ListTile(
-            onTap: onSelectArtist,
-            contentPadding: EdgeInsets.only(left: 0),
-            title: Text(
-              Strings.of(context).noArtistAssigned,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            subtitle: Text(
-              Strings.of(context).assignArtist,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            trailing: SvgPicture.asset(ImagePathsHolder.ARROW_RIGHT),
-          )
-        : BrandListItem(
-            contentPadding: EdgeInsets.symmetric(vertical: 5.0),
-            onTap: onSelectArtist,
-            imageUrl: artist.imageUrl,
-            title: artist.title,
-          );
+    return ArtistSelector(
+      initialArtist: artist,
+      onArtistSelected: onSelectArtist,
+    );
   }
 
-  void onSelectArtist() async {
-    final result = await Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => AssignArtistScreen()),
-    );
+  void onSelectArtist(Artist selectedArtist) {
     setState(() {
-      artist = result ?? artist;
+      artist = selectedArtist;
       Provider.of<NewContentProvider>(context, listen: false).artist = artist;
     });
   }

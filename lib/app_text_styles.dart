@@ -24,6 +24,14 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle get lyricsMiddle {
+    return _baseTextStyle.copyWith(
+      fontSize: 18,
+      fontWeight: FontWeight.normal,
+      height: 1.33
+    );
+  }
+
   static TextStyle get titleSongPlaylist {
     return _baseTextStyle.copyWith(
       fontSize: 16,
@@ -46,6 +54,21 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle get bodyTextCaption {
+    return _baseTextStyle.copyWith(
+      fontSize: 14,
+      fontWeight: FontWeight.normal,
+      height: 1.5,
+    );
+  }
+
+  static TextStyle get guitarChordsRegular {
+    return _baseTextStyle.copyWith(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
   static TextStyle get buttonLink {
     return _baseTextStyle.copyWith(
       fontSize: 16,
@@ -57,6 +80,13 @@ class AppTextStyles {
     return _baseTextStyle.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.normal,
+    );
+  }
+
+  static TextStyle get guitarChordsSmall {
+    return _baseTextStyle.copyWith(
+      fontSize: 10,
+      fontWeight: FontWeight.w500,
     );
   }
 

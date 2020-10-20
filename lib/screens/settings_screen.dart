@@ -8,6 +8,7 @@ import 'package:worshipsongs/providers/auth_provider.dart';
 import 'package:worshipsongs/screens/account_settings_screen.dart';
 import 'package:worshipsongs/screens/admin_portal/admin_main_screen.dart';
 import 'package:worshipsongs/screens/info_screen.dart';
+import 'package:worshipsongs/screens/request_lyrics/requested_lyrics.dart';
 import 'package:worshipsongs/widgets/settings_list_item.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -38,6 +39,13 @@ class SettingsScreen extends StatelessWidget {
             );
           },
         ),
+      SettingsItem(
+        title: Strings.of(context).requestLyrics,
+        subtitle: Strings.of(context).didntFindRightLyrics,
+        onTap: (BuildContext context) {
+          Navigator.of(context).pushNamed(RequestLyrics.routeName);
+        },
+      ),
       SettingsItem(title: '', subtitle: ''),
       SettingsItem(
         title: Strings.of(context).reportABug,

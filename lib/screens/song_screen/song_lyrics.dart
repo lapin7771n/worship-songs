@@ -53,8 +53,8 @@ class _SongLyricsState extends State<SongLyrics> {
           ),
           StyledText(
             text: _isChordsVisible
-                ? widget.song.formattedText(currentTone)
-                : widget.song.formattedTextWithoutChords,
+                ? ChordsParser.toFormattedChords(widget.song.text, currentTone)
+                : ChordsParser.toFormattedTextWithoutChords(widget.song.text),
             style: Theme.of(context).textTheme.subtitle1,
             newLineAsBreaks: true,
             styles: {

@@ -60,7 +60,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
           NotificationListener<ScrollNotification>(
             onNotification: onCardScrolled,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: AlwaysScrollableScrollPhysics(),
               child: Column(
                 children: [
                   buildMainCard(context),

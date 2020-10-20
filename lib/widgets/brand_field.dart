@@ -25,15 +25,17 @@ class BrandField extends StatefulWidget {
   final int maxLength;
 
   final Function(String) onFieldSubmitted;
+  final Function(String) onChanged;
   final Function(String) validator;
 
   const BrandField({
-    @required this.controller,
+    this.controller,
     this.title,
     this.hintText,
     this.textInputType,
     this.focusNode,
     this.onFieldSubmitted,
+    this.onChanged,
     this.textInputAction,
     this.validator,
     this.errorText,
@@ -65,7 +67,7 @@ class _BrandFieldState extends State<BrandField> {
 
   @override
   Widget build(BuildContext context) {
-    widget.controller.selection = TextSelection.fromPosition(
+    widget.controller?.selection = TextSelection.fromPosition(
       TextPosition(offset: widget.controller.text.length),
     );
 
@@ -148,6 +150,7 @@ class _BrandFieldState extends State<BrandField> {
       keyboardType: widget.textInputType,
       style: widget.textStyle ?? AppTextStyles.inputContent,
       decoration: inputDecoration,
+      onChanged: widget.onChanged,
     );
 
     return Column(

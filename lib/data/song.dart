@@ -13,6 +13,8 @@ const String _COPYRIGHT = 'copyright';
 const String _PRESENTATION = 'presentation';
 const String _LANGUAGE = 'language';
 const String _VIEWS = 'views';
+const String _DATE_REQUESTED = 'dateRequested';
+const String _REQUESTED_BY = 'requestedBy';
 
 class Song {
   final int uuid;
@@ -30,6 +32,9 @@ class Song {
   final int albumID;
   final int views;
 
+  final DateTime dateRequested;
+  final String requestedBy;
+
   const Song({
     this.uuid,
     this.title,
@@ -44,6 +49,8 @@ class Song {
     this.artistID,
     this.albumID,
     this.views = 0,
+    this.dateRequested,
+    this.requestedBy,
   });
 
   Song.fromMap(Map<String, dynamic> data)
@@ -59,7 +66,9 @@ class Song {
         language = data[_LANGUAGE],
         artistID = data[_ARTIST],
         albumID = data[_ALBUM],
-        views = data[_VIEWS];
+        views = data[_VIEWS],
+        dateRequested = data[_DATE_REQUESTED],
+        requestedBy = data[_REQUESTED_BY];
 
   Map<String, dynamic> toJson() {
     return {
@@ -76,6 +85,8 @@ class Song {
       _ARTIST: artistID,
       _ALBUM: albumID,
       _VIEWS: views,
+      _DATE_REQUESTED: dateRequested,
+      _REQUESTED_BY: requestedBy,
     };
   }
 
@@ -84,37 +95,6 @@ class Song {
         .split("\n")
         .where((element) => ChordsParser.isChordsLine(element))
         .isNotEmpty;
-  }
-
-  String formattedText([int amount = 0]) {
-    String formattedText = _replaceMarkers();
-
-    var transposedText = ChordsParser.transposeSong(formattedText, amount);
-    return transposedText
-        .split('\n')
-        .map((e) => ChordsParser.isChordsLine(e)
-            ? '<bold> ${e.replaceFirst('.', '')}</bold>'
-            : e)
-        .join('\n');
-  }
-
-  String get formattedTextWithoutChords {
-    var formattedText = _replaceMarkers();
-
-    return formattedText
-        .split("\n")
-        .where((e) => !ChordsParser.isChordsLine(e))
-        .join("\n");
-  }
-
-  String _replaceMarkers() {
-    var formattedText = text
-        .replaceAll('[V', '<bold>Verse ')
-        .replaceAll('[C', '<bold>Chorus ')
-        .replaceAll('[B', '<bold>Bridge ')
-        .replaceAll('[P', '<bold>Pre-chorus ')
-        .replaceAll(']', '</bold>');
-    return formattedText;
   }
 
   @override

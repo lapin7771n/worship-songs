@@ -54,4 +54,35 @@ class ChordsParser {
 
     return isChords.isNotEmpty && isChords.length >= isNotChords.length;
   }
+
+  static String toFormattedChords(String lyrics, [int amount = 0]) {
+    String formattedText = _replaceMarkers(lyrics);
+
+    var transposedText = ChordsParser.transposeSong(formattedText, amount);
+    return transposedText
+        .split('\n')
+        .map((e) => ChordsParser.isChordsLine(e)
+            ? '<bold> ${e.replaceFirst('.', '')}</bold>'
+            : e)
+        .join('\n');
+  }
+
+  static String toFormattedTextWithoutChords(String lyrics) {
+    var formattedText = _replaceMarkers(lyrics);
+
+    return formattedText
+        .split("\n")
+        .where((e) => !ChordsParser.isChordsLine(e))
+        .join("\n");
+  }
+
+  static String _replaceMarkers(String lyrics) {
+    var formattedText = lyrics
+        .replaceAll('[V', '<bold>Verse ')
+        .replaceAll('[C', '<bold>Chorus ')
+        .replaceAll('[B', '<bold>Bridge ')
+        .replaceAll('[P', '<bold>Pre-chorus ')
+        .replaceAll(']', '</bold>');
+    return formattedText;
+  }
 }

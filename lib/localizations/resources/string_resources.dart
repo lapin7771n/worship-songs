@@ -327,4 +327,28 @@ mixin StringResources {
   String get viewAllLyrics => Intl.message('View All Lyrics');
 
   String get more => Intl.message('More');
+
+  String get requestLyrics => Intl.message('Request a Lyrics');
+
+  String get didntFindRightLyrics =>
+      Intl.message('Didn’t find right lyrics? No problem, request it!');
+
+  String get addSongNameAndArtist => Intl.message('Add song name and artist');
+
+  String get nextToLyrics => Intl.message('Next to Lyrics');
+
+  String get nextToReview => Intl.message('Next to Review');
+
+  String get submitRequest => Intl.message('Submit Request');
+
+  String get addLyrics => Intl.message('Add Lyrics');
+
+  String get addLyricsAndChords => Intl.message('Add Lyrics and chords');
+
+  String get review => Intl.message('Review');
+
+  String get close => Intl.message('Close');
+
+  String get bePreciseAndReviewAllInformation =>
+      Intl.message('Be precise and review all information');
 }

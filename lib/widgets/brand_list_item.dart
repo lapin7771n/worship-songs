@@ -37,9 +37,12 @@ class BrandListItem extends StatelessWidget {
       isThreeLine: chipText != null,
       onTap: onTap,
       leading: buildLeading(),
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.headline4,
+      title: Hero(
+        tag: title.hashCode,
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline4,
+        ),
       ),
       subtitle: buildSubtitle(context),
       trailing: withArrow

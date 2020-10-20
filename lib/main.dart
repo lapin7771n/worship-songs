@@ -21,6 +21,7 @@ import 'package:worshipsongs/screens/home_screen/home_screen.dart';
 import 'package:worshipsongs/screens/info_screen.dart';
 import 'package:worshipsongs/screens/main_screen.dart';
 import 'package:worshipsongs/screens/onboarding_screen.dart';
+import 'package:worshipsongs/screens/request_lyrics/requested_lyrics.dart';
 import 'package:worshipsongs/screens/song_screen/song_screen.dart';
 import 'package:worshipsongs/screens/splash_screen.dart';
 import 'package:worshipsongs/screens/start_auth_screen/start_auth_screen.dart';
@@ -104,6 +105,7 @@ class MyApp extends StatelessWidget {
         InfoScreen.routeName: (ctx) => InfoScreen(),
         ArtistScreen.routeName: (ctx) => ArtistScreen(),
         ArtistSongsScreen.routeName: (ctx) => ArtistSongsScreen(),
+        RequestLyrics.routeName: (ctx) => RequestLyrics(),
       },
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
