@@ -1,9 +1,9 @@
 mixin Crud<T> {
-  T create(T t);
+  Future<T> createEntity(T t);
 
-  List<T> read();
+  Future<List<T>> readEntities();
 
-  T update(T t);
+  Future<T> updateEntity(T t);
 
-  T delete(T t);
+  Future<T> deleteEntity(T t);
 }
