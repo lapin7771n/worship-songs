@@ -10,7 +10,7 @@ class RequestSecondStepPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final info = BlocProvider.of<RequestLyricsBloc>(context).requestedLyrics;
+    final info = BlocProvider.of<RequestLyricsBloc>(context).requestedSong;
     final defaultLanguage = Localizations.localeOf(context).languageCode;
 
     BlocProvider.of<RequestLyricsBloc>(context).add(

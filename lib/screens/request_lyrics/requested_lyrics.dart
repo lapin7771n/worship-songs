@@ -14,7 +14,7 @@ class RequestLyrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RequestLyricsBloc(RequestLyricsRepository()),
+      create: (context) => RequestLyricsBloc(RequestSongsRepository()),
       child: BlocBuilder<RequestLyricsBloc, RequestLyricsState>(
         builder: (context, state) => Scaffold(
           appBar: AppBar(

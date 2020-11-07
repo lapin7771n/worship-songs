@@ -11,7 +11,7 @@ class RequestReviewStepPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final info = BlocProvider.of<RequestLyricsBloc>(context).requestedLyrics;
+    final info = BlocProvider.of<RequestLyricsBloc>(context).requestedSong;
     return SingleChildScrollView(
       physics: AlwaysScrollableScrollPhysics(),
       child: Padding(

@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:worshipsongs/data/artist.dart';
-import 'package:worshipsongs/data/request_lyrics.dart';
+import 'package:worshipsongs/data/content_requests/requested_song.dart';
 import 'package:worshipsongs/data/song.dart';
 import 'package:worshipsongs/localizations/strings.dart';
 import 'package:worshipsongs/repositories/request_lyrics_repository.dart';
@@ -17,8 +17,8 @@ part 'request_lyrics_event.dart';
 part 'request_lyrics_state.dart';
 
 class RequestLyricsBloc extends Bloc<RequestLyricsEvent, RequestLyricsState> {
-  final RequestLyricsRepository requestLyricsRepository;
-  final RequestedLyrics requestedLyrics = RequestedLyrics.empty();
+  final RequestSongsRepository requestLyricsRepository;
+  final RequestedSong requestedSong = RequestedSong();
 
   int currentPage = 0;
 
@@ -46,11 +46,11 @@ class RequestLyricsBloc extends Bloc<RequestLyricsEvent, RequestLyricsState> {
 
   Stream<RequestLyricsState> _mapRequestSongNameAddedToState(
       RequestLyricsSongNameAdded event) async* {
-    requestedLyrics.title = event.songName;
-    if (requestedLyrics.artist != null) {
+    requestedSong.title = event.songName;
+    if (requestedSong.artistId != null) {
       yield RequestLyricsFirstStepCompleted(
-        requestedLyrics.title,
-        requestedLyrics.artist.uuid,
+        requestedSong.title,
+        requestedSong.artistId,
       );
     } else {
       yield RequestLyricsSongNameAddedState();
@@ -59,11 +59,11 @@ class RequestLyricsBloc extends Bloc<RequestLyricsEvent, RequestLyricsState> {
 
   Stream<RequestLyricsState> _mapRequestArtistAddedToState(
       RequestLyricsArtistAdded event) async* {
-    requestedLyrics.artist = event.artist;
-    if (requestedLyrics.title != null) {
+    requestedSong.artist = event.artist;
+    if (requestedSong.title != null) {
       yield RequestLyricsFirstStepCompleted(
-        requestedLyrics.title,
-        requestedLyrics.artist.uuid,
+        requestedSong.title,
+        requestedSong.artist.uuid,
       );
     } else {
       yield RequestLyricsArtistAddedState();
@@ -92,8 +92,8 @@ class RequestLyricsBloc extends Bloc<RequestLyricsEvent, RequestLyricsState> {
       case 1:
         currentPage = 0;
         yield RequestLyricsFirstStepCompleted(
-          requestedLyrics.title,
-          requestedLyrics.artist.uuid,
+          requestedSong.title,
+          requestedSong.artist.uuid,
         );
         break;
       case 2:
@@ -105,13 +105,13 @@ class RequestLyricsBloc extends Bloc<RequestLyricsEvent, RequestLyricsState> {
 
   Stream<RequestLyricsState> _mapRequestLanguageToState(
       RequestLyricsLanguageChosen event) async* {
-    requestedLyrics.languageCode = event.languageCode;
-    if (requestedLyrics.lyrics != null) {
+    requestedSong.languageCode = event.languageCode;
+    if (requestedSong.lyrics != null) {
       yield RequestLyricsSecondStepCompleted(
-        languageCode: requestedLyrics.languageCode,
-        artistId: requestedLyrics.artist.uuid,
-        songName: requestedLyrics.title,
-        songText: requestedLyrics.lyrics,
+        languageCode: requestedSong.languageCode,
+        artistId: requestedSong.artist.uuid,
+        songName: requestedSong.title,
+        songText: requestedSong.lyrics,
       );
     } else {
       yield RequestLyricsLanguageAddedState();
@@ -120,13 +120,13 @@ class RequestLyricsBloc extends Bloc<RequestLyricsEvent, RequestLyricsState> {
 
   Stream<RequestLyricsState> _mapRequestSongTextToState(
       RequestLyricsTextChanged event) async* {
-    requestedLyrics.lyrics = event.songText;
-    if (requestedLyrics.languageCode != null) {
+    requestedSong.lyrics = event.songText;
+    if (requestedSong.languageCode != null) {
       yield RequestLyricsSecondStepCompleted(
-        languageCode: requestedLyrics.languageCode,
-        artistId: requestedLyrics.artist.uuid,
-        songName: requestedLyrics.title,
-        songText: requestedLyrics.lyrics,
+        languageCode: requestedSong.languageCode,
+        artistId: requestedSong.artist.uuid,
+        songName: requestedSong.title,
+        songText: requestedSong.lyrics,
       );
     } else {
       yield RequestLyricsSongTextState();

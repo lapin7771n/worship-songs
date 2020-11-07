@@ -1,3 +1,7 @@
+# @raycast.schemaVersion 1
+# @raycast.title Build Worship Songs app
+# @raycast.mode fullOutput
+
 version=0.4.0
 buildNumber=30
 betaVersion=-beta4

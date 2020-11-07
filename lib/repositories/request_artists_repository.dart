@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:worshipsongs/data/requested_artist.dart';
+import 'package:worshipsongs/data/content_requests/requested_artist.dart';
 import 'package:worshipsongs/providers/base_provider.dart';
 import 'package:worshipsongs/repositories/crudMixin.dart';
 
 class RequestArtistsRepository extends BaseProvider
     implements Crud<RequestedArtist> {
   static const String _ENDPOINT_URL = "/requested-artists";
-
   static const String _REQUEST_ID_KEY = "requestId";
 
   final String accessToken;
